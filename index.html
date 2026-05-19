@@ -877,6 +877,20 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+    
+    /* 評分星星樣式 */
+    .star-rating-btn {
+      font-size: 1.75rem;
+      color: #ddd;
+      cursor: pointer;
+      transition: color 0.2s;
+      background: none;
+      border: none;
+      padding: 0 0.1rem;
+    }
+    .star-rating-btn.active {
+      color: #ffc107;
+    }
   </style>
   <style>body { box-sizing: border-box; }</style>
   <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
@@ -1190,7 +1204,7 @@
     <div id="wishlistContainer"></div>
    </div>
   </div><div id="productModal" class="modal">
-   <div class="modal-content">
+   <div class="modal-content" style="max-width: 650px;">
     <button class="modal-close" onclick="closeModal()">×</button>
     <div id="modalBody"></div>
    </div>
@@ -1671,12 +1685,17 @@
     let productImages = {}; 
     const sampleProducts = [
       {
-        id: '1', name: '新鮮雞肉罐頭 400g', category: '食品', price: 189, image: 'canva://MAHKEvf0cQM/1', imageType: 'canva', rating: 4.9, reviews: 287, sales: 1250, stock: 'in-stock', stockQuantity: 142, description: '100% 新鮮雞肉，國際認證，零添加防腐劑。主打商品，飼主必選。', specs: { weight: '400g', type: '罐頭', petType: '狗、貓' }, ingredients: '新鮮雞肉 95%、天然膠質、維生素補充', images: ['canva://MAHKEvf0cQM/1', 'canva://MAHJ_aeQgZg/1', '📋'], faq: []
+        id: '1', name: '新鮮雞肉罐頭 400g', category: '食品', price: 189, image: 'canva://MAHKEvf0cQM/1', imageType: 'canva', rating: 4.9, reviews: 3, sales: 1250, stock: 'in-stock', stockQuantity: 142, description: '100% 新鮮雞肉，國際認證，零添加防腐劑。主打商品，飼主必選。', specs: { weight: '400g', type: '罐頭', petType: '狗、貓' }, ingredients: '新鮮雞肉 95%、天然膠質、維生素補充', images: ['canva://MAHKEvf0cQM/1', 'canva://MAHJ_aeQgZg/1', '📋'], faq: [],
+        reviewsList: [
+          { author: '柴犬奴', rating: 5, text: '成分很純，一打開家裡的柴柴就瘋狂搖尾巴！肉質看起來非常新鮮。', date: '2026/04/12' },
+          { author: '咪咪媽媽', rating: 5, text: '湯汁很多，拿來給貓咪騙水喝非常適合，會再回購。', date: '2026/05/01' },
+          { author: '毛孩至上', rating: 4, text: '出貨速度很快，包裝也算完整。適口性很棒。', date: '2026/05/10' }
+        ]
       },
-      { id: '2', name: '羽毛逗貓棒', category: '玩具', price: 89, image: '🪶', rating: 4.8, reviews: 432, description: '激發貓咪獵捕本能，安全材質。', specs: { type: '逗貓棒', petType: '貓' }, ingredients: 'N/A', images: ['🪶', '🐱', '✨'], faq: [] },
-      { id: '3', name: '益生菌粉 100g', category: '保健', price: 329, image: '💊', rating: 4.8, reviews: 278, description: '臨床驗證，調整腸胃，增強免疫力。', specs: { weight: '100g', type: '益生菌', petType: '狗、貓' }, ingredients: 'N/A', images: ['💊', '🧬', '💪'], faq: [] },
-      { id: '4', name: '寵物床墊（記憶棉）M/L', category: '居家', price: 899, image: '🛏️', rating: 4.8, reviews: 245, description: '舒適透氣，可水洗設計。', specs: { size: 'M/L', type: '床墊', petType: '狗' }, ingredients: 'N/A', images: ['🛏️', '😴', '☁️'], faq: [] },
-      { id: '5', name: '陶瓷餐碗組 2入', category: '居家', price: 249, image: '🥣', rating: 4.9, reviews: 312, description: '易清洗，防滑底座，設計美觀。', specs: { type: '餐碗', petType: '狗、貓' }, ingredients: 'N/A', images: ['🥣', '🍽️', '✨'], faq: [] }
+      { id: '2', name: '羽毛逗貓棒', category: '玩具', price: 89, image: '🪶', rating: 4.8, reviews: 2, description: '激發貓咪獵捕本能，安全材質。', specs: { type: '逗貓棒', petType: '貓' }, ingredients: 'N/A', images: ['🪶', '🐱', '✨'], faq: [], reviewsList: [{ author: '橘貓小辣', rating: 5, text: '家裡的肥橘平常都不動，一拿出這根逗貓棒直接起飛，超讚！', date: '2026/03/20' }, { author: '貓奴阿強', rating: 4, text: '羽毛很漂亮，不過如果手把能更長一點就完美了。', date: '2026/04/05' }] },
+      { id: '3', name: '益生菌粉 100g', category: '保健', price: 329, image: '💊', rating: 4.8, reviews: 1, description: '臨床驗證，調整腸胃，增強免疫力。', specs: { weight: '100g', type: '益生菌', petType: '狗、貓' }, ingredients: 'N/A', images: ['💊', '🧬', '💪'], faq: [], reviewsList: [{ author: '拉不拉多爸', rating: 5, text: '狗狗之前腸胃不好常常軟便，吃了兩個禮拜後便便形狀變得很漂亮！', date: '2026/05/08' }] },
+      { id: '4', name: '寵物床墊（記憶棉）M/L', category: '居家', price: 899, image: '🛏️', rating: 4.7, reviews: 1, description: '舒適透氣，可水洗設計。', specs: { size: 'M/L', type: '床墊', petType: '狗' }, ingredients: 'N/A', images: ['🛏️', '😴', '☁️'], faq: [] , reviewsList: [{ author: '柯基腿短短', rating: 5, text: '厚度很夠！記憶棉完全不會塌陷，柯基躺上去一覺到天亮。', date: '2026/04/28' }]},
+      { id: '5', name: '陶瓷餐碗組 2入', category: '居家', price: 249, image: '🥣', rating: 4.9, reviews: 1, description: '易清洗，防滑底座，設計美觀。', specs: { type: '餐碗', petType: '狗、貓' }, ingredients: 'N/A', images: ['🥣', '🍽️', '✨'], faq: [], reviewsList: [{ author: '優雅白貓', rating: 5, text: '陶瓷材質沉甸甸的，貓咪吃飯終於不會再把碗推著到處跑了，質感極佳！', date: '2026/05/14' }] }
     ];
 
     let currentRecordCount = 0;
@@ -1724,7 +1743,7 @@
     function renderHotProducts() {
       const carousel = document.getElementById('hotCarousel');
       carousel.innerHTML = '';
-      sampleProducts.slice(0, 6).forEach(product => {
+      products.slice(0, 6).forEach(product => {
         const card = document.createElement('div');
         card.className = 'carousel-item';
         const displayImage = productImages[product.id] && productImages[product.id].length > 0 ? productImages[product.id][0] : product.image;
@@ -1883,6 +1902,9 @@
       });
     }
 
+    // 當前留評價所選擇的星星級數（預設 5 星）
+    let currentSelectedStars = 5;
+
     function viewProductDetail(productId) {
       const product = products.find(p => p.id === productId);
       if (!product) return;
@@ -1919,22 +1941,149 @@
       }
       const mainImageHtml = `<div class="product-detail-image" id="mainProductImage" style="${mainImageStyle}">${mainImageEmoji}</div>`;
 
+      // 重設預設評價星星
+      currentSelectedStars = 5;
+
+      // 生成歷史評價列表 HTML
+      let reviewsListHtml = '<p style="color: #999; font-size: 0.9rem; text-align: center; padding: 1rem 0;">🌟 暫時還沒有飼主留下評價，快來成為第一個評分者吧！</p>';
+      if (product.reviewsList && product.reviewsList.length > 0) {
+        reviewsListHtml = product.reviewsList.map(rev => `
+          <div class="review" style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border-left: 4px solid #ffc107;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+              <span class="review-author" style="font-weight: 600; color: #333;">${rev.author}</span>
+              <span style="font-size: 0.8rem; color: #999;">${rev.date}</span>
+            </div>
+            <div style="color: #ffc107; font-size: 0.85rem; margin-bottom: 0.4rem;">${'★'.repeat(rev.rating)}${'☆'.repeat(5 - rev.rating)}</div>
+            <p class="review-text" style="color: #555; font-size: 0.9rem; line-height: 1.4;">${rev.text}</p>
+          </div>
+        `).join('');
+      }
+
       body.innerHTML = `
         <div style="margin-bottom: 1.5rem;">${mainImageHtml}${imageGallery}</div>
         <h2 class="product-detail-title">${product.name}</h2>
         <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
-          <div class="rating"><span>⭐ ${product.rating}</span></div>
+          <div class="rating"><span style="font-weight: 700; color: #333;">⭐ <span id="detailRatingAverage">${product.rating}</span> (<span id="detailReviewCount">${product.reviewsList ? product.reviewsList.length : 0}</span> 則評價)</span></div>
           <div style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: white; ${stockClass}">${stockText}</div>
         </div>
         <div class="product-detail-price">$${product.price}</div>
-        <h3 style="font-weight: 600; color: #333; margin: 1.5rem 0 1rem;">💡 商品特色</h3>
+        <h3 style="font-weight: 600; color: #333; margin: 1.5rem 0 0.5rem;">💡 商品特色</h3>
         <p style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;">${product.description}</p>
-        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-          <button class="cta-button" style="flex: 1;" onclick="addToCart('${product.id}'); closeModal(); showToast('✅ 已加入購物車');" ${product.stock === 'sold-out' ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>加入購物車</button>
+        
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem; margin-bottom: 2rem;">
+          <button class="cta-button" style="width: 100%;" onclick="addToCart('${product.id}'); closeModal(); showToast('✅ 已加入購物車');" ${product.stock === 'sold-out' ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>加入購物車</button>
+        </div>
+
+        <hr style="border: 0; border-top: 1px solid #eee; margin: 1.5rem 0;">
+
+        <!-- ✍️ 新增撰寫評論表單區塊 -->
+        <div style="background: #faf8f5; padding: 1.25rem; border-radius: 12px; border: 1px dashed #d4a574; margin-bottom: 2rem;">
+          <h3 style="font-weight: 700; color: #333; margin-bottom: 0.75rem; font-size: 1.05rem; display: flex; align-items: center; gap: 0.4rem;">✍️ 留下您的商品評價</h3>
+          
+          <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem;">
+            <span style="font-size: 0.9rem; color: #666; font-weight: 600;">評分星級：</span>
+            <div style="display: flex;">
+              <button class="star-rating-btn active" data-star="1" onclick="setReviewStars(1)">★</button>
+              <button class="star-rating-btn active" data-star="2" onclick="setReviewStars(2)">★</button>
+              <button class="star-rating-btn active" data-star="3" onclick="setReviewStars(3)">★</button>
+              <button class="star-rating-btn active" data-star="4" onclick="setReviewStars(4)">★</button>
+              <button class="star-rating-btn active" data-star="5" onclick="setReviewStars(5)">★</button>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 0.75rem;">
+            <textarea id="productCommentInput" placeholder="寫下您的使用心得、毛孩適口性或商品評價（限10字以上）..." style="width: 100%; height: 80px; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem; resize: vertical; font-family: inherit;"></textarea>
+          </div>
+
+          <button class="cta-button" style="padding: 0.5rem 1.5rem; font-size: 0.9rem; width: auto; margin-left: auto; display: block;" onclick="submitProductReview('${product.id}')">送出評價</button>
+        </div>
+
+        <!-- 🌟 顯示歷史評論清單區塊 -->
+        <div style="margin-bottom: 1rem;">
+          <h3 style="font-weight: 700; color: #333; margin-bottom: 1rem; font-size: 1.05rem;">真實飼主評價心得</h3>
+          <div id="productReviewsContainer">
+            ${reviewsListHtml}
+          </div>
         </div>
       `;
       modal.classList.add('active');
     }
+
+    // 點擊星星動態點亮切換
+    window.setReviewStars = function(stars) {
+      currentSelectedStars = stars;
+      document.querySelectorAll('.star-rating-btn').forEach(btn => {
+        const starIdx = parseInt(btn.getAttribute('data-star'));
+        if (starIdx <= stars) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    };
+
+    // 提交評價處理機制
+    window.submitProductReview = function(productId) {
+      const commentInput = document.getElementById('productCommentInput');
+      const text = commentInput ? commentInput.value.trim() : '';
+      
+      if (!text) {
+        showToast('⚠️ 請先寫下您的評論心得內容');
+        return;
+      }
+      if (text.length < 5) {
+        showToast('⚠️ 為了評論品質，心得請至少輸入 5 個字唷！');
+        return;
+      }
+
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+
+      if (!product.reviewsList) product.reviewsList = [];
+
+      // 建立新的評價資料包
+      const newReview = {
+        author: '熱心毛家長',
+        rating: currentSelectedStars,
+        text: text,
+        date: new Date().toLocaleDateString()
+      };
+
+      // 塞入商品的評價陣列中
+      product.reviewsList.unshift(newReview);
+
+      // 動態重新計算該商品的平均評分
+      const totalRatingSum = product.reviewsList.reduce((sum, rev) => sum + rev.rating, 0);
+      const newAvg = (totalRatingSum / product.reviewsList.length).toFixed(1);
+      product.rating = parseFloat(newAvg);
+
+      // 立即刷新詳情頁面的 DOM
+      document.getElementById('detailRatingAverage').textContent = product.rating;
+      document.getElementById('detailReviewCount').textContent = product.reviewsList.length;
+
+      // 重新加載評論明細區塊的 HTML
+      const reviewsContainer = document.getElementById('productReviewsContainer');
+      reviewsContainer.innerHTML = product.reviewsList.map(rev => `
+        <div class="review" style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; border-left: 4px solid #ffc107;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem;">
+            <span class="review-author" style="font-weight: 600; color: #333;">${rev.author}</span>
+            <span style="font-size: 0.8rem; color: #999;">${rev.date}</span>
+          </div>
+          <div style="color: #ffc107; font-size: 0.85rem; margin-bottom: 0.4rem;">${'★'.repeat(rev.rating)}${'☆'.repeat(5 - rev.rating)}</div>
+          <p class="review-text" style="color: #555; font-size: 0.9rem; line-height: 1.4;">${rev.text}</p>
+        </div>
+      `).join('');
+
+      // 清空文字框與重設星星
+      commentInput.value = '';
+      setReviewStars(5);
+
+      showToast('✨ 感謝您的熱心評價！已同步更新平台評分');
+      
+      // 重新渲染商品主頁面與熱銷榜，確保總平均星星同步更新
+      renderProducts();
+      renderHotProducts();
+    };
 
     window.switchMainImage = function(idx, productId) {
       const product = products.find(p => p.id === productId);
@@ -2116,7 +2265,7 @@
         customerAge: customerAge, 
         purchaseReason: purchaseReason, 
         createdAt: new Date().toISOString(), 
-        itemsDetails: [...cart], // 複製一份目前的購物車，供後續查看商品詳細內容及價格
+        itemsDetails: [...cart], 
         estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString() 
       });
 
@@ -2140,7 +2289,6 @@
       const modal = document.createElement('div');
       modal.className = 'modal active';
       
-      // 動態生成購買商品的 HTML 清單
       let goodsListHtml = '<p style="color: #999;">暫無商品明細</p>';
       if (order.itemsDetails && order.itemsDetails.length > 0) {
         goodsListHtml = order.itemsDetails.map(item => `
