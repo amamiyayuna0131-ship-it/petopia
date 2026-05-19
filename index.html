@@ -404,6 +404,11 @@
       border-color: #c9945f;
     }
 
+    .search-input:focus {
+      outline: none;
+      border-color: #c9945f;
+    }
+
     .search-btn {
       padding: 0.75rem 1.5rem;
       background: #c9945f;
@@ -1660,12 +1665,12 @@
     setInterval(syncConfigFromSheet, 5000);
     
     const knowledgeArticles = [
-      { icon: '🧑‍⚕️', title: '獸醫推薦專欄', subtitle: '狗狗的營養需求與挑選要訣', content: '新鮮肉質、完整營養補充、定期檢查是狗狗健康的三大要素。', url: 'https://www.google.com/search?q=狗狗的營養需求與挑選要訣' },
-      { icon: '🐱', title: '貓咪知識', subtitle: '為什麼貓咪總是挑食？', content: '貓咪天生是獵人，對食物味道和質地很敏感。', url: 'https://www.google.com/search?q=為什麼貓咪總是挑食' },
-      { icon: '❓', title: '常見問題', subtitle: '家裡哪些東西對寵物有危險？', content: '某些食物、植物、清潔用品對毛孩有毒性。', url: 'https://www.google.com/search?q=家裡哪些東西對寵物有危險' },
-      { icon: '💚', title: '健康管理', subtitle: '毛孩年度檢查清單', content: '定期健康檢查是預防疾病的最好方法。', url: 'https://www.google.com/search?q=毛孩年度檢查清單' },
-      { icon: '🥗', title: '營養知識', subtitle: '五大營養要素解析', content: '蛋白質、脂肪、碳水化合物、維生素、礦物質，缺一不可。', url: 'https://www.google.com/search?q=寵物五大營養要素解析' },
-      { icon: '🎓', title: '行為訓練', subtitle: '狗狗吠叫解決方案', content: '過度吠叫通常代表焦慮、無聊或求注意。', url: 'https://www.google.com/search?q=狗狗吠叫解決方案' }
+      { icon: '🧑‍⚕️', title: '獸醫推薦專欄', subtitle: '狗狗的營養需求與挑選要訣', content: '新鮮肉質、完整營養補充、定期檢查是狗狗健康的三大要素。' },
+      { icon: '🐱', title: '貓咪知識', subtitle: '為什麼貓咪總是挑食？', content: '貓咪天生是獵人，對食物味道和質地很敏感。' },
+      { icon: '❓', title: '常見問題', subtitle: '家裡哪些東西對寵物有危險？', content: '某些食物、植物、清潔用品對毛孩有毒性。' },
+      { icon: '💚', title: '健康管理', subtitle: '毛孩年度檢查清單', content: '定期健康檢查是預防疾病的最好方法。' },
+      { icon: '🥗', title: '營養知識', subtitle: '五大營養要素解析', content: '蛋白質、脂肪、碳水化合物、維生素、礦物質，缺一不可。' },
+      { icon: '🎓', title: '行為訓練', subtitle: '狗狗吠叫解決方案', content: '過度吠叫通常代表焦慮、無聊或求注意。' }
     ];
     
     let productImages = {}; 
@@ -1702,6 +1707,24 @@
       renderSavedArticles();
       updateCartBadge();
       lucide.createIcons();
+      
+      // 檢查網址有沒有帶文章 Anchor，有的話載入後自動跳過去
+      setTimeout(() => {
+        if (window.location.hash && window.location.hash.startsWith('#knowledge-article-')) {
+          switchTab('knowledge');
+          const element = document.querySelector(window.location.hash);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            const btn = element.querySelector('button[onclick^="expandKnowledgeArticle"]');
+            if (btn) {
+              const expanded = btn.nextElementSibling;
+              if (expanded && expanded.style.display === 'none') {
+                btn.click();
+              }
+            }
+          }
+        }
+      }, 800);
     }
 
     function renderHotProducts() {
@@ -2243,7 +2266,7 @@
       const grid = document.querySelector('[style*="display: grid"][style*="grid-template-columns"]');
       if (!grid) return;
       grid.innerHTML = knowledgeArticles.map((article, idx) => `
-        <div class="community-post" style="cursor: pointer; transition: all 0.3s; border: 2px solid transparent; overflow: hidden;" onmouseover="this.style.borderColor='#c9945f'; this.style.boxShadow='0 8px 16px rgba(201, 148, 95, 0.2)';" onmouseout="this.style.borderColor='transparent'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)';">
+        <div class="community-post" id="knowledge-article-${idx}" style="cursor: pointer; transition: all 0.3s; border: 2px solid transparent; overflow: hidden;" onmouseover="this.style.borderColor='#c9945f'; this.style.boxShadow='0 8px 16px rgba(201, 148, 95, 0.2)';" onmouseout="this.style.borderColor='transparent'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)';">
           <div class="post-header"><div class="post-avatar">${article.icon}</div><div class="post-meta"><div class="post-author">${article.title}</div><div class="post-time">${article.subtitle}</div></div></div>
           <div class="post-content">${article.content}</div>
           <div style="margin-top: 1rem;">
@@ -2256,7 +2279,7 @@
                 <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.75rem;">${article.content}</p>
               </div>
               <div style="display: flex; gap: 1rem;">
-                <button onclick="shareKnowledge(${idx})" style="flex: 1; background: white; color: #c9945f; border: 2px solid #c9945f; padding: 0.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">閱讀文章連結</button>
+                <button onclick="shareKnowledge(${idx})" style="flex: 1; background: white; color: #c9945f; border: 2px solid #c9945f; padding: 0.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">複製並閱讀此文章位置</button>
                 <button onclick="saveKnowledge(${idx})" style="flex: 1; background: white; color: #ff7043; border: 2px solid #ff7043; padding: 0.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">收藏文章</button>
               </div>
             </div>
@@ -2284,12 +2307,38 @@
     }
 
     function shareKnowledge(idx) {
-      const article = knowledgeArticles[idx]; 
-      if (article && article.url) {
-        showToast(`🔗 正在為您導向《${article.title}》文章頁面...`);
-        window.open(article.url, '_blank');
+      const article = knowledgeArticles[idx];
+      if (!article) return;
+      
+      // 先切換到知識專區分頁
+      switchTab('knowledge');
+      
+      // 精準錨點到那篇文章
+      const targetEl = document.getElementById(`knowledge-article-${idx}`);
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        
+        // 自動幫忙展開文章
+        const btn = targetEl.querySelector('button[onclick^="expandKnowledgeArticle"]');
+        const expanded = targetEl.querySelector('.knowledge-expanded');
+        if (btn && expanded && expanded.style.display === 'none') {
+          btn.click();
+        }
+      }
+
+      // 生成此篇文章在目前網站底下的專屬連結 (帶有錨點 #knowledge-article-X)
+      const currentUrlWithoutHash = window.location.protocol + '//' + window.location.host + window.location.pathname;
+      const shareUrl = `${currentUrlWithoutHash}#knowledge-article-${idx}`;
+
+      // 複製連結到剪貼簿
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(shareUrl).then(() => {
+          showToast(`✅ 已聚焦文章並複製站內連結：《${article.title}》`);
+        }).catch(() => {
+          showToast(`✨ 已跳轉到文章位置！`);
+        });
       } else {
-        showToast('⚠️ 找不到文章連結');
+        showToast(`✨ 已跳轉到文章位置！`);
       }
     }
 
