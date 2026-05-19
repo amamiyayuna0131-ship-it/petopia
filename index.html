@@ -23,111 +23,101 @@
     .nav-icons { display: flex; gap: 0.75rem; align-items: center; }
     .icon-btn { background: rgba(255,255,255,0.2); border: none; color: white; width: 2.5rem; height: 2.5rem; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; position: relative; }
     .badge { position: absolute; top: -5px; right: -5px; background: #ff3b30; color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
-    
-    @media (min-width: 769px) {
-      .navbar-content { flex-direction: row; justify-content: space-between; align-items: center; }
-      .nav-top-bar { width: auto; justify-content: flex-start; gap: 2rem; }
-      .nav-tabs { width: auto; overflow-x: visible; }
-    }
-
-    .banner { background-image: url('https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=2000&auto=format&fit=crop'); background-color: #dcc9b0; padding: 3rem 1rem; text-align: center; border-radius: 12px; margin: 2rem 1rem; color: white; position: relative; background-size: cover; background-position: center; min-height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-    .banner::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.45); border-radius: 12px; z-index: 1; }
-    .banner-content { position: relative; z-index: 2; }
-    .cta-button { background: linear-gradient(135deg, #d4a574 0%, #c9945f 100%); color: white; padding: 0.75rem 2rem; border: none; border-radius: 25px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
-    .section { max-width: 1400px; margin: 0 auto; padding: 2rem 1rem; }
-    .section-title { font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-    .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.3s; cursor: pointer; }
-    .product-image { width: 100%; height: 200px; background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; background-size: cover; background-position: center; }
-    .add-cart-btn { width: 100%; background: linear-gradient(135deg, #d4a574 0%, #c9945f 100%); color: white; padding: 0.75rem; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-    .grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.5rem; }
+    @media (min-width: 769px) { .navbar-content { flex-direction: row; justify-content: space-between; } .nav-top-bar { width: auto; gap: 2rem; } .nav-tabs { width: auto; overflow-x: visible; } }
+    .banner { background-image: url('https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=2000&auto=format&fit=crop'); background-color: #dcc9b0; padding: 3rem 1rem; text-align: center; border-radius: 12px; margin: 2rem 1rem; color: white; min-height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .cta-button { background: linear-gradient(135deg, #d4a574 0%, #c9945f 100%); color: white; padding: 0.75rem 2rem; border: none; border-radius: 25px; font-weight: 600; cursor: pointer; }
     .tab-content { display: none; } .tab-content.active { display: block; }
     .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center; }
     .modal.active { display: flex; }
-    .modal-content { background: white; border-radius: 12px; max-width: 600px; width: 90%; max-height: 80vh; overflow-y: auto; padding: 2rem; }
+    .modal-content { background: white; border-radius: 12px; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; padding: 2rem; }
     .toast { position: fixed; bottom: 20px; right: 20px; background: #333; color: white; padding: 1rem 1.5rem; border-radius: 8px; z-index: 2000; }
-    .star-rating-btn { font-size: 1.75rem; color: #ddd; cursor: pointer; transition: color 0.2s; background: none; border: none; padding: 0 0.1rem; }
+    .star-rating-btn { font-size: 1.75rem; color: #ddd; cursor: pointer; background: none; border: none; }
     .star-rating-btn.active { color: #ffc107; }
-    .admin-table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; }
-    .admin-table th { background: #f5f3f0; color: #555; padding: 0.75rem 1rem; text-align: left; border-bottom: 2px solid #e1deda; }
-    .admin-table td { padding: 0.875rem 1rem; border-bottom: 1px solid #eee; }
+    .admin-table { width: 100%; border-collapse: collapse; background: white; }
+    .admin-table th, .admin-table td { padding: 0.75rem; border-bottom: 1px solid #eee; }
   </style>
  </head>
  <body>
   <div id="app">
-    <!-- Navbar -->
     <nav class="navbar">
       <div class="navbar-content">
         <div class="nav-top-bar">
-          <div class="logo" onclick="switchTab('home')">🐾 <span id="logoName">Petopia</span></div>
+          <div class="logo" onclick="switchTab('home')">🐾 Petopia</div>
           <div class="nav-icons">
-            <button class="icon-btn" onclick="switchTab('cart')"><svg class="lucide" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span class="badge" id="cartBadge" style="display:none;">0</span></button>
-            <button class="icon-btn" onclick="switchTab('member')"><svg class="lucide" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></button>
+            <button class="icon-btn" onclick="switchTab('cart')">🛒<span class="badge" id="cartBadge" style="display:none;">0</span></button>
+            <button class="icon-btn" onclick="switchTab('member')">👤</button>
           </div>
         </div>
         <div class="nav-tabs">
           <button class="nav-tab active" onclick="switchTab('home')">首頁</button>
           <button class="nav-tab" onclick="switchTab('products')">商城</button>
           <button class="nav-tab" onclick="switchTab('community')">社群</button>
-          <button class="nav-tab" onclick="switchTab('knowledge')">知識專區</button>
-          <button class="nav-tab" style="background: rgba(255,255,255,0.15);" onclick="switchTab('admin')">⚙️ 後台管理</button>
+          <button class="nav-tab" onclick="switchTab('admin')">⚙️ 後台</button>
         </div>
       </div>
     </nav>
 
-    <!-- Main Content -->
     <div class="main-content">
-      <div id="home-tab" class="tab-content active">
-        <div class="banner">
-           <h1 class="banner-title">讓毛孩吃得好、玩得開心，你放心</h1>
-           <button class="cta-button" onclick="switchTab('products')">探索商品</button>
-        </div>
-      </div>
-      
-      <div id="products-tab" class="tab-content">
-        <div class="section">
-          <h2 class="section-title">商城</h2>
-          <div class="grid-products" id="productsGrid"></div>
-        </div>
-      </div>
-
-      <div id="community-tab" class="tab-content">
-        <div class="section">
-          <h2 class="section-title">社群牆</h2>
-          <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;">
-            <textarea id="postContent" placeholder="分享你的毛孩故事..." style="width: 100%; min-height: 100px; padding: 1rem; border: 1px solid #ddd;"></textarea>
-            <input type="file" id="communityPhotoInput" accept="image/*" style="display: none;" onchange="handleCommunityPhotoUpload(event)" multiple>
-            <button onclick="document.getElementById('communityPhotoInput').click()" class="cta-button" style="margin-top:10px;">📸 上傳完整照片</button>
-            <div id="communityPhotoPreview" style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;"></div>
-            <button class="cta-button" style="margin-top: 1rem; width: 100%;" onclick="publishPost()">發布</button>
-          </div>
-          <div id="communityFeed"></div>
-        </div>
-      </div>
-
-      <div id="admin-tab" class="tab-content">
-        <div class="section">
-          <h2 class="section-title">商城營運後台</h2>
-          <button onclick="exportSalesReportExcel()" class="cta-button">📥 匯出銷售報告 Excel</button>
-          <div style="margin-top:20px;">
-             <table class="admin-table" id="salesReportTable">
-               <thead><tr><th>訂單日期</th><th>訂單編號</th><th>客戶姓名</th><th>商品明細</th><th>銷售件數</th><th>營收</th></tr></thead>
-               <tbody id="adminSalesTableBody"></tbody>
-             </table>
-          </div>
-        </div>
-      </div>
+      <div id="home-tab" class="tab-content active"><div class="banner"><h1>歡迎來到 Petopia</h1><button class="cta-button" onclick="switchTab('products')">開始選購</button></div></div>
+      <div id="products-tab" class="tab-content"><div class="section"><h2 class="section-title">商城</h2><div id="productsGrid" class="grid-products"></div></div></div>
+      <div id="community-tab" class="tab-content"><div class="section"><h2 class="section-title">社群牆</h2><div id="communityFeed"></div></div></div>
+      <div id="admin-tab" class="tab-content"><div class="section"><h2 class="section-title">營運後台</h2><button onclick="exportSalesReportExcel()" class="cta-button">📥 匯出 Excel</button><table class="admin-table" style="margin-top:20px"><tbody id="adminSalesTableBody"></tbody></table></div></div>
     </div>
   </div>
 
   <div id="productModal" class="modal"><div class="modal-content"><button class="modal-close" onclick="closeModal()">×</button><div id="modalBody"></div></div></div>
 
   <script>
-    let products = [
-      { id: '1', name: '雞肉罐頭', category: '食品', price: 189, rating: 4.9, stock: 'in-stock', description: '優質蛋白質。', reviewsList: [] },
-      { id: '2', name: '逗貓棒', category: '玩具', price: 89, rating: 4.8, stock: 'in-stock', description: '超好玩。', reviewsList: [] }
-    ];
-    let cart = [], communityPosts = [], communityPostPhotos = [], orders = [];
+    let products = [{ id: '1', name: '雞肉罐頭', price: 189, rating: 4.9, reviewsList: [] }];
+    let orders = [];
 
-    function handleCommunityPhotoUpload(event) {
-      const files = event.target.files;
-      for (let i = 0; i < files.length; 
+    function viewProductDetail(productId) {
+      const product = products.find(p => p.id === productId);
+      const modal = document.getElementById('productModal');
+      const body = document.getElementById('modalBody');
+      body.innerHTML = `
+        <h2>${product.name}</h2>
+        <div id="productReviewsContainer">${product.reviewsList.map(r => `<div>${r.author}: ${r.text}</div>`).join('')}</div>
+        <div style="margin-top:20px;">
+           <div class="star-rating">
+             <button class="star-rating-btn active" onclick="currentSelectedStars=1">★</button>
+             <button class="star-rating-btn active" onclick="currentSelectedStars=5">★</button>
+           </div>
+           <textarea id="productCommentInput" style="width:100%; border:1px solid #ddd;"></textarea>
+           <button onclick="submitProductReview('${product.id}')" class="cta-button">送出評價</button>
+        </div>
+      `;
+      modal.classList.add('active');
+    }
+
+    let currentSelectedStars = 5;
+    function submitProductReview(productId) {
+      const text = document.getElementById('productCommentInput').value;
+      const product = products.find(p => p.id === productId);
+      product.reviewsList.push({ author: '用戶', rating: currentSelectedStars, text: text, date: new Date().toLocaleDateString() });
+      viewProductDetail(productId); // 重繪
+      updateAdminDashboard();
+    }
+
+    function updateAdminDashboard() {
+      const tableBody = document.getElementById('adminSalesTableBody');
+      tableBody.innerHTML = orders.map(o => `<tr><td>${o.date}</td><td>${o.total}</td></tr>`).join('');
+    }
+
+    function exportSalesReportExcel() {
+       let csv = "訂單日期,總金額\n";
+       orders.forEach(o => csv += `${o.date},${o.total}\n`);
+       const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+       const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = "銷售報告.csv"; link.click();
+    }
+
+    function switchTab(t) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.getElementById(t + '-tab').classList.add('active');
+      if(t === 'admin') updateAdminDashboard();
+    }
+
+    function closeModal() { document.getElementById('productModal').classList.remove('active'); }
+  </script>
+ </body>
+</html>
