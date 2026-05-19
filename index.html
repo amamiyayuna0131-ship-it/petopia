@@ -18,7 +18,6 @@
       background: #f5f3f0;
       color: #333;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
-      /* 徹底移除 overflow: hidden，解鎖手機版全面滾動能力 */
       overflow-x: hidden; 
       overflow-y: auto;
     }
@@ -30,7 +29,6 @@
       min-height: 100vh;
     }
 
-    /* 確保主內容區流暢滾動 */
     .main-content {
       flex: 1;
       width: 100%;
@@ -51,11 +49,10 @@
       margin: 0 auto;
       padding: 0 1rem;
       display: flex;
-      flex-direction: column; /* 手機版預設上下分層，防止擠壓 */
+      flex-direction: column; 
       gap: 0.75rem;
     }
 
-    /* 頂部商標與常用圖標列 */
     .nav-top-bar {
       display: flex;
       justify-content: space-between;
@@ -70,23 +67,21 @@
       cursor: pointer;
     }
 
-    /* 關鍵修正：分類標籤專屬滑動容器 */
     .nav-tabs {
       display: flex;
       gap: 0.5rem;
-      flex-wrap: nowrap; /* 絕對不換行 */
+      flex-wrap: nowrap; 
       align-items: center;
       justify-content: flex-start;
       width: 100%;
-      overflow-x: auto; /* 解鎖左右滑動 */
+      overflow-x: auto; 
       padding-bottom: 0.25rem;
-      /* 隱藏原生捲軸 */
-      scrollbar-width: none; /* Firefox */
-      -webkit-overflow-scrolling: touch; /* 讓 iOS 滑動更流暢 */
+      scrollbar-width: none; 
+      -webkit-overflow-scrolling: touch; 
     }
 
     .nav-tabs::-webkit-scrollbar {
-      display: none; /* Chrome, Safari */
+      display: none; 
     }
 
     .nav-tab {
@@ -99,8 +94,8 @@
       font-size: 0.875rem;
       font-weight: 500;
       transition: all 0.3s;
-      white-space: nowrap; /* 文字不換行 */
-      flex-shrink: 0; /* 防止按鈕被壓縮變形 */
+      white-space: nowrap; 
+      flex-shrink: 0; 
     }
 
     .nav-tab.active {
@@ -145,7 +140,6 @@
       font-weight: 700;
     }
 
-    /* 電腦桌機版樣式優化調回（大螢幕時商標與按鈕並排） */
     @media (min-width: 769px) {
       .navbar-content {
         flex-direction: row;
@@ -977,7 +971,6 @@
     </div>
    </div>
    
-   <!-- 📱 修正手機版版面：多層結構 Navbar 防止按鈕消失與擠壓 -->
    <nav class="navbar">
     <div class="navbar-content">
      <div class="nav-top-bar">
@@ -1163,22 +1156,25 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
        </div>
      </div>
-    </div><div id="community-tab" class="tab-content">
+    </div>
+    
+    <!-- 📱 社群牆功能優化與評論修復 -->
+    <div id="community-tab" class="tab-content">
      <div class="section">
       <h2 class="section-title">社群牆 — 毛孩的故事</h2>
       <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-       <textarea id="postContent" placeholder="分享你和毛孩的故事、心得或商品使用心得..." style="width: 100%; min-height: 100px; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; font-size: 1rem; font-family: inherit; resize: vertical;"></textarea> <div style="margin-top: 1rem; padding: 1rem; background: #f9f9f9; border: 2px dashed #ddd; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s;" id="photoUploadZone" onclick="document.getElementById('communityPhotoInput').click();" ondragover="event.preventDefault();" ondrop="handlePhotoDrop(event);">
+       <textarea id="postContent" placeholder="分享你和毛孩的故事、心得或商品使用心得..." style="width: 100%; min-height: 100px; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; font-size: 1rem; font-family: inherit; resize: vertical;"></textarea> 
+       
+       <div style="margin-top: 1rem; padding: 1rem; background: #f9f9f9; border: 2px dashed #ddd; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s;" id="photoUploadZone" onclick="document.getElementById('communityPhotoInput').click();">
         <input type="file" id="communityPhotoInput" accept="image/*" style="display: none;" onchange="handleCommunityPhotoUpload(event)" multiple>
-        <div style="font-size: 2rem; margin-bottom: 0.5rem;">
-         📸
-        </div>
-        <div style="font-weight: 600; color: #333;">
-         點擊上傳照片
-        </div>
-        <div style="font-size: 0.85rem; color: #999; margin-top: 0.25rem;">
-         或拖放圖片到此區域
-        </div>
-       </div><div id="communityPhotoPreview" style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;"></div><button class="cta-button" style="margin-top: 1rem; width: 100%;" onclick="publishPost()">✨ 發布分享</button>
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📸</div>
+        <div style="font-weight: 600; color: #333;">點擊上傳照片</div>
+        <div style="font-size: 0.85rem; color: #999; margin-top: 0.25rem;">支援上傳多張完整毛孩美照</div>
+       </div>
+       
+       <!-- 照片預覽區：優化為不剪裁照片 -->
+       <div id="communityPhotoPreview" style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;"></div>
+       <button class="cta-button" style="margin-top: 1rem; width: 100%;" onclick="publishPost()">✨ 發布分享</button>
       </div>
       <div id="communityFeed"></div>
      </div>
@@ -1191,36 +1187,20 @@
        <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">會員資訊</h3>
        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
         <div>
-         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">
-          姓名
-         </div>
-         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">
-          毛爸爸 / 毛媽媽
-         </div>
+         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">姓名</div>
+         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">毛爸爸 / 毛媽媽</div>
         </div>
         <div>
-         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">
-          會員等級
-         </div>
-         <div style="font-size: 1.1rem; font-weight: 600; color: #ff7043;">
-          VIP 白金會員
-         </div>
+         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">會員等級</div>
+         <div style="font-size: 1.1rem; font-weight: 600; color: #ff7043;">VIP 白金會員</div>
         </div>
         <div>
-         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">
-          累積點數
-         </div>
-         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">
-          4,500 點
-         </div>
+         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">累積點數</div>
+         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">4,500 點</div>
         </div>
         <div>
-         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">
-          可折抵金額
-         </div>
-         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">
-          $1,350
-         </div>
+         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">可折抵金額</div>
+         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">$1,350</div>
         </div>
        </div>
       </div>
@@ -1390,6 +1370,7 @@
       }
     }
 
+    // 📸 修正：優化社群牆照片上傳預覽，確保整張完整顯示
     function handleCommunityPhotoUpload(event) {
       const files = event.target.files;
       if (files && files.length > 0) {
@@ -1402,7 +1383,7 @@
             loadedCount++;
             if (loadedCount === files.length) {
               renderCommunityPhotoPreview();
-              showToast(`✅ 已新增 ${files.length} 張照片`);
+              showToast(`✅ 已新增 ${files.length} 張完整照片`);
             }
           };
           reader.readAsDataURL(file);
@@ -1425,7 +1406,7 @@
               loadedCount++;
               if (loadedCount === files.length) {
                 renderCommunityPhotoPreview();
-                showToast(`✅ 已新增 ${files.length} 張照片`);
+                showToast(`✅ 已新增 ${files.length} 張完整照片`);
               }
             };
             reader.readAsDataURL(file);
@@ -1434,12 +1415,13 @@
       }
     }
 
+    // 📸 修正：上傳預覽框改用 object-fit: contain 保留完整原圖不切掉
     function renderCommunityPhotoPreview() {
       const preview = document.getElementById('communityPhotoPreview');
       preview.innerHTML = communityPostPhotos.map((photo, idx) => `
-        <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-          <img src="${photo}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
-          <button onclick="removeCommunityPhoto(${idx})" style="position: absolute; top: 4px; right: 4px; background: #ff3b30; color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">×</button>
+        <div style="position: relative; border-radius: 8px; width: 100px; height: 100px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); background-color: #f3f4f6;">
+          <img src="${photo}" style="width: 100%; height: 100%; object-fit: contain;">
+          <button onclick="removeCommunityPhoto(${idx})" style="position: absolute; top: 4px; right: 4px; background: #ff3b30; color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; transition: all 0.3s; z-index: 10;">×</button>
         </div>
       `).join('');
     }
@@ -1450,7 +1432,22 @@
       showToast('❌ 照片已移除');
     }
 
-    let communityPosts = [];
+    // 初始化一些帶有評論與完整圖片顯示的模擬社群貼文
+    let communityPosts = [
+      {
+        id: 'post-init-1',
+        author: '柯基家長',
+        content: '今天帶阿基去草地狂奔，回來看他累成這樣好療癒喔！順便推一下 Petopia 的雞肉罐頭，他吃得超精光！',
+        photos: ['https://images.unsplash.com/photo-1612536057832-2ff7ead58194?q=80&w=1000&auto=format&fit=crop'],
+        timestamp: new Date(Date.now() - 3600000 * 5).toISOString(),
+        likes: 12,
+        liked: false,
+        comments: [
+          { author: '貓咪至上', text: '這張太可愛了吧！整隻睡翻！', date: '2026/05/19' },
+          { author: '黃金獵犬爸', text: '我們家也是吃同一款雞肉罐，推推。', date: '2026/05/19' }
+        ]
+      }
+    ];
     let petList = [];
     let orders = [];
     let cartCount = 0;
@@ -1489,6 +1486,7 @@
 
     function updateOfferCarousel() {
       const track = document.getElementById('offersTrack');
+      if(!track) return;
       track.style.transform = `translateX(-${currentOfferIndex * 100}%)`;
 
       const dots = document.getElementById('offerDots').children;
@@ -1801,8 +1799,11 @@
     let currentRecordCount = 0;
     const dataHandler = {
       onDataChanged(data) {
-        communityPosts = data;
-        renderCommunityFeed();
+        // SDK 資料變動同步
+        if(Array.isArray(data) && data.length > 0 && data[0].hasOwnProperty('author') && data[0].hasOwnProperty('photos')) {
+          communityPosts = data;
+          renderCommunityFeed();
+        }
         updatePetsList();
       }
     };
@@ -1908,7 +1909,7 @@
           ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
 
         card.innerHTML = `
-          <div class="product-image" style="${imageStyle}">
+          <div class="nav-tab product-image" style="${imageStyle}">
             ${!isUploadedImage && !isCanvaImage ? displayImage : ''}
             ${stockLabel}
             <div class="wishlist-indicator" onclick="toggleWishlist('${product.id}'); event.stopPropagation();">
@@ -2005,8 +2006,6 @@
         grid.appendChild(card);
       });
     }
-
-    let currentSelectedStars = 5;
 
     function viewProductDetail(productId) {
       const product = products.find(p => p.id === productId);
@@ -2156,6 +2155,20 @@
       renderHotProducts();
     };
 
+    window.switchMainImage = function(idx, productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      const displayImages = productImages[productId] && productImages[productId].length > 0 ? productImages[productId] : (product.images || [product.image]);
+      const mainImage = document.getElementById('mainProductImage');
+      const img = displayImages[idx];
+      const isUrl = img.startsWith('http') || img.startsWith('data:');
+      const isCanva = img.startsWith('canva://');
+      if (isUrl || isCanva) {
+        mainImage.style.backgroundImage = `url('${img}')`; mainImage.style.backgroundSize = 'cover'; mainImage.style.backgroundPosition = 'center'; mainImage.textContent = '';
+      } else { mainImage.style.backgroundImage = 'none'; mainImage.textContent = img; }
+      document.querySelectorAll('[onclick*="switchMainImage"]').forEach((el, i) => { el.style.borderColor = i === idx ? '#c9945f' : '#ddd'; });
+    };
+
     function toggleFaq(element) { element.nextElementSibling.classList.toggle('show'); }
     function closeModal() { document.getElementById('productModal').classList.remove('active'); }
 
@@ -2168,8 +2181,8 @@
     }
 
     function updateCartBadge() {
-      cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
       const badge = document.getElementById('cartBadge');
+      cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
       if (badge) {
         if (cartCount > 0) { badge.textContent = cartCount; badge.style.display = 'flex'; } 
         else { badge.style.display = 'none'; }
@@ -2245,6 +2258,7 @@
       checkoutContent.innerHTML = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">${getCheckoutHTML(subtotal, discount, shipping, total)}</div>`;
     }
 
+    /* 結帳單範本邏輯調回 */
     function getCheckoutHTML(subtotal, discount, shipping, total) {
       return `<div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><span>📍</span> 收件資訊</h3><div style="display: flex; flex-direction: column; gap: 1rem;"><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">收件人姓名</label><input type="text" id="recipientName" placeholder="例：王小明" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">聯絡電話</label><input type="tel" id="recipientPhone" placeholder="例：0912-345-678" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">寄送地址</label><input type="text" id="recipientAddress" placeholder="例：台北市信義區 XX 街 123 號 5 樓" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">配送方式</label><div style="display: flex; gap: 1rem;"><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="home" checked style="cursor: pointer;"><span>🚚 宅配到府</span></label><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="store" style="cursor: pointer;"><span>🏪 超商取貨</span></label></div></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的性別</label><select id="customerGender" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇性別 --</option><option value="male">👨 男性</option><option value="female">👩 女性</option><option value="other">🤝 其他</option><option value="prefer-not">❓ 不願透露</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的年齡</label><select id="customerAge" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇年齡群組 --</option><option value="18-25">18-25 歲</option><option value="26-35">26-35 歲</option><option value="36-45">36-45 歲</option><option value="46-55">46-55 歲</option><option value="56-65">56-65 歲</option><option value="65+">65 歲以上</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">購買的原因為何？</label><textarea id="purchaseReason" placeholder="例如：毛孩皮膚問題..." style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; resize: vertical; min-height: 80px;"></textarea></div></div></div></div><div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: sticky; top: 1rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem;">📋 訂單摘要</h3><div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; max-height: 300px; overflow-y: auto;">${cart.map(item => `<div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #eee;"><div><div style="font-weight: 600; color: #333;">${item.name}</div><div style="font-size: 0.85rem; color: #999;">×${item.quantity}</div></div><div style="font-weight: 600; color: #c9945f;">$${(item.price * item.quantity).toLocaleString()}</div></div>`).join('')}</div><div style="border-top: 2px solid #eee; padding-top: 1rem;"><div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #666;"><span>商品小計</span><span>$${subtotal.toLocaleString()}</span></div>${discount > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #ff7043;"><span>✨ 優惠折扣 (FIRST70)</span><span>-$${discount.toLocaleString()}</span></div>` : ''}<div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #666;"><span>🚚 運費</span><span>${shipping === 0 ? '✅ 免運' : '$' + shipping}</span></div><div style="display: flex; justify-content: space-between; padding: 1rem 0; border-top: 2px solid #eee; font-size: 1.25rem; font-weight: 700; color: #333;"><span>總計</span><span style="color: #ff7043;">$${total.toLocaleString()}</span></div></div><div style="display: flex; gap: 1rem;"><button class="cta-button" style="flex: 1;" onclick="processCheckout()">✅ 確認結帳</button><button style="width: 100%; margin-top: 0.75rem; padding: 0.75rem; background: white; border: 2px solid #ddd; color: #666; border-radius: 8px; cursor: pointer; font-weight: 600;" onclick="switchTab('cart')">返回購物車</button></div></div></div>`;
     }
@@ -2302,12 +2316,9 @@
       try {
         if (window.dataSdk && typeof window.dataSdk.create === 'function') {
           const result = await window.dataSdk.create(orderData);
-          if (result && result.isOk) {
-            console.log('訂單已成功保存到表單');
-          }
         }
       } catch (err) {
-        console.warn("SDK 同步異常，但仍為您建立本地模擬訂單：", err);
+        console.warn("SDK 異常", err);
       }
 
       orders.push({ 
@@ -2345,6 +2356,7 @@
       }, 1500);
     }
 
+    /* 歷史明細彈窗調回 */
     function showOrderDetail(orderId) {
       const order = orders.find(o => o.id === orderId);
       if (!order) return;
@@ -2422,9 +2434,7 @@
     function switchTab(tabName) {
       document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
       const activeTab = document.getElementById(tabName + '-tab');
-      if (activeTab) {
-        activeTab.classList.add('active');
-      }
+      if (activeTab) { activeTab.classList.add('active'); }
       
       document.querySelectorAll('.nav-tab').forEach(tab => {
         tab.classList.remove('active');
@@ -2447,9 +2457,7 @@
       if (!revenueEl || !tableBody) return;
 
       if (orders.length === 0) {
-        revenueEl.textContent = '0';
-        itemsCountEl.textContent = '0';
-        ordersCountEl.textContent = '0';
+        revenueEl.textContent = '0'; itemsCountEl.textContent = '0'; ordersCountEl.textContent = '0';
         tableBody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #aaa; padding: 3rem 0;">目前尚無人下單，銷售數據將在結帳後即時在此更新。</td></tr>`;
         return;
       }
@@ -2477,11 +2485,7 @@
     }
 
     function exportSalesReportExcel() {
-      if (orders.length === 0) {
-        showToast('⚠️ 目前沒有任何銷售訂單資料可供匯出報告！');
-        return;
-      }
-
+      if (orders.length === 0) { showToast('⚠️ 目前沒有任何銷售訂單資料可供匯出報告！'); return; }
       const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
       const totalItems = orders.reduce((sum, o) => sum + o.items, 0);
 
@@ -2489,7 +2493,6 @@
         <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
         <head>
           <meta charset="UTF-8">
-          <!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>銷售營運報告</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->
           <style>
             th { background-color: #d4a574; color: white; font-weight: bold; text-align: center; border: 1px solid #ccc; }
             td { border: 1px solid #ccc; text-align: left; }
@@ -2545,52 +2548,184 @@
       const link = document.createElement('a');
       const filename = `Petopia_SalesReport_${new Date().toISOString().slice(0,10)}.xls`;
 
-      if (navigator.msSaveBlob) { 
-        navigator.msSaveBlob(blob, filename);
-      } else {
-        link.href = URL.createObjectURL(blob);
-        link.setAttribute('download', filename);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
+      if (navigator.msSaveBlob) { navigator.msSaveBlob(blob, filename); } 
+      else {
+        link.href = URL.createObjectURL(blob); link.setAttribute('download', filename);
+        document.body.appendChild(link); link.click(); document.body.removeChild(link);
       }
-
       showToast('📥 銷售報告 Excel 檔案已成功生成並開始下載！');
     }
 
+    // 📸 ✨ 修正：社群牆發布貼文功能（完整保存多張不剪裁的照片，並初始化獨立回覆評論空間）
     async function publishPost() {
       const content = document.getElementById('postContent').value.trim();
       if (!content && communityPostPhotos.length === 0) { showToast('⚠️ 請輸入內容或上傳照片'); return; }
-      const post = { id: 'post-' + Date.now(), author: ['毛爸爸', '毛媽媽', '毛爺爺', '毛奶奶'][Math.floor(Math.random() * 4)], content: content, photos: [...communityPostPhotos], timestamp: new Date().toISOString(), likes: 0, liked: false };
+      
+      const post = { 
+        id: 'post-' + Date.now(), 
+        author: ['毛爸爸', '毛媽媽', '毛爺爺', '毛奶奶'][Math.floor(Math.random() * 4)], 
+        content: content, 
+        photos: [...communityPostPhotos], // 完整儲存照片 Base64 資料流
+        timestamp: new Date().toISOString(), 
+        likes: 0, 
+        liked: false,
+        comments: [] // 初始化空的回覆清單
+      };
+      
       communityPosts.unshift(post);
       renderCommunityFeed();
-      document.getElementById('postContent').value = ''; communityPostPhotos = []; document.getElementById('communityPhotoPreview').innerHTML = ''; document.getElementById('communityPhotoInput').value = ''; showToast('✨ 分享成功！');
+      
+      // 清空發表區
+      document.getElementById('postContent').value = ''; 
+      communityPostPhotos = []; 
+      document.getElementById('communityPhotoPreview').innerHTML = ''; 
+      document.getElementById('communityPhotoInput').value = ''; 
+      showToast('✨ 貼文分享成功！');
+      
       try { await window.dataSdk.create(post); } catch (err) { console.warn("SDK 同步異常", err); }
     }
 
+    // 💬 📸 修正：社群牆貼文渲染（採用 object-fit: contain 完整秀圖，並加入完整回覆框與評論列表）
     function renderCommunityFeed() {
       const feed = document.getElementById('communityFeed');
       if(!feed) return;
       if (communityPosts.length === 0) { feed.innerHTML = '<div style="text-align: center; padding: 2rem; color: #999;">還沒有分享，成為第一個分享者吧！</div>'; return; }
-      feed.innerHTML = communityPosts.map((post, idx) => `
-        <div class="community-post">
-          <div class="post-header">
-            <div class="post-avatar">${post.author.substring(0, 1)}</div>
-            <div class="post-meta"><div class="post-author">${post.author}</div><div class="post-time">${new Date(post.timestamp).toLocaleDateString()}</div></div>
+      
+      feed.innerHTML = communityPosts.map((post, idx) => {
+        // 動態生成回覆评论的 HTML 清單
+        let commentsListHtml = '';
+        if (post.comments && post.comments.length > 0) {
+          commentsListHtml = post.comments.map(c => `
+            <div style="background: #fdfdfc; padding: 0.6rem 0.8rem; border-radius: 8px; margin-bottom: 0.5rem; font-size: 0.85rem; border-left: 3px solid #d4a574;">
+              <div style="display: flex; justify-content: space-between; color: #333; margin-bottom: 0.15rem;">
+                <span style="font-weight: 700;">🐾 ${c.author}</span>
+                <span style="color: #aaa; font-size: 0.75rem;">${c.date}</span>
+              </div>
+              <p style="color: #555;">${c.text}</p>
+            </div>
+          `).join('');
+        } else {
+          commentsListHtml = `<p class="no-comment-msg" style="color: #bbb; font-size: 0.8rem; text-align: center; padding: 0.5rem 0;">💬 暫時沒有回覆，快來寫下第一條評論吧！</p>`;
+        }
+
+        // 📸 關鍵修正：貼文相簿區採用完全包含（object-fit: contain + background-color）保證照片完整呈現不剪裁
+        let photosHtml = '';
+        if (post.photos && Array.isArray(post.photos) && post.photos.length > 0) {
+          photosHtml = `
+            <div style="margin: 1rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.75rem;">
+              ${post.photos.map(photo => `
+                <div style="border-radius: 8px; overflow: hidden; background-color: #f3f4f6; border: 1px solid #eee; display: flex; justify-content: center; align-items: center; max-height: 250px;">
+                  <img src="${photo}" style="max-width: 100%; max-height: 250px; object-fit: contain; display: block;">
+                </div>
+              `).join('')}
+            </div>`;
+        }
+
+        return `
+          <div class="community-post" data-post-id="${post.id}">
+            <div class="post-header">
+              <div class="post-avatar">${post.author.substring(0, 1)}</div>
+              <div class="post-meta"><div class="post-author">${post.author}</div><div class="post-time">${new Date(post.timestamp).toLocaleDateString()}</div></div>
+            </div>
+            <div class="post-content">${post.content}</div>
+            
+            ${photosHtml}
+            
+            <div class="post-engagement">
+              <button class="engagement-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${idx})">
+                <i data-lucide="heart" style="width: 18px; height: 18px;"></i><span>${post.likes}</span>
+              </button>
+              <button class="engagement-btn" onclick="toggleCommentsSection('${post.id}')">
+                <i data-lucide="message-circle" style="width: 18px; height: 18px;"></i><span>回覆評論 (${post.comments ? post.comments.length : 0})</span>
+              </button>
+            </div>
+
+            <!-- 💬 新增：動態展開的評論回覆大區塊 -->
+            <div id="comments-section-${post.id}" style="display: none; background: #faf9f6; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-top: 1px solid #eee;">
+              
+              <!-- 歷史回覆清單 -->
+              <div id="comments-list-${post.id}" style="margin-bottom: 1rem; max-height: 200px; overflow-y: auto;">
+                ${commentsListHtml}
+              </div>
+
+              <!-- 輸入回覆表單 -->
+              <div style="display: flex; gap: 0.5rem; align-items: center;">
+                <input type="text" id="comment-input-${post.id}" placeholder="寫下對毛孩故事的回覆評論..." style="flex: 1; padding: 0.5rem 0.75rem; border: 1px solid #ddd; border-radius: 20px; font-size: 0.85rem; outline: none;" onkeypress="if(event.key === 'Enter') submitComment('${post.id}')">
+                <button class="cta-button" style="padding: 0.4rem 1rem; font-size: 0.8rem; border-radius: 20px; width: auto;" onclick="submitComment('${post.id}')">送出</button>
+              </div>
+
+            </div>
           </div>
-          <div class="post-content">${post.content}</div>
-          ${post.photos && Array.isArray(post.photos) && post.photos.length > 0 ? `
-            <div style="margin: 1rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem;">
-              ${post.photos.map((photo) => `<div style="border-radius: 8px; overflow: hidden;"><img src="${photo}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; display: block;"></div>`).join('')}
-            </div>` : ''}
-          <div class="post-engagement">
-            <button class="engagement-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${idx})"><i data-lucide="heart" style="width: 18px; height: 18px;"></i><span>${post.likes}</span></button>
-            <button class="engagement-btn" onclick="showToast('💬 評論功能開發中...')"><i data-lucide="message-circle" style="width: 18px; height: 18px;"></i><span>回覆</span></button>
-          </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
       lucide.createIcons();
     }
+
+    // 💬 新增：控制評論回覆區塊隱藏或展開
+    window.toggleCommentsSection = function(postId) {
+      const section = document.getElementById(`comments-section-${postId}`);
+      if (!section) return;
+      if (section.style.display === 'none') {
+        section.style.display = 'block';
+      } else {
+        section.style.display = 'none';
+      }
+    };
+
+    // 💬 新增：提交評論回覆至指定貼文
+    window.submitComment = function(postId) {
+      const input = document.getElementById(`comment-input-${postId}`);
+      const text = input ? input.value.trim() : '';
+      if (!text) { showToast('⚠️ 評論內容不可以空白唷！'); return; }
+
+      const post = communityPosts.find(p => p.id === postId);
+      if (!post) return;
+
+      if (!post.comments) post.comments = [];
+
+      // 新增回覆資料
+      const newComment = {
+        author: ['毛友阿明', '寵物達人', '溫柔貓奴', '哈士奇拆家手'][Math.floor(Math.random() * 4)],
+        text: text,
+        date: new Date().toLocaleDateString()
+      };
+
+      post.comments.push(newComment);
+      
+      // 清空輸入框
+      input.value = '';
+
+      // 即時重新渲染單個貼文內部的評論 DOM 列表，避免整頁刷新重置滑動位置
+      const commentsListDiv = document.getElementById(`comments-list-${postId}`);
+      const noMsg = commentsListDiv.querySelector('.no-comment-msg');
+      if (noMsg) noMsg.remove();
+
+      const commentDiv = document.createElement('div');
+      commentDiv.style.cssText = "background: #fdfdfc; padding: 0.6rem 0.8rem; border-radius: 8px; margin-bottom: 0.5rem; font-size: 0.85rem; border-left: 3px solid #d4a574; animation: slideUp 0.2s ease-out;";
+      commentDiv.innerHTML = `
+        <div style="display: flex; justify-content: space-between; color: #333; margin-bottom: 0.15rem;">
+          <span style="font-weight: 700;">🐾 ${newComment.author}</span>
+          <span style="color: #aaa; font-size: 0.75rem;">${newComment.date}</span>
+        </div>
+        <p style="color: #555;">${newComment.text}</p>
+      `;
+      commentsListDiv.appendChild(commentDiv);
+
+      // 自動捲動到最新評論底部
+      commentsListDiv.scrollTop = commentsListDiv.scrollHeight;
+
+      // 更新外部回覆按鈕數量字樣
+      const engagementButtons = document.querySelector(`[data-post-id="${postId}"] .post-engagement`);
+      if(engagementButtons) {
+        const replyBtnSpan = engagementButtons.querySelectorAll('button')[1].querySelector('span');
+        if(replyBtnSpan) replyBtnSpan.textContent = `回覆評論 (${post.comments.length})`;
+      }
+
+      showToast('💬 評論回覆成功發表！');
+
+      // 同步提交給後端表單 SDK 存檔
+      try { window.dataSdk.update(post); } catch(e){}
+    };
 
     async function toggleLike(index) {
       if (communityPosts[index]) { const post = communityPosts[index]; post.liked = !post.liked; post.likes = post.liked ? post.likes + 1 : Math.max(0, post.likes - 1); try { await window.dataSdk.update(post); } catch(e){} renderCommunityFeed(); }
