@@ -22,17 +22,19 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft JhengHei', sans-serif;
       background: #f5f3f0;
-      /* 移除 overflow: hidden 避免手機版全站卡死無法滾動 */
+      overflow: hidden;
     }
 
     #app {
       display: flex;
       flex-direction: column;
-      min-height: 100vh;
+      overflow: hidden;
     }
 
     .main-content {
       flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .navbar {
@@ -51,7 +53,6 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 1rem;
     }
 
     .logo {
@@ -59,21 +60,14 @@
       font-weight: 700;
       color: white;
       cursor: pointer;
-      white-space: nowrap;
     }
 
-    /* 允許選單在手機版橫向滑動 */
     .nav-tabs {
       display: flex;
       gap: 0.5rem;
       flex-wrap: nowrap;
       align-items: center;
       justify-content: flex-start;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .nav-tabs::-webkit-scrollbar {
-      display: none;
     }
 
     .nav-tab {
@@ -87,7 +81,8 @@
       font-weight: 500;
       transition: all 0.3s;
       white-space: nowrap;
-      flex: 0 0 auto;
+      flex: 0 1 auto;
+      min-width: fit-content;
     }
 
     .nav-tab.active {
@@ -100,20 +95,23 @@
     }
 
     @media (max-width: 1024px) {
-      .nav-tabs { gap: 0.3rem; }
-      .nav-tab { padding: 0.4rem 0.7rem; font-size: 0.8rem; }
+      .nav-tabs {
+        gap: 0.3rem;
+      }
+      .nav-tab {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.8rem;
+      }
     }
 
     @media (max-width: 768px) {
-      .navbar-content {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 0.5rem;
+      .nav-tabs {
+        gap: 0.2rem;
       }
-      .logo { text-align: center; margin-bottom: 0.5rem; }
-      .nav-icons { justify-content: center; margin-top: 0.5rem; }
-      .nav-tabs { width: 100%; justify-content: center; padding-bottom: 0.25rem; }
-      .nav-tab { padding: 0.35rem 0.6rem; font-size: 0.75rem; }
+      .nav-tab {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.75rem;
+      }
     }
 
     .nav-icons {
@@ -137,7 +135,9 @@
       position: relative;
     }
 
-    .icon-btn:hover { background: rgba(255,255,255,0.3); }
+    .icon-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
 
     .badge {
       position: absolute;
@@ -185,7 +185,10 @@
       z-index: 1;
     }
 
-    .banner-content { position: relative; z-index: 2; }
+    .banner-content {
+      position: relative;
+      z-index: 2;
+    }
 
     .banner-title {
       font-size: 2.5rem;
@@ -219,7 +222,11 @@
       box-shadow: 0 8px 16px rgba(201, 148, 95, 0.3);
     }
 
-    .section { max-width: 1400px; margin: 0 auto; padding: 2rem 1rem; }
+    .section {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
 
     .section-title {
       font-size: 1.5rem;
@@ -238,13 +245,27 @@
       padding: 1rem 0;
       scroll-behavior: smooth;
     }
-    .carousel::-webkit-scrollbar { display: none; }
 
-    .carousel-item { flex: 0 0 calc(33.333% - 0.67rem); min-width: 250px; }
+    .carousel-item {
+      flex: 0 0 calc(33.333% - 0.67rem);
+      min-width: 250px;
+    }
 
     @media (max-width: 768px) {
-      .carousel-item { flex: 0 0 calc(50% - 0.5rem); min-width: 200px; }
-      .banner-title { font-size: 1.5rem; }
+      .carousel-item {
+        flex: 0 0 calc(50% - 0.5rem);
+        min-width: 200px;
+      }
+      .banner-title {
+        font-size: 1.5rem;
+      }
+      .nav-tabs {
+        gap: 0.25rem;
+      }
+      .nav-tab {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
     }
 
     .product-card {
@@ -288,7 +309,9 @@
       font-weight: 700;
     }
 
-    .product-info { padding: 1rem; }
+    .product-info {
+      padding: 1rem;
+    }
 
     .product-name {
       font-size: 1rem;
@@ -299,8 +322,18 @@
       min-height: 2.6rem;
     }
 
-    .product-category { font-size: 0.8rem; color: #999; margin-bottom: 0.75rem; }
-    .product-price { font-size: 1.25rem; font-weight: 700; color: #c9945f; margin-bottom: 1rem; }
+    .product-category {
+      font-size: 0.8rem;
+      color: #999;
+      margin-bottom: 0.75rem;
+    }
+
+    .product-price {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #c9945f;
+      margin-bottom: 1rem;
+    }
 
     .add-cart-btn {
       width: 100%;
@@ -313,7 +346,10 @@
       cursor: pointer;
       transition: all 0.3s;
     }
-    .add-cart-btn:hover { transform: scale(1.02); }
+
+    .add-cart-btn:hover {
+      transform: scale(1.02);
+    }
 
     .grid-products {
       display: grid;
@@ -321,7 +357,12 @@
       gap: 1.5rem;
     }
 
-    .filter-bar { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .filter-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
 
     .filter-btn {
       padding: 0.5rem 1rem;
@@ -333,10 +374,21 @@
       transition: all 0.3s;
     }
 
-    .filter-btn.active { background: #c9945f; color: white; border-color: #c9945f; }
-    .filter-btn:hover { border-color: #c9945f; }
+    .filter-btn.active {
+      background: #c9945f;
+      color: white;
+      border-color: #c9945f;
+    }
 
-    .search-bar { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .filter-btn:hover {
+      border-color: #c9945f;
+    }
+
+    .search-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
 
     .search-input {
       flex: 1;
@@ -346,7 +398,11 @@
       font-size: 1rem;
       transition: border-color 0.3s;
     }
-    .search-input:focus { outline: none; border-color: #c9945f; }
+
+    .search-input:focus {
+      outline: none;
+      border-color: #c9945f;
+    }
 
     .search-btn {
       padding: 0.75rem 1.5rem;
@@ -358,7 +414,13 @@
       font-weight: 600;
     }
 
-    .sort-bar { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; align-items: center; }
+    .sort-bar {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
 
     .sort-select {
       padding: 0.5rem 1rem;
@@ -368,7 +430,11 @@
       background: white;
       font-size: 0.9rem;
     }
-    .sort-select:focus { outline: none; border-color: #c9945f; }
+
+    .sort-select:focus {
+      outline: none;
+      border-color: #c9945f;
+    }
 
     .wishlist-indicator {
       position: absolute;
@@ -386,8 +452,25 @@
       cursor: pointer;
     }
 
-    .product-card.in-wishlist { border: 2px solid #ff3b30; }
-    .order-detail-card { background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+    .product-card.in-wishlist {
+      border: 2px solid #ff3b30;
+    }
+
+    .order-detail-card {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .member-discount-banner {
+      background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
 
     .cart-table {
       width: 100%;
@@ -398,12 +481,29 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .cart-table th { background: #f5f5f5; padding: 1rem; text-align: left; font-weight: 600; color: #333; }
-    .cart-table td { padding: 1rem; border-top: 1px solid #eee; }
+    .cart-table th {
+      background: #f5f5f5;
+      padding: 1rem;
+      text-align: left;
+      font-weight: 600;
+      color: #333;
+    }
 
-    .cart-item-name { font-weight: 500; color: #333; }
+    .cart-table td {
+      padding: 1rem;
+      border-top: 1px solid #eee;
+    }
 
-    .quantity-control { display: flex; gap: 0.5rem; align-items: center; }
+    .cart-item-name {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .quantity-control {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
 
     .qty-btn {
       width: 28px;
@@ -417,7 +517,10 @@
       justify-content: center;
       transition: all 0.3s;
     }
-    .qty-btn:hover { background: #f5f5f5; }
+
+    .qty-btn:hover {
+      background: #f5f5f5;
+    }
 
     .checkout-summary {
       background: white;
@@ -427,7 +530,12 @@
       max-width: 400px;
     }
 
-    .summary-row { display: flex; justify-content: space-between; margin-bottom: 1rem; color: #666; }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: #666;
+    }
 
     .summary-total {
       display: flex;
@@ -465,8 +573,18 @@
       color: white;
     }
 
-    .pet-name { font-size: 1.25rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
-    .pet-info { color: rgba(255,255,255,0.9); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .pet-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .pet-info {
+      color: rgba(255,255,255,0.9);
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
 
     .community-post {
       background: white;
@@ -476,7 +594,12 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
     }
 
-    .post-header { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+    .post-header {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
 
     .post-avatar {
       width: 48px;
@@ -491,11 +614,33 @@
       font-size: 1.25rem;
     }
 
-    .post-meta { flex: 1; }
-    .post-author { font-weight: 600; color: #333; margin-bottom: 0.25rem; }
-    .post-time { font-size: 0.8rem; color: #999; }
-    .post-content { margin-bottom: 1rem; color: #666; line-height: 1.5; }
-    .post-engagement { display: flex; gap: 2rem; padding-top: 1rem; border-top: 1px solid #eee; }
+    .post-meta {
+      flex: 1;
+    }
+
+    .post-author {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.25rem;
+    }
+
+    .post-time {
+      font-size: 0.8rem;
+      color: #999;
+    }
+
+    .post-content {
+      margin-bottom: 1rem;
+      color: #666;
+      line-height: 1.5;
+    }
+
+    .post-engagement {
+      display: flex;
+      gap: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eee;
+    }
 
     .engagement-btn {
       background: none;
@@ -508,11 +653,22 @@
       font-size: 0.9rem;
       transition: all 0.3s;
     }
-    .engagement-btn:hover { color: #c9945f; }
-    .engagement-btn.liked { color: #d4a574; }
 
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
+    .engagement-btn:hover {
+      color: #c9945f;
+    }
+
+    .engagement-btn.liked {
+      color: #d4a574;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
 
     .modal {
       display: none;
@@ -526,26 +682,45 @@
       justify-content: center;
       align-items: center;
     }
-    .modal.active { display: flex; }
+
+    .modal.active {
+      display: flex;
+    }
 
     .modal-content {
       background: white;
       border-radius: 12px;
       max-width: 600px;
       width: 90%;
-      max-height: 85vh;
+      max-height: 80vh;
       overflow-y: auto;
       padding: 2rem;
       animation: slideUp 0.3s ease-out;
     }
 
     @keyframes slideUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
-    .modal-close { float: right; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999; }
-    .modal-close:hover { color: #333; }
+    .modal-close {
+      float: right;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #999;
+    }
+
+    .modal-close:hover {
+      color: #333;
+    }
 
     .product-detail-image {
       width: 100%;
@@ -563,10 +738,107 @@
       background-repeat: no-repeat;
     }
 
-    .product-detail-title { font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 0.5rem; }
-    .product-detail-price { font-size: 1.75rem; font-weight: 700; color: #c9945f; margin-bottom: 1rem; }
+    .product-detail-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
 
-    .rating { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; color: #ffc107; }
+    .product-detail-price {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #c9945f;
+      margin-bottom: 1rem;
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      color: #ffc107;
+    }
+
+    .review {
+      background: #f9f9f9;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .review-author {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.25rem;
+    }
+
+    .review-text {
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid #eee;
+      padding: 1rem 0;
+    }
+
+    .faq-question {
+      font-weight: 600;
+      color: #333;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .faq-answer {
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s;
+      margin-top: 0;
+    }
+
+    .faq-answer.show {
+      max-height: 500px;
+      margin-top: 1rem;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .feature-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .feature-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-desc {
+      color: #666;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
 
     .toast {
       position: fixed;
@@ -582,93 +854,111 @@
     }
 
     @keyframes slideInUp {
-      from { transform: translateY(100px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
+      from {
+        transform: translateY(100px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
 
-    /* 評論區星星樣式 */
-    .star-rating span { cursor: pointer; font-size: 1.75rem; transition: color 0.2s; }
+    .loader {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
   </style>
+  <style>body { box-sizing: border-box; }</style>
+  <script src="/_sdk/element_sdk.js" type="text/javascript"></script>
  </head>
  <body>
   <div id="app">
    <div style="position: fixed; top: 10px; right: 10px; z-index: 500; display: flex; gap: 0.5rem; align-items: center;">
     <button id="editModeBtn" onclick="toggleEditMode()" style="background: linear-gradient(135deg, #d4a574 0%, #c9945f 100%); color: white; border: none; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.15);"> <span>✏️</span> 編輯模式 </button>
-   </div>
-   
-   <div id="editPanel" style="display: none; position: fixed; top: 0; right: 0; width: 350px; height: 100%; background: white; box-shadow: -2px 0 8px rgba(0,0,0,0.15); z-index: 400; overflow-y: auto; padding: 1.5rem; border-left: 4px solid #c9945f;">
+   </div><div id="editPanel" style="display: none; position: fixed; top: 0; right: 0; width: 350px; height: 100%; background: white; box-shadow: -2px 0 8px rgba(0,0,0,0.15); z-index: 400; overflow-y: auto; padding: 1.5rem; border-left: 4px solid #c9945f;">
     <button onclick="toggleEditMode()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999;">×</button>
     <h2 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem; padding-top: 0.5rem;">⚙️ 版面編輯</h2>
     <div style="display: flex; flex-direction: column; gap: 1.5rem;">
      <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">平台名稱</label> <input type="text" id="editStoreName" placeholder="寵托邦" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem;" onchange="updateStoreName()">
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">平台名稱</label> <input type="text" id="editStoreName" placeholder="寵托邦" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateStoreName()">
      </div>
      <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">首頁標題</label> <textarea id="editBannerTitle" placeholder="讓毛孩吃得好、玩得開心，你放心" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem;" onchange="updateBannerTitle()"></textarea>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">首頁標題</label> <textarea id="editBannerTitle" placeholder="讓毛孩吃得好、玩得開心，你放心" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; resize: vertical; min-height: 60px; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateBannerTitle()"></textarea>
      </div>
      <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">首頁副標題</label> <textarea id="editBannerSubtitle" placeholder="這就是寵托邦 — 懂你毛孩的寵物生活平台" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem;" onchange="updateBannerSubtitle()"></textarea>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">首頁副標題</label> <textarea id="editBannerSubtitle" placeholder="這就是寵托邦 — 懂你毛孩的寵物生活平台" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; resize: vertical; min-height: 60px; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateBannerSubtitle()"></textarea>
      </div>
      <div style="border-top: 2px solid #f0f0f0; padding-top: 1.5rem;">
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">公司名稱</label> <input type="text" id="editCompanyName" placeholder="寵托邦有限公司" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;" onchange="updateCompanyName()">
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">公司名稱</label> <input type="text" id="editCompanyName" placeholder="寵托邦有限公司" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateCompanyName()">
      </div>
      <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">聯絡電話</label> <input type="text" id="editCompanyPhone" placeholder="1800-PETPET" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;" onchange="updateCompanyPhone()">
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">聯絡電話</label> <input type="text" id="editCompanyPhone" placeholder="1800-PETPET" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateCompanyPhone()">
      </div>
      <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">聯絡信箱</label> <input type="email" id="editCompanyEmail" placeholder="service@petopia.com" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;" onchange="updateCompanyEmail()">
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">聯絡信箱</label> <input type="email" id="editCompanyEmail" placeholder="service@petopia.com" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateCompanyEmail()">
      </div>
      <div style="border-top: 2px solid #f0f0f0; padding-top: 1.5rem;">
-      <button onclick="openColorEditor()" style="width: 100%; background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;"> <span>🎨</span> 版面色彩編輯 </button> <button onclick="showToast('🔘 按鈕管理開發中...')" style="width: 100%; background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;"> <span>🔘</span> 按鈕管理 </button> <button onclick="saveConfigToSheet()" style="width: 100%; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem;"> <span>💾</span> 保存到共享表單 </button>
+      <button onclick="openColorEditor()" style="width: 100%; background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;" onmouseover="this.style.boxShadow='0 4px 8px rgba(255, 193, 7, 0.3)';" onmouseout="this.style.boxShadow='';"> <span>🎨</span> 版面色彩編輯 </button> <button onclick="openButtonManager()" style="width: 100%; background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;" onmouseover="this.style.boxShadow='0 4px 8px rgba(156, 39, 176, 0.3)';" onmouseout="this.style.boxShadow='';"> <span>🔘</span> 按鈕管理 </button> <button onclick="saveConfigToSheet()" style="width: 100%; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.boxShadow='0 4px 8px rgba(34, 197, 94, 0.3)';" onmouseout="this.style.boxShadow='';"> <span>💾</span> 保存到共享表單 </button>
+     </div>
+     <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+      <strong style="color: #333; display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">💡 編輯提示</strong>
+      <p style="color: #666; font-size: 0.85rem; line-height: 1.4;">修改完成後會即時更新平台。所有改動會自動保存到共享表單，其他編輯者可以看到你的更新！</p>
+      <p style="color: #999; font-size: 0.8rem; line-height: 1.4; margin-top: 0.5rem;">✅ 點擊「保存到共享表單」按鈕確保改動被其他編輯者同步。</p>
      </div>
     </div>
-   </div>
-
-   <div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe6cc 100%); border-bottom: 2px solid #ffc107; padding: 1rem;">
+   </div><div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe6cc 100%); border-bottom: 2px solid #ffc107; padding: 1rem; box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);">
     <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
      <div style="display: flex; align-items: flex-start; gap: 1rem;">
-      <div style="font-size: 1.5rem; flex-shrink: 0;">⚠️</div>
+      <div style="font-size: 1.5rem; flex-shrink: 0; margin-top: 0.25rem;">
+       ⚠️
+      </div>
       <div style="flex: 1;">
        <strong style="display: block; color: #856404; font-size: 0.95rem; margin-bottom: 0.5rem;">平台聲明</strong>
-       <p style="color: #856404; font-size: 0.9rem; margin: 0; line-height: 1.5;">本平台為亞洲大學經營管理學系「電子商務實務應用」課程建置之模擬電子商務平台，僅供學生進行電子商務平台經營、行銷設計與購物流程實作演練。</p>
-      </div><button onclick="this.closest('div').parentElement.parentElement.style.display='none';" style="background: none; border: none; color: #856404; font-size: 1.25rem; cursor: pointer;">×</button>
+       <p style="color: #856404; font-size: 0.9rem; margin: 0; line-height: 1.5;">本平台為亞洲大學經營管理學系「電子商務實務應用」課程建置之模擬電子商務平台，僅供學生進行電子商務平台經營、行銷設計與購物流程實作演練。平台內所呈現之商品、價格、訂單及交易流程皆為虛擬模擬內容，不代表實際販售行為，亦不會產生實際付款、購買、出貨或配送。</p>
+      </div><button onclick="this.closest('div').parentElement.style.display='none';" style="background: none; border: none; color: #856404; font-size: 1.25rem; cursor: pointer; flex-shrink: 0; margin-top: 0.25rem; opacity: 0.7; transition: opacity 0.3s;" onmouseover="this.style.opacity='1';" onmouseout="this.style.opacity='0.7';">×</button>
      </div>
     </div>
-   </div>
-
-   <nav class="navbar">
+   </div><nav class="navbar">
     <div class="navbar-content">
-     <div class="logo" onclick="switchTab('home')"> 🐾 <span id="logoName">Petopia</span> </div>
+     <div class="logo" onclick="switchTab('home')">
+      🐾 <span id="logoName">Petopia</span>
+     </div>
      <div class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('home')">首頁</button> 
-      <button class="nav-tab" onclick="switchTab('products')">商城</button> 
-      <button class="nav-tab" onclick="switchTab('community')">社群</button> 
-      <button class="nav-tab" onclick="switchTab('knowledge')">知識專區</button>
+      <button class="nav-tab active" onclick="switchTab('home')">首頁</button> <button class="nav-tab" onclick="switchTab('products')">商城</button> <button class="nav-tab" onclick="switchTab('community')">社群</button> <button class="nav-tab" onclick="switchTab('knowledge')">知識專專區</button>
      </div>
      <div class="nav-icons">
       <button class="icon-btn" onclick="switchTab('cart')">
        <svg class="lucide" viewbox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-       </svg><span class="badge" id="cartBadge" style="display:none;">0</span> </button> 
-       <button class="icon-btn" onclick="switchTab('member')">
+       </svg><span class="badge" id="cartBadge" style="display:none;">0</span> </button> <button class="icon-btn" onclick="switchTab('member')">
        <svg class="lucide" viewbox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>
        </svg></button>
      </div>
     </div>
-   </nav>
-
-   <div class="main-content">
+   </nav><div class="main-content">
     <div id="home-tab" class="tab-content active">
      <div style="background: white; padding: 0 1rem; border-bottom: 1px solid #f0f0f0; margin: 0 -1rem;">
       <div style="max-width: 1400px; margin: 0 auto; padding: 1.5rem 0;">
        <div style="position: relative; overflow: hidden; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05);" onmouseenter="stopOfferAutoplay()" onmouseleave="startOfferAutoplay()">
-        <div id="offersTrack" style="display: flex; transition: transform 0.5s ease-in-out; width: 100%;"></div>
+        <div id="offersTrack" style="display: flex; transition: transform 0.5s ease-in-out; width: 100%;">
+          </div>
        </div>
        <div style="display: flex; justify-content: center; gap: 1rem; margin-top: 1rem; align-items: center;">
-         <button onclick="prevOffer()" style="background: white; border: 1px solid #ddd; color: #999; width: 32px; height: 32px; border-radius: 50%; cursor: pointer;">‹</button>
-         <div id="offerDots" style="display: flex; gap: 0.5rem; align-items: center;"></div>
-         <button onclick="nextOffer()" style="background: white; border: 1px solid #ddd; color: #999; width: 32px; height: 32px; border-radius: 50%; cursor: pointer;">›</button>
+         <button onclick="prevOffer()" style="background: white; border: 1px solid #ddd; color: #999; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; font-weight: 700; font-size: 1.2rem;" onmouseover="this.style.color='#c9945f'; this.style.borderColor='#c9945f';">‹</button>
+         <div id="offerDots" style="display: flex; gap: 0.5rem; align-items: center;">
+          </div>
+         <button onclick="nextOffer()" style="background: white; border: 1px solid #ddd; color: #999; width: 32px; height: 32px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s; font-weight: 700; font-size: 1.2rem;" onmouseover="this.style.color='#c9945f'; this.style.borderColor='#c9945f';">›</button>
        </div>
       </div>
      </div>
@@ -677,165 +967,292 @@
       <div class="banner-content">
        <h1 class="banner-title" id="bannerTitleText">讓毛孩吃得好、玩得開心，你放心</h1>
        <p class="banner-subtitle" id="bannerSubtitleText">這就是寵托邦 — 懂你毛孩的寵物生活平台</p><button class="cta-button" onclick="switchTab('products')">探索商品</button>
-      </div><button id="uploadBannerBtn" style="position: absolute; bottom: 0.75rem; right: 0.75rem; background: rgba(255, 255, 255, 0.5); color: #333; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem;" onclick="openBannerUploadModal();"> <span>📸 更換首頁照片</span> </button>
+      </div><button id="uploadBannerBtn" style="position: absolute; bottom: 0.75rem; right: 0.75rem; background: rgba(255, 255, 255, 0.5); color: #333; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; z-index: 10; display: flex; align-items: center; gap: 0.3rem; transition: all 0.3s; opacity: 0.8;" onclick="openBannerUploadModal();" onmouseover="this.style.background='rgba(255, 255, 255, 0.9)'; this.style.opacity='1';" onmouseout="this.style.background='rgba(255, 255, 255, 0.5)'; this.style.opacity='0.8';"> <span>📸 更換首頁照片</span> </button>
      </div>
      
      <div class="section">
       <h2 class="section-title"><i data-lucide="flame" style="color: #ff7043;"></i> 熱銷商品</h2>
       <div class="carousel" id="hotCarousel"></div>
+     </div><div class="section">
+      <h2 class="section-title"><i data-lucide="star" style="color: #ff7043;"></i> 平台特色</h2>
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+       <div style="display: flex; align-items: center; gap: 1.25rem; background: linear-gradient(135deg, #fef5e7 0%, #fef9f3 100%); padding: 1.25rem; border-radius: 12px; border-left: 4px solid #d4a574; box-shadow: 0 2px 8px rgba(212, 165, 116, 0.15);">
+        <div style="font-size: 2.5rem; flex-shrink: 0;">
+         🥩
+        </div>
+        <div style="flex: 1;">
+         <div style="font-weight: 700; color: #333; font-size: 1.1rem; margin-bottom: 0.25rem;">
+          真正的新鮮肉質
+         </div>
+         <div style="color: #666; font-size: 0.9rem;">
+          嚴選高品質成分，不是填充澱粉。每一口都是對毛孩的愛。
+         </div>
+        </div>
+        <div style="color: #d4a574; font-weight: 700; font-size: 1.2rem;">
+         ✓
+        </div>
+       </div>
+       <div style="display: flex; align-items: center; gap: 1.25rem; background: linear-gradient(135deg, #f5f8fb 0%, #f0f6fb 100%); padding: 1.25rem; border-radius: 12px; border-left: 4px solid #2196F3; box-shadow: 0 2px 8px rgba(33, 150, 243, 0.15);">
+        <div style="font-size: 2.5rem; flex-shrink: 0;">
+         📋
+        </div>
+        <div style="flex: 1;">
+         <div style="font-weight: 700; color: #333; font-size: 1.1rem; margin-bottom: 0.25rem;">
+          詳細成分說明
+         </div>
+         <div style="color: #666; font-size: 0.9rem;">
+          透明公開每項商品成分，讓飼主安心選擇
+         </div>
+        </div>
+        <div style="color: #2196F3; font-weight: 700; font-size: 1.2rem;">
+         ✓
+        </div>
+       </div>
+       <div style="display: flex; align-items: center; gap: 1.25rem; background: linear-gradient(135deg, #fef8f0 0%, #fef5e7 100%); padding: 1.25rem; border-radius: 12px; border-left: 4px solid #ffc107; box-shadow: 0 2px 8px rgba(255, 193, 7, 0.15);">
+        <div style="font-size: 2.5rem; flex-shrink: 0;">
+         ⭐
+        </div>
+        <div style="flex: 1;">
+         <div style="font-weight: 700; color: #333; font-size: 1.1rem; margin-bottom: 0.25rem;">
+          真實飼主評價
+         </div>
+         <div style="color: #666; font-size: 0.9rem;">
+          已驗證購買者的真心評分與心得，幫助你做最佳選擇
+         </div>
+        </div>
+        <div style="color: #ffc107; font-weight: 700; font-size: 1.2rem;">
+         ✓
+        </div>
+       </div>
+       <div style="display: flex; align-items: center; gap: 1.25rem; background: linear-gradient(135deg, #f0f8f4 0%, #e8f5f0 100%); padding: 1.25rem; border-radius: 12px; border-left: 4px solid #22c55e; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.15);">
+        <div style="font-size: 2.5rem; flex-shrink: 0;">
+         🎯
+        </div>
+        <div style="flex: 1;">
+         <div style="font-weight: 700; color: #333; font-size: 1.1rem; margin-bottom: 0.25rem;">
+          個人化推薦
+         </div>
+         <div style="color: #666; font-size: 0.9rem;">
+          建檔寵物資料，收到最適合毛孩的商品推薦
+         </div>
+        </div>
+        <div style="color: #22c55e; font-weight: 700; font-size: 1.2rem;">
+         ✓
+        </div>
+       </div>
+      </div>
      </div>
-    </div>
-
-    <div id="products-tab" class="tab-content">
+    </div><div id="products-tab" class="tab-content">
      <div class="section">
       <h2 class="section-title">商城</h2>
       <div class="search-bar">
        <input type="text" class="search-input" id="searchInput" placeholder="搜尋商品..."> <button class="search-btn" onclick="searchProducts()">搜尋</button>
       </div>
       <div class="sort-bar">
-       <select class="sort-select" id="sortSelect" onchange="applySorting()"> <option value="default">排序方式</option> <option value="price-low">💰 價格低→高</option> <option value="price-high">💰 價格高→低</option> <option value="rating">⭐ 評分最高</option> <option value="sales">🔥 銷量最高</option> </select> <select class="sort-select" id="stockFilter" onchange="filterByStock()"> <option value="all">庫存狀態：全部</option> <option value="in-stock">✅ 有庫存</option> <option value="pre-order">⏳ 即將售完</option> <option value="sold-out">❌ 已售完</option> </select> <span id="sortResultCount" style="color: #999; font-size: 0.9rem;"></span>
+       <select class="sort-select" id="sortSelect" onchange="applySorting()"> <option value="default">排序方式</option> <option value="price-low">💰 價格低→高</option> <option value="price-high">💰 價格高→低</option> <option value="rating">⭐ 評分最高</option> <option value="sales">🔥 銷量最高</option> <option value="newest">✨ 最新上架</option> </select> <select class="sort-select" id="stockFilter" onchange="filterByStock()"> <option value="all">庫存狀態：全部</option> <option value="in-stock">✅ 有庫存</option> <option value="pre-order">⏳ 即將售完</option> <option value="sold-out">❌ 已售完</option> </select> <span id="sortResultCount" style="color: #999; font-size: 0.9rem;"></span>
       </div>
       <div class="filter-bar">
        <button class="filter-btn active" onclick="filterCategory('all')">全部</button> <button class="filter-btn" onclick="filterCategory('食品')">食品</button> <button class="filter-btn" onclick="filterCategory('玩具')">玩具</button> <button class="filter-btn" onclick="filterCategory('保健')">保健</button> <button class="filter-btn" onclick="filterCategory('居家')">居家</button> <button class="filter-btn" style="margin-left: auto; background: #ff7043; color: white; border-color: #ff7043;" onclick="openUploadModal()">📸 上傳商品圖片</button>
       </div>
       <div class="grid-products" id="productsGrid"></div>
      </div>
-    </div>
-
-    <div id="cart-tab" class="tab-content">
+    </div><div id="cart-tab" class="tab-content">
      <div class="section">
       <h2 class="section-title">購物車</h2>
       <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
        <div style="flex: 1; min-width: 300px;">
         <table class="cart-table" id="cartTable">
          <thead>
-          <tr><th>商品</th><th>數量</th><th>價格</th><th>操作</th></tr>
+          <tr>
+           <th>商品</th>
+           <th>數量</th>
+           <th>價格</th>
+           <th>操作</th>
+          </tr>
          </thead>
          <tbody id="cartBody">
-          <tr><td colspan="4" style="text-align: center; color: #999; padding: 2rem;">購物車是空的，快去選購商品吧！</td></tr>
+          <tr>
+           <td colspan="4" style="text-align: center; color: #999; padding: 2rem;">購物車是空的，快去選購商品吧！</td>
+          </tr>
          </tbody>
         </table>
        </div>
        <div class="checkout-summary">
         <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem;">購物總結</h3><input type="text" class="coupon-input" id="couponInput" placeholder="輸入優惠碼"> <button class="cta-button" style="width: 100%; margin-bottom: 1.5rem;" onclick="applyCoupon()">套用優惠碼</button>
-        <div class="summary-row"><span>商品小計</span> <span id="subtotal">$0</span></div>
-        <div class="summary-row"><span>優惠折扣</span> <span id="discount" style="color: #ff7043;">-$0</span></div>
-        <div class="summary-row"><span>運費</span> <span id="shipping">$0</span></div>
-        <div class="summary-total"><span>總計</span> <span id="total">$0</span></div><button class="cta-button" style="width: 100%; margin-top: 1.5rem;" onclick="checkout()">結帳</button>
+        <div class="summary-row">
+         <span>商品小計</span> <span id="subtotal">$0</span>
+        </div>
+        <div class="summary-row">
+         <span>優惠折扣</span> <span id="discount" style="color: #ff7043;">-$0</span>
+        </div>
+        <div class="summary-row">
+         <span>運費</span> <span id="shipping">$0</span>
+        </div>
+        <div class="summary-total">
+         <span>總計</span> <span id="total">$0</span>
+        </div><button class="cta-button" style="width: 100%; margin-top: 1.5rem;" onclick="checkout()">結帳</button>
        </div>
       </div>
      </div>
-    </div>
-
-    <div id="checkout-tab" class="tab-content">
+    </div><div id="checkout-tab" class="tab-content">
      <div class="section" id="checkoutContent"></div>
-    </div>
-
-    <div id="knowledge-tab" class="tab-content">
+    </div><div id="knowledge-tab" class="tab-content">
      <div class="section">
       <h2 class="section-title">知識專區</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;"></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+       </div>
      </div>
-    </div>
-
-    <div id="community-tab" class="tab-content">
+    </div><div id="community-tab" class="tab-content">
      <div class="section">
       <h2 class="section-title">社群牆 — 毛孩的故事</h2>
       <div style="background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
-       <textarea id="postContent" placeholder="分享你和毛孩的故事..." style="width: 100%; min-height: 100px; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; font-size: 1rem; resize: vertical;"></textarea> 
-       <div style="margin-top: 1rem; padding: 1rem; background: #f9f9f9; border: 2px dashed #ddd; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer;" id="photoUploadZone" onclick="document.getElementById('communityPhotoInput').click();" ondrop="handlePhotoDrop(event);" ondragover="event.preventDefault();">
+       <textarea id="postContent" placeholder="分享你和毛孩的故事、心得或商品使用心得..." style="width: 100%; min-height: 100px; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; font-size: 1rem; font-family: inherit; resize: vertical;"></textarea> <div style="margin-top: 1rem; padding: 1rem; background: #f9f9f9; border: 2px dashed #ddd; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s;" id="photoUploadZone" onmouseover="this.style.borderColor='#c9945f'; this.style.background='#faf9f7';" onmouseout="this.style.borderColor='#ddd'; this.style.background='#f9f9f9';" onclick="document.getElementById('communityPhotoInput').click();" ondrop="handlePhotoDrop(event);" ondragover="event.preventDefault(); event.target.style.borderColor='#c9945f'; event.target.style.background='#faf9f7';" ondragleave="event.target.style.borderColor='#ddd'; event.target.style.background='#f9f9f9';">
         <input type="file" id="communityPhotoInput" accept="image/*" style="display: none;" onchange="handleCommunityPhotoUpload(event)" multiple>
-        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📸</div>
-        <div style="font-weight: 600; color: #333;">點擊或拖放照片到此區域上傳</div>
-       </div>
-       <div id="communityPhotoPreview" style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;"></div>
-       <button class="cta-button" style="margin-top: 1rem; width: 100%;" onclick="publishPost()">✨ 發布分享</button>
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">
+         📸
+        </div>
+        <div style="font-weight: 600; color: #333;">
+         點擊上傳照片
+        </div>
+        <div style="font-size: 0.85rem; color: #999; margin-top: 0.25rem;">
+         或拖放圖片到此區域
+        </div>
+       </div><div id="communityPhotoPreview" style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;"></div><button class="cta-button" style="margin-top: 1rem; width: 100%;" onclick="publishPost()">✨ 發布分享</button>
       </div>
       <div id="communityFeed"></div>
      </div>
-    </div>
-
-    <div id="member-tab" class="tab-content">
+    </div><div id="member-tab" class="tab-content">
      <div class="section">
       <h2 class="section-title">會員中心</h2>
       <div class="member-info">
        <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">會員資訊</h3>
        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-        <div><div style="font-size: 0.9rem; color: #999;">姓名</div><div style="font-size: 1.1rem; font-weight: 600;">毛爸爸 / 毛媽媽</div></div>
-        <div><div style="font-size: 0.9rem; color: #999;">會員等級</div><div style="font-size: 1.1rem; font-weight: 600; color: #ff7043;">VIP 白金會員</div></div>
-        <div><div style="font-size: 0.9rem; color: #999;">累積點數</div><div style="font-size: 1.1rem; font-weight: 600;">4,500 點</div></div>
+        <div>
+         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">
+          姓名
+         </div>
+         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">
+          毛爸爸 / 毛媽媽
+         </div>
+        </div>
+        <div>
+         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">
+          會員等級
+         </div>
+         <div style="font-size: 1.1rem; font-weight: 600; color: #ff7043;">
+          VIP 白金會員
+         </div>
+        </div>
+        <div>
+         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">
+          累積點數
+         </div>
+         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">
+          4,500 點
+         </div>
+        </div>
+        <div>
+         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">
+          可折抵金額
+         </div>
+         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">
+          $1,350
+         </div>
+        </div>
        </div>
       </div>
       <div class="member-info">
        <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">我的寵物</h3>
        <div id="petsList"></div><button class="cta-button" onclick="openAddPetModal()">+ 新增寵物</button>
       </div>
+      
       <div class="member-info">
         <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">收藏的文章</h3>
-        <div id="savedArticlesList"><p style="color: #999; margin-bottom: 1rem;">還沒有收藏文章</p></div>
+        <div id="savedArticlesList">
+          <p style="color: #999; margin-bottom: 1rem;">還沒有收藏文章</p>
+        </div>
       </div>
+
       <div class="member-info">
        <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">收藏清單</h3>
        <div id="quickWishlist"></div><button class="cta-button" style="background: #ff7043; margin-bottom: 1rem;" onclick="switchTab('wishlist')">查看所有收藏商品 (<span id="wishlistCount">0</span>)</button>
       </div>
       <div class="member-info">
-       <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">最近訂單 (點擊檢視詳情)</h3>
+       <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">最近訂單</h3>
        <div id="ordersList"></div>
       </div>
      </div>
     </div>
    </div>
-  </div>
-
-  <div id="wishlist-tab" class="tab-content">
-   <div class="section"><h2 class="section-title">❤️ 我的收藏</h2><div id="wishlistContainer"></div></div>
-  </div>
-
-  <div id="productModal" class="modal">
+  </div><div id="wishlist-tab" class="tab-content">
+   <div class="section">
+    <h2 class="section-title">❤️ 我的收藏</h2>
+    <div id="wishlistContainer"></div>
+   </div>
+  </div><div id="productModal" class="modal">
    <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">×</button>
     <div id="modalBody"></div>
    </div>
-  </div>
-
-  <div id="addPetModal" class="modal">
+  </div><div id="addPetModal" class="modal">
    <div class="modal-content">
     <button class="modal-close" onclick="document.getElementById('addPetModal').classList.remove('active')">×</button>
     <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem;">新增寵物</h3>
     <div style="display: flex; flex-direction: column; gap: 1rem;">
-     <input type="text" id="petName" placeholder="寵物名字" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-     <select id="petType" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;"><option>狗狗</option><option>貓咪</option></select>
-     <input type="text" id="petAge" placeholder="年齡" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-     <input type="text" id="petWeight" placeholder="體重" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-     <button class="cta-button" onclick="addPet()">保存寵物資料</button>
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">寵物名字</label> <input type="text" id="petName" placeholder="例：毛毛、米粒" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+     </div>
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">寵物種類</label> <select id="petType" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;"> <option>狗狗</option> <option>貓咪</option> <option>小寵物</option> <option>其他</option> </select>
+     </div>
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">年齡</label> <input type="text" id="petAge" placeholder="例：3 歲" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+     </div>
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">體重</label> <input type="text" id="petWeight" placeholder="例：3.5 kg" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+     </div><button class="cta-button" style="width: 100%; margin-top: 1rem;" onclick="addPet()">保存寵物資料</button>
     </div>
    </div>
-  </div>
-
-  <div id="uploadModal" class="modal">
+  </div><div id="uploadModal" class="modal">
    <div class="modal-content">
     <button class="modal-close" onclick="document.getElementById('uploadModal').classList.remove('active')">×</button>
     <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem;">📸 上傳商品圖片</h3>
+    <div style="background: #fef5e7; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; border-left: 4px solid #ffc107;"><strong style="display: block; margin-bottom: 0.5rem; color: #333;">💡 支援本地圖片與外部圖片 URL</strong>
+     <p style="font-size: 0.9rem; color: #666; margin: 0; line-height: 1.5;">你可以直接上傳電腦裡的照片，或輸入外部圖片的連結。</p>
+    </div>
     <div style="display: flex; flex-direction: column; gap: 1rem;">
-     <select id="productSelect" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;"></select>
-     <input type="text" id="canvaImageUrl" placeholder="貼上圖片 URL" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
-     <input type="file" id="localProductImageInput" accept="image/*" onchange="handleLocalProductImage(event)">
-     <div id="imagePreview" style="width: 100%; height: 150px; background: #f5f5f5; display: flex; align-items: center; justify-content: center;">預覽區域</div>
-     <button class="cta-button" onclick="uploadProductImage()">✅ 新增圖片</button>
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">選擇商品</label> <select id="productSelect" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;"></select>
+     </div>
+     
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">方法一：貼上圖片 URL</label> <input type="text" id="canvaImageUrl" placeholder="例：https://..." style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+     </div>
+     <div style="text-align: center; color: #999; font-size: 0.9rem;">或</div>
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">方法二：上傳本地圖片</label> <input type="file" id="localProductImageInput" accept="image/*" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px; background: white;" onchange="handleLocalProductImage(event)">
+     </div>
+
+     <div id="imagePreview" style="width: 100%; height: 200px; background: #f5f5f5; border: 2px dashed #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 0.9rem;">
+      預覽區域
+     </div><button class="cta-button" style="width: 100%; margin-top: 1rem;" onclick="uploadProductImage()">✅ 新增圖片</button>
     </div>
    </div>
-  </div>
-
-  <div id="bannerUploadModal" class="modal">
+  </div><div id="bannerUploadModal" class="modal">
    <div class="modal-content">
     <button class="modal-close" onclick="document.getElementById('bannerUploadModal').classList.remove('active')">×</button>
     <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem;">📸 上傳首頁橫幅</h3>
-    <input type="file" id="bannerImageInput" accept="image/*">
-    <div id="bannerImagePreview" style="width: 100%; height: 150px; border: 2px dashed #ddd; margin: 1rem 0; display: flex; align-items: center; justify-content: center;">預覽區域</div>
-    <button class="cta-button" onclick="uploadBannerImage()">上傳橫幅</button>
+    <p style="color: #666; margin-bottom: 1.5rem; font-size: 0.95rem;">選擇一張美麗的照片，讓首頁更吸睛！</p>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">選擇圖片</label> <input type="file" id="bannerImageInput" accept="image/*" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+     </div>
+     <div id="bannerImagePreview" style="width: 100%; height: 250px; background: linear-gradient(135deg, #e8d7c3 0%, #dcc9b0 100%); border: 2px dashed #ddd; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 0.9rem; overflow: hidden;">
+      預覽區域
+     </div><button class="cta-button" style="width: 100%; margin-top: 1rem;" onclick="uploadBannerImage()">上傳橫幅</button>
+    </div>
    </div>
   </div>
-
   <script>
     let cart = [];
     let wishlist = [];
@@ -845,19 +1262,6 @@
     let currentStockFilter = 'all';
     let communityPostPhotos = [];
     let savedArticles = []; 
-    let communityPosts = [];
-    let petList = [];
-    let orders = [];
-    let cartCount = 0;
-    let selectedRating = 5; // 預設評論評分
-
-    // 擴充動態儲存各商品評論的資料結構
-    let productReviewsStore = {
-      '1': [
-        { author: '吉娃娃家長', rating: 5, text: '雞肉味道很香，家裡毛孩一打開就瘋狂搖尾巴，肉質很細緻！', time: '2026/05/10' },
-        { author: '貓奴阿明', rating: 4, text: '成分看起來很單純，適口性很好，貓咪挺賞臉的。', time: '2026/05/14' }
-      ]
-    };
 
     function handleLocalProductImage(event) {
       const file = event.target.files[0];
@@ -882,7 +1286,10 @@
           reader.onload = function(e) {
             communityPostPhotos.push(e.target.result);
             loadedCount++;
-            if (loadedCount === files.length) { renderCommunityPhotoPreview(); showToast(`✅ 已新增 ${files.length} 張照片`); }
+            if (loadedCount === files.length) {
+              renderCommunityPhotoPreview();
+              showToast(`✅ 已新增 ${files.length} 張照片`);
+            }
           };
           reader.readAsDataURL(file);
         }
@@ -891,6 +1298,7 @@
 
     function handlePhotoDrop(event) {
       event.preventDefault();
+      event.stopPropagation();
       const files = event.dataTransfer.files;
       if (files && files.length > 0) {
         let loadedCount = 0;
@@ -901,7 +1309,10 @@
             reader.onload = function(e) {
               communityPostPhotos.push(e.target.result);
               loadedCount++;
-              if (loadedCount === files.length) { renderCommunityPhotoPreview(); showToast(`✅ 已新增 ${files.length} 張照片`); }
+              if (loadedCount === files.length) {
+                renderCommunityPhotoPreview();
+                showToast(`✅ 已新增 ${files.length} 張照片`);
+              }
             };
             reader.readAsDataURL(file);
           }
@@ -912,9 +1323,9 @@
     function renderCommunityPhotoPreview() {
       const preview = document.getElementById('communityPhotoPreview');
       preview.innerHTML = communityPostPhotos.map((photo, idx) => `
-        <div style="position: relative;">
-          <img src="${photo}" style="width: 90px; height: 90px; object-fit: cover; border-radius: 8px;">
-          <button onclick="removeCommunityPhoto(${idx})" style="position: absolute; top: 2px; right: 2px; background: #ff3b30; color: white; border-radius: 50%; width: 20px; height: 20px;">×</button>
+        <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+          <img src="${photo}" style="width: 100px; height: 100px; object-fit: cover; border-radius: 8px;">
+          <button onclick="removeCommunityPhoto(${idx})" style="position: absolute; top: 4px; right: 4px; background: #ff3b30; color: white; border: none; width: 24px; height: 24px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; transition: all 0.3s;" onmouseover="this.style.transform='scale(1.1)';" onmouseout="this.style.transform='scale(1)';">×</button>
         </div>
       `).join('');
     }
@@ -922,101 +1333,459 @@
     function removeCommunityPhoto(idx) {
       communityPostPhotos.splice(idx, 1);
       renderCommunityPhotoPreview();
+      showToast('❌ 照片已移除');
     }
 
+    let communityPosts = [];
+    let petList = [];
+    let orders = [];
+    let cartCount = 0;
+    
     let currentOfferIndex = 0;
     let offerAutoplayInterval;
     const offerData = [
       { icon: '🎉', title: '首購 7 折優惠', desc: '新會員首次購物享 7 折優惠 • 使用碼：FIRST70', badge: '7折', bgGradient: '#fff9e6', borderColor: '#ffc107' },
-      { icon: '🚚', title: '滿額免運', desc: '購物滿 $999 即可享受免運費 • 全台灣都適用', badge: '免運', bgGradient: '#f0fdf4', borderColor: '#22c55e' }
+      { icon: '⭐', title: '集點卡獎勵', desc: '每筆購物累積點數 • 3,000 點可折抵 $300 購物金', badge: '點數', bgGradient: '#f0f8ff', borderColor: '#2196F3' },
+      { icon: '🚚', title: '滿額免運', desc: '購物滿 $999 即可享受免運費 • 全台灣都適用', badge: '免運', bgGradient: '#f0fdf4', borderColor: '#22c55e' },
+      { icon: '💝', title: '會員專享福利', desc: '加入會員獲得獨家商品與早鳥優先購權', badge: 'VIP', bgGradient: '#fdf2f8', borderColor: '#ec4899' }
     ];
     const totalOffers = offerData.length;
 
     function initOffers() {
       const track = document.getElementById('offersTrack');
       const dotsContainer = document.getElementById('offerDots');
-      if(!track) return;
+      
       track.innerHTML = offerData.map(offer => `
-        <div style="min-width: 100%; padding: 1.25rem 2rem; background: ${offer.bgGradient}; border-left: 4px solid ${offer.borderColor}; display: flex; align-items: center; justify-content: space-between;">
-          <div><span style="font-size: 2rem;">${offer.icon}</span> <strong>${offer.title}</strong> - ${offer.desc}</div>
-          <div style="color: ${offer.borderColor}; font-weight: 700;">${offer.badge}</div>
+        <div style="min-width: 100%; box-sizing: border-box; padding: 1.25rem 2rem; background: ${offer.bgGradient}; border-left: 4px solid ${offer.borderColor}; display: flex; align-items: center; justify-content: space-between;">
+          <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <div style="font-size: 2.5rem; flex-shrink: 0;">${offer.icon}</div>
+            <div>
+              <div style="font-weight: 700; color: #333; font-size: 1.1rem; margin-bottom: 0.25rem;">${offer.title}</div>
+              <div style="color: #666; font-size: 0.9rem;">${offer.desc}</div>
+            </div>
+          </div>
+          <div style="color: ${offer.borderColor}; font-weight: 700; font-size: 1.5rem;">${offer.badge}</div>
         </div>
       `).join('');
-      dotsContainer.innerHTML = offerData.map((_, i) => `<button onclick="goToOffer(${i})" style="width: 8px; height: 8px; border-radius: 50%; background: ${i === 0 ? '#c9945f' : '#ddd'}; border: none;"></button>`).join('');
+
+      dotsContainer.innerHTML = offerData.map((_, i) => `
+        <button onclick="goToOffer(${i})" style="width: 10px; height: 10px; border-radius: 50%; background: ${i === 0 ? '#c9945f' : '#ddd'}; border: none; cursor: pointer; transition: background 0.3s; padding: 0;"></button>
+      `).join('');
     }
 
     function updateOfferCarousel() {
       const track = document.getElementById('offersTrack');
-      if(track) track.style.transform = `translateX(-${currentOfferIndex * 100}%)`;
-    }
-    function nextOffer() { currentOfferIndex = (currentOfferIndex + 1) % totalOffers; updateOfferCarousel(); }
-    function prevOffer() { currentOfferIndex = (currentOfferIndex - 1 + totalOffers) % totalOffers; updateOfferCarousel(); }
-    function goToOffer(index) { currentOfferIndex = index; updateOfferCarousel(); }
-    function startOfferAutoplay() { offerAutoplayInterval = setInterval(nextOffer, 4000); }
-    function stopOfferAutoplay() { clearInterval(offerAutoplayInterval); }
+      track.style.transform = `translateX(-${currentOfferIndex * 100}%)`;
 
+      const dots = document.getElementById('offerDots').children;
+      Array.from(dots).forEach((dot, i) => {
+        dot.style.background = i === currentOfferIndex ? '#c9945f' : '#ddd';
+      });
+    }
+
+    function nextOffer() { 
+      currentOfferIndex = (currentOfferIndex + 1) % totalOffers; 
+      updateOfferCarousel(); 
+      resetOfferAutoplay();
+    }
+    
+    function prevOffer() { 
+      currentOfferIndex = (currentOfferIndex - 1 + totalOffers) % totalOffers; 
+      updateOfferCarousel(); 
+      resetOfferAutoplay();
+    }
+
+    function goToOffer(index) {
+      currentOfferIndex = index;
+      updateOfferCarousel();
+      resetOfferAutoplay();
+    }
+
+    function startOfferAutoplay() {
+      if (offerAutoplayInterval) clearInterval(offerAutoplayInterval);
+      offerAutoplayInterval = setInterval(() => { 
+        currentOfferIndex = (currentOfferIndex + 1) % totalOffers; 
+        updateOfferCarousel(); 
+      }, 4000);
+    }
+    
+    function stopOfferAutoplay() { 
+      if (offerAutoplayInterval) clearInterval(offerAutoplayInterval); 
+    }
+
+    function resetOfferAutoplay() {
+      stopOfferAutoplay();
+      startOfferAutoplay();
+    }
+
+    let bannerImage = 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=2000&auto=format&fit=crop';
+    
     let editMode = false;
-    let editableContent = { storeName: 'Petopia', bannerTitle: '讓毛孩吃得好、玩得開心，你放心', bannerSubtitle: '這就是寵托邦 — 懂你毛孩的寵物生活平台', companyName: '寵托邦有限公司', companyPhone: '1800-PETPET', companyEmail: 'service@petopia.com', primaryColor: '#d4a574', secondaryColor: '#c9945f', textColor: '#333333' };
+    let editableContent = {
+      storeName: 'Petopia',
+      bannerTitle: '讓毛孩吃得好、玩得開心，你放心',
+      bannerSubtitle: '這就是寵托邦 — 懂你毛孩的寵物生活平台',
+      companyName: '寵托邦有限公司',
+      companyPhone: '1800-PETPET',
+      companyEmail: 'service@petopia.com',
+      primaryColor: '#d4a574',
+      secondaryColor: '#c9945f',
+      textColor: '#333333',
+      navbarGradientStart: '#d4a574',
+      navbarGradientEnd: '#c9945f'
+    };
+
+    let configHistory = [];
+    let lastSyncTime = new Date();
 
     function toggleEditMode() {
       editMode = !editMode;
       const editPanel = document.getElementById('editPanel');
-      editPanel.style.display = editMode ? 'block' : 'none';
+      const editBtn = document.getElementById('editModeBtn');
+      
+      if (editMode) {
+        editPanel.style.display = 'block';
+        editBtn.style.background = '#ff7043';
+        document.body.style.marginRight = '350px';
+        loadEditValues();
+      } else {
+        editPanel.style.display = 'none';
+        editBtn.style.background = 'linear-gradient(135deg, #d4a574 0%, #c9945f 100%)';
+        document.body.style.marginRight = '0';
+      }
     }
-    function updateStoreName() { editableContent.storeName = document.getElementById('editStoreName').value; document.getElementById('logoName').textContent = editableContent.storeName; }
-    function updateBannerTitle() { editableContent.bannerTitle = document.getElementById('editBannerTitle').value; document.getElementById('bannerTitleText').textContent = editableContent.bannerTitle; }
-    function updateBannerSubtitle() { editableContent.bannerSubtitle = document.getElementById('editBannerSubtitle').value; document.getElementById('bannerSubtitleText').textContent = editableContent.bannerSubtitle; }
 
+    function loadEditValues() {
+      document.getElementById('editStoreName').value = editableContent.storeName;
+      document.getElementById('editBannerTitle').value = editableContent.bannerTitle;
+      document.getElementById('editBannerSubtitle').value = editableContent.bannerSubtitle;
+      document.getElementById('editCompanyName').value = editableContent.companyName;
+      document.getElementById('editCompanyPhone').value = editableContent.companyPhone;
+      document.getElementById('editCompanyEmail').value = editableContent.companyEmail;
+    }
+
+    function updateStoreName() {
+      const value = document.getElementById('editStoreName').value;
+      if (value.trim()) {
+        editableContent.storeName = value;
+        document.getElementById('logoName').textContent = value;
+      }
+    }
+
+    function updateBannerTitle() {
+      const value = document.getElementById('editBannerTitle').value;
+      if (value.trim()) {
+        editableContent.bannerTitle = value;
+        document.getElementById('bannerTitleText').textContent = value;
+      }
+    }
+
+    function updateBannerSubtitle() {
+      const value = document.getElementById('editBannerSubtitle').value;
+      if (value.trim()) {
+        editableContent.bannerSubtitle = value;
+        document.getElementById('bannerSubtitleText').textContent = value;
+      }
+    }
+
+    function updateCompanyName() {
+      const value = document.getElementById('editCompanyName').value;
+      if (value.trim()) {
+        editableContent.companyName = value;
+      }
+    }
+
+    function updateCompanyPhone() {
+      const value = document.getElementById('editCompanyPhone').value;
+      if (value.trim()) {
+        editableContent.companyPhone = value;
+      }
+    }
+
+    function updateCompanyEmail() {
+      const value = document.getElementById('editCompanyEmail').value;
+      if (value.trim()) {
+        editableContent.companyEmail = value;
+      }
+    }
+
+    async function saveConfigToSheet() {
+      const configData = {
+        id: 'config-' + new Date().getTime(),
+        config_type: 'platform_config',
+        store_name: editableContent.storeName,
+        banner_title: editableContent.bannerTitle,
+        banner_subtitle: editableContent.bannerSubtitle,
+        company_name: editableContent.companyName,
+        company_phone: editableContent.companyPhone,
+        company_email: editableContent.companyEmail,
+        primary_color: editableContent.primaryColor,
+        secondary_color: editableContent.secondaryColor,
+        text_color: editableContent.textColor,
+        navbar_gradient_start: editableContent.navbarGradientStart,
+        navbar_gradient_end: editableContent.navbarGradientEnd,
+        last_updated_by: '編輯者 ' + Math.floor(Math.random() * 1000),
+        last_updated_at: new Date().toISOString(),
+        timestamp: new Date().toISOString()
+      };
+
+      const result = await window.dataSdk.create(configData);
+      if (result.isOk) {
+        configHistory.push(configData);
+        lastSyncTime = new Date();
+        showToast('💾 版面設定已保存到共享表單！');
+      }
+    }
+
+    function openColorEditor() {
+      const modal = document.createElement('div');
+      modal.className = 'modal active';
+      modal.innerHTML = `<div class="modal-content" style="max-width: 500px;">
+          <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
+          <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; color: #333;">🎨 版面色彩編輯</h3>
+          <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">主要色彩</label>
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <input type="color" id="primaryColorInput" value="${editableContent.primaryColor}" style="width: 60px; height: 60px; border: none; border-radius: 8px; cursor: pointer;">
+                <div style="flex: 1;">
+                  <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">用於按鈕、強調文字</div>
+                  <input type="text" id="primaryColorText" value="${editableContent.primaryColor}" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-family: monospace; font-size: 0.9rem;" onchange="updateColorFromText('primary')">
+                </div>
+              </div>
+            </div>
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">次要色彩</label>
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <input type="color" id="secondaryColorInput" value="${editableContent.secondaryColor}" style="width: 60px; height: 60px; border: none; border-radius: 8px; cursor: pointer;">
+                <div style="flex: 1;">
+                  <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">用於導航列、邊框</div>
+                  <input type="text" id="secondaryColorText" value="${editableContent.secondaryColor}" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-family: monospace; font-size: 0.9rem;" onchange="updateColorFromText('secondary')">
+                </div>
+              </div>
+            </div>
+            <div>
+              <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">文字色彩</label>
+              <div style="display: flex; gap: 1rem; align-items: center;">
+                <input type="color" id="textColorInput" value="${editableContent.textColor}" style="width: 60px; height: 60px; border: none; border-radius: 8px; cursor: pointer;">
+                <div style="flex: 1;">
+                  <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">用於主要文字內容</div>
+                  <input type="text" id="textColorText" value="${editableContent.textColor}" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 6px; font-family: monospace; font-size: 0.9rem;" onchange="updateColorFromText('text')">
+                </div>
+              </div>
+            </div>
+            <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+              <strong style="display: block; margin-bottom: 0.75rem; color: #333;">🎭 快速色彩方案</strong>
+              <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem;">
+                <button onclick="applyColorScheme('warm')" style="padding: 0.5rem; background: linear-gradient(135deg, #d4a574 0%, #c9945f 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem;">🟤 暖色系</button>
+                <button onclick="applyColorScheme('cool')" style="padding: 0.5rem; background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem;">🔵 冷色系</button>
+                <button onclick="applyColorScheme('fresh')" style="padding: 0.5rem; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem;">🟢 活力系</button>
+                <button onclick="applyColorScheme('sunset')" style="padding: 0.5rem; background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.85rem;">🟠 日落系</button>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+            <button class="cta-button" style="flex: 1;" onclick="applyColorsAndSave(); this.closest('.modal').remove();">✅ 套用設定</button>
+            <button style="flex: 1; background: white; color: #c9945f; border: 2px solid #c9945f; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600;" onclick="this.closest('.modal').remove();">取消</button>
+          </div>
+        </div>`;
+      document.body.appendChild(modal);
+    }
+
+    function updateColorFromText(type) {
+      const textInput = document.getElementById(type + 'ColorText');
+      const colorInput = document.getElementById(type + 'ColorInput');
+      const value = textInput.value;
+      if (/^#[0-9A-F]{6}$/i.test(value)) {
+        colorInput.value = value;
+      }
+    }
+
+    function applyColorScheme(scheme) {
+      const schemes = {
+        warm: { primary: '#d4a574', secondary: '#c9945f', text: '#333333' },
+        cool: { primary: '#2196F3', secondary: '#1976D2', text: '#333333' },
+        fresh: { primary: '#22c55e', secondary: '#16a34a', text: '#333333' },
+        sunset: { primary: '#ff7043', secondary: '#ff5722', text: '#333333' }
+      };
+      const colors = schemes[scheme];
+      if (colors) {
+        document.getElementById('primaryColorInput').value = colors.primary;
+        document.getElementById('primaryColorText').value = colors.primary;
+        document.getElementById('secondaryColorInput').value = colors.secondary;
+        document.getElementById('secondaryColorText').value = colors.secondary;
+        document.getElementById('textColorInput').value = colors.text;
+        document.getElementById('textColorText').value = colors.text;
+      }
+    }
+
+    function applyColorsAndSave() {
+      editableContent.primaryColor = document.getElementById('primaryColorInput').value;
+      editableContent.secondaryColor = document.getElementById('secondaryColorInput').value;
+      editableContent.textColor = document.getElementById('textColorInput').value;
+      applyColors();
+      saveConfigToSheet();
+    }
+
+    function applyColors() {
+      const root = document.documentElement;
+      const style = document.createElement('style');
+      style.id = 'dynamic-colors';
+      const oldStyle = document.getElementById('dynamic-colors');
+      if (oldStyle) oldStyle.remove();
+      style.textContent = `
+        .navbar { background: linear-gradient(135deg, ${editableContent.primaryColor} 0%, ${editableContent.secondaryColor} 100%); }
+        .cta-button, .nav-tab.active, .add-cart-btn { background: linear-gradient(135deg, ${editableContent.primaryColor} 0%, ${editableContent.secondaryColor} 100%); }
+        .product-price, .summary-total span:last-child { color: ${editableContent.secondaryColor}; }
+        body, .product-name, .post-author, .pet-name { color: ${editableContent.textColor}; }
+        .filter-btn.active { background: ${editableContent.secondaryColor}; border-color: ${editableContent.secondaryColor}; }
+        .sort-select:focus, .search-input:focus { border-color: ${editableContent.secondaryColor}; }
+      `;
+      document.head.appendChild(style);
+      showToast('🎨 色彩設定已套用！');
+    }
+
+    async function syncConfigFromSheet() {
+      if (configHistory.length > 0) {
+        const latestConfig = configHistory[configHistory.length - 1];
+        if (new Date(latestConfig.last_updated_at) > lastSyncTime) {
+          editableContent.primaryColor = latestConfig.primary_color || editableContent.primaryColor;
+          editableContent.secondaryColor = latestConfig.secondary_color || editableContent.secondaryColor;
+          editableContent.textColor = latestConfig.text_color || editableContent.textColor;
+          applyColors();
+          lastSyncTime = new Date();
+        }
+      }
+    }
+    setInterval(syncConfigFromSheet, 5000);
+    
     const knowledgeArticles = [
-      { icon: '🥩', title: '鮮肉與副產品肉粉的巨大差異', subtitle: '如何看懂寵物食品成分表第一位', content: '許多廉價飼料的第一項成分往往是「禽肉粉（Meat Meal）」，這是經過高溫高壓榨油後剩下的殘渣，營養價值與生物利用率遠低於新鮮原肉。Petopia 堅持提倡選擇肉品種類標示明確（如：新鮮去骨雞肉）的主食，拒絕標記不明的肉粉。' },
-      { icon: '🐱', title: '貓咪慢性腎臟病的前兆與日常補水', subtitle: '為什麼你的貓總是討厭水碗？', content: '貓咪祖先來自沙漠，天生對口渴的敏感度較低，長期吃乾飼料容易處於慢性脫水狀態。若發現貓咪飲水量突然暴增、尿量變大，可能是腎臟發出的警訊。建議採用濕食（罐頭）配合流動水以增加飲水量。' },
-      { icon: '💊', title: '腸胃敏感毛孩的益生菌挑選指南', subtitle: '活菌數越多就真的越好嗎？', content: '市售益生菌琳瑯滿目，但真正能通過胃酸直達腸道的活菌才是關鍵。挑選時應認明具有「包埋技術」的菌株，並且配合「益生元（如菊糖、果寡糖）」作為菌叢的食物，才能有效建立健康的腸道微生態。' }
+      { icon: '🧑‍⚕️', title: '獸醫推薦專欄', subtitle: '狗狗的營養需求與挑選要訣', content: '新鮮肉質、完整營養補充、定期檢查是狗狗健康的三大要素。' },
+      { icon: '🐱', title: '貓咪知識', subtitle: '為什麼貓咪總是挑食？', content: '貓咪天生是獵人，對食物味道和質地很敏感。' },
+      { icon: '❓', title: '常見問題', subtitle: '家裡哪些東西對寵物有危險？', content: '某些食物、植物、清潔用品對毛孩有毒性。' },
+      { icon: '💚', title: '健康管理', subtitle: '毛孩年度檢查清單', content: '定期健康檢查是預防疾病的最好方法。' },
+      { icon: '🥗', title: '營養知識', subtitle: '五大營養要素解析', content: '蛋白質、脂肪、碳水化合物、維生素、礦物質，缺一不可。' },
+      { icon: '🎓', title: '行為訓練', subtitle: '狗狗吠叫解決方案', content: '過度吠叫通常代表焦慮、無聊或求注意。' }
     ];
     
+    let productImages = {}; 
     const sampleProducts = [
-      { id: '1', name: '新鮮雞肉罐頭 400g', category: '食品', price: 189, image: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?q=80&w=400&auto=format&fit=crop', rating: 4.9, reviews: 2, sales: 1250, stock: 'in-stock', stockQuantity: 142, description: '100% 新鮮無基改雞肉，通過全方位國際認證，無防腐劑調配。', specs: { weight: '400g' }, ingredients: '新鮮去骨雞肉 95%、魚油、牛磺酸、綜合維生素' },
-      { id: '2', name: '全自動極光羽毛逗貓棒', category: '玩具', price: 89, image: '🪶', rating: 4.5, reviews: 0, sales: 432, stock: 'in-stock', stockQuantity: 50, description: '不規則隨機彈跳出沒，能深度釋放室內貓咪日常精力與捕獵天性。', specs: { type: '電子玩具' }, ingredients: '安全環保 ABS、天然無毒染色羽毛' }
+      {
+        id: '1', name: '新鮮雞肉罐頭 400g', category: '食品', price: 189, image: 'canva://MAHKEvf0cQM/1', imageType: 'canva', rating: 4.9, reviews: 287, sales: 1250, stock: 'in-stock', stockQuantity: 142, description: '100% 新鮮雞肉，國際認證，零添加防腐劑。主打商品，飼主必選。', specs: { weight: '400g', type: '罐頭', petType: '狗、貓' }, ingredients: '新鮮雞肉 95%、天然膠質、維生素補充', images: ['canva://MAHKEvf0cQM/1', 'canva://MAHJ_aeQgZg/1', '📋'], faq: []
+      },
+      { id: '2', name: '羽毛逗貓棒', category: '玩具', price: 89, image: '🪶', rating: 4.8, reviews: 432, description: '激發貓咪獵捕本能，安全材質。', specs: { type: '逗貓棒', petType: '貓' }, ingredients: 'N/A', images: ['🪶', '🐱', '✨'], faq: [] },
+      { id: '3', name: '益生菌粉 100g', category: '保健', price: 329, image: '💊', rating: 4.8, reviews: 278, description: '臨床驗證，調整腸胃，增強免疫力。', specs: { weight: '100g', type: '益生菌', petType: '狗、貓' }, ingredients: 'N/A', images: ['💊', '🧬', '💪'], faq: [] },
+      { id: '4', name: '寵物床墊（記憶棉）M/L', category: '居家', price: 899, image: '🛏️', rating: 4.8, reviews: 245, description: '舒適透氣，可水洗設計。', specs: { size: 'M/L', type: '床墊', petType: '狗' }, ingredients: 'N/A', images: ['🛏️', '😴', '☁️'], faq: [] },
+      { id: '5', name: '陶瓷餐碗組 2入', category: '居家', price: 249, image: '🥣', rating: 4.9, reviews: 312, description: '易清洗，防滑底座，設計美觀。', specs: { type: '餐碗', petType: '狗、貓' }, ingredients: 'N/A', images: ['🥣', '🍽️', '✨'], faq: [] }
     ];
+
+    let currentRecordCount = 0;
+    const dataHandler = {
+      onDataChanged(data) {
+        communityPosts = data;
+        renderCommunityFeed();
+        updatePetsList();
+      }
+    };
+
+    async function initializeSDK() {
+      const result = await window.dataSdk.init(dataHandler);
+    }
+    initializeSDK();
 
     function init() {
       products = sampleProducts;
       initOffers();
       renderHotProducts();
       renderProducts();
-      renderKnowledgeArticles();
+      renderCommunityFeed();
+      renderSavedArticles();
       updateCartBadge();
+      lucide.createIcons();
     }
 
     function renderHotProducts() {
       const carousel = document.getElementById('hotCarousel');
-      if(!carousel) return;
-      carousel.innerHTML = products.map(product => `
-        <div class="carousel-item" onclick="viewProductDetail('${product.id}')">
-          <div class="product-card">
-            <div class="product-image" style="${product.image.startsWith('http') ? `background-image:url('${product.image}'); text-indent:-9999px;` : ''}">${product.image}</div>
+      carousel.innerHTML = '';
+      sampleProducts.slice(0, 6).forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'carousel-item';
+        const displayImage = productImages[product.id] && productImages[product.id].length > 0 ? productImages[product.id][0] : product.image;
+        const isUploadedImage = productImages[product.id] && productImages[product.id].length > 0;
+        const isCanvaImage = typeof displayImage === 'string' && displayImage.startsWith('canva://');
+        const isUrl = typeof displayImage === 'string' && (displayImage.startsWith('http') || displayImage.startsWith('data:'));
+        const imageStyle = (isUploadedImage || isCanvaImage || isUrl)
+          ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
+
+        card.innerHTML = `
+          <div class="product-card" onclick="viewProductDetail('${product.id}')">
+            <div class="product-image" style="${imageStyle}">
+              ${!(isUploadedImage || isCanvaImage || isUrl) ? displayImage : ''}
+              <div class="product-badge">熱銷</div>
+            </div>
             <div class="product-info">
               <div class="product-name">${product.name}</div>
+              <div class="product-category">${product.category}</div>
               <div class="product-price">$${product.price}</div>
+              <button class="add-cart-btn" onclick="addToCart('${product.id}'); event.stopPropagation();">加入購物車</button>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+        carousel.appendChild(card);
+      });
+      lucide.createIcons();
     }
 
     function renderProducts() {
       const grid = document.getElementById('productsGrid');
-      if(!grid) return;
+      grid.innerHTML = '';
       let filtered = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
-      grid.innerHTML = filtered.map(product => `
-        <div class="product-card" onclick="viewProductDetail('${product.id}')">
-          <div class="product-image" style="${product.image.startsWith('http') ? `background-image:url('${product.image}'); text-indent:-9999px;` : ''}">${product.image}</div>
+      if (currentStockFilter !== 'all') filtered = filtered.filter(p => p.stock === currentStockFilter);
+
+      if (currentSort === 'price-low') filtered.sort((a, b) => a.price - b.price);
+      else if (currentSort === 'price-high') filtered.sort((a, b) => b.price - a.price);
+      else if (currentSort === 'rating') filtered.sort((a, b) => b.rating - a.rating);
+      else if (currentSort === 'sales') filtered.sort((a, b) => b.sales - a.sales);
+
+      document.getElementById('sortResultCount').textContent = `共 ${filtered.length} 件商品`;
+      if (filtered.length === 0) {
+        grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #999;">找不到符合條件的商品</div>';
+        return;
+      }
+
+      filtered.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card' + (wishlist.includes(product.id) ? ' in-wishlist' : '');
+        card.onclick = () => viewProductDetail(product.id);
+        
+        let stockLabel = '';
+        if (product.stock === 'sold-out') stockLabel = '<div style="position: absolute; top: 10px; left: 10px; background: #999; color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">❌ 已售完</div>';
+        else if (product.stock === 'pre-order') stockLabel = '<div style="position: absolute; top: 10px; left: 10px; background: #ffc107; color: #333; padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;">⏳ 即將售完</div>';
+
+        const displayImage = productImages[product.id] && productImages[product.id].length > 0 ? productImages[product.id][0] : product.image;
+        const isUploadedImage = productImages[product.id] && productImages[product.id].length > 0;
+        const isCanvaImage = product.imageType === 'canva' || displayImage.startsWith('canva://') || displayImage.startsWith('data:');
+        const imageStyle = (isUploadedImage || isCanvaImage)
+          ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
+
+        card.innerHTML = `
+          <div class="product-image" style="${imageStyle}">
+            ${!isUploadedImage && !isCanvaImage ? displayImage : ''}
+            ${stockLabel}
+            <div class="wishlist-indicator" onclick="toggleWishlist('${product.id}'); event.stopPropagation();">
+              ${wishlist.includes(product.id) ? '❤️' : '🤍'}
+            </div>
+          </div>
           <div class="product-info">
             <div class="product-name">${product.name}</div>
+            <div class="product-category">${product.category}</div>
             <div class="product-price">$${product.price}</div>
-            <button class="add-cart-btn" onclick="addToCart('${product.id}'); event.stopPropagation();">加入購物車</button>
+            <button class="add-cart-btn" onclick="addToCart('${product.id}'); event.stopPropagation();" ${product.stock === 'sold-out' ? 'disabled' : ''} style="${product.stock === 'sold-out' ? 'opacity: 0.5; cursor: not-allowed;' : ''}">加入購物車</button>
           </div>
-        </div>
-      `).join('');
+        `;
+        grid.appendChild(card);
+      });
+      lucide.createIcons();
     }
 
     function filterCategory(category) {
@@ -1026,339 +1795,560 @@
       renderProducts();
     }
 
-    function switchTab(tabName) {
-      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-      const activeTab = document.getElementById(tabName + '-tab');
-      if(activeTab) activeTab.classList.add('active');
-      
-      document.querySelectorAll('.nav-tab').forEach(tab => {
-        tab.classList.remove('active');
-        if (tab.textContent.trim() === '首頁' && tabName === 'home') tab.classList.add('active');
-        if (tab.textContent.trim() === '商城' && tabName === 'products') tab.classList.add('active');
-        if (tab.textContent.trim() === '社群' && tabName === 'community') tab.classList.add('active');
-        if (tab.textContent.trim() === '知識專區' && tabName === 'knowledge') tab.classList.add('active');
-      });
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    function applySorting() { currentSort = document.getElementById('sortSelect').value; renderProducts(); }
+    function filterByStock() { currentStockFilter = document.getElementById('stockFilter').value; renderProducts(); }
+
+    function toggleWishlist(productId) {
+      if (wishlist.includes(productId)) { wishlist = wishlist.filter(id => id !== productId); showToast('❤️ 已從收藏移除'); }
+      else { wishlist.push(productId); showToast('❤️ 已加入收藏'); }
+      document.getElementById('wishlistCount').textContent = wishlist.length;
+      renderProducts(); renderWishlist(); updateQuickWishlist();
     }
 
-    function addToCart(productId) {
-      const product = products.find(p => p.id === productId);
-      const existing = cart.find(item => item.id === productId);
-      if (existing) existing.quantity += 1;
-      else cart.push({ ...product, quantity: 1 });
-      updateCartBadge(); renderCart(); showToast(`✅ 已將 ${product.name} 放入購物車`);
-    }
-
-    function updateCartBadge() {
-      cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-      const badge = document.getElementById('cartBadge');
-      badge.textContent = cartCount;
-      badge.style.display = cartCount > 0 ? 'flex' : 'none';
-    }
-
-    function renderCart() {
-      const tbody = document.getElementById('cartBody');
-      if(!tbody) return;
-      if(cart.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #999; padding: 2rem;">購物車是空的</td></tr>';
+    function renderWishlist() {
+      const container = document.getElementById('wishlistContainer');
+      const wishlistProducts = products.filter(p => wishlist.includes(p.id));
+      if (wishlistProducts.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 3rem 1rem; color: #999;"><div style="font-size: 3rem; margin-bottom: 1rem;">💔</div><p>還沒有收藏任何商品</p></div>';
         return;
       }
-      tbody.innerHTML = cart.map(item => `
-        <tr>
-          <td>${item.name}</td>
-          <td>${item.quantity}</td>
-          <td>$${item.price * item.quantity}</td>
-          <td><button onclick="removeFromCart('${item.id}')" style="color:red;">刪除</button></td>
-        </tr>
-      `).join('');
-      
-      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      document.getElementById('subtotal').textContent = `$${subtotal}`;
-      document.getElementById('total').textContent = `$${subtotal}`;
-    }
-
-    function removeFromCart(id) {
-      cart = cart.filter(item => item.id !== id);
-      updateCartBadge(); renderCart();
-    }
-
-    function checkout() {
-      if(cart.length === 0) { showToast('⚠️ 購物車沒有任何物品'); return; }
-      switchTab('checkout'); renderCheckout();
-    }
-
-    function renderCheckout() {
-      const content = document.getElementById('checkoutContent');
-      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      content.innerHTML = `
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; background:white; padding:2rem; border-radius:12px;">
-          <div>
-            <h3 style="font-weight:700; margin-bottom:1rem;">📍 模擬填寫訂單資訊</h3>
-            <div style="display:flex; flex-direction:column; gap:1rem;">
-              <input type="text" id="recipientName" placeholder="姓名" value="王小明" style="border:1px solid #ddd; padding:0.5rem; border-radius:6px;">
-              <input type="tel" id="recipientPhone" placeholder="電話" value="0912345678" style="border:1px solid #ddd; padding:0.5rem; border-radius:6px;">
-              <input type="text" id="recipientAddress" placeholder="配送地址" value="台中市霧峰區柳豐路500號" style="border:1px solid #ddd; padding:0.5rem; border-radius:6px;">
-              <select id="customerGender" style="border:1px solid #ddd; padding:0.5rem; border-radius:6px;"><option value="male">👨 男性</option></select>
-              <select id="customerAge" style="border:1px solid #ddd; padding:0.5rem; border-radius:6px;"><option value="26-35">26-35 歲</option></select>
-              <textarea id="purchaseReason" placeholder="購買原因" style="border:1px solid #ddd; padding:0.5rem; border-radius:6px;">想給家裡毛孩試試看</textarea>
-            </div>
+      container.innerHTML = '';
+      const grid = document.createElement('div');
+      grid.className = 'grid-products';
+      wishlistProducts.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card in-wishlist';
+        card.onclick = () => viewProductDetail(product.id);
+        const displayImage = productImages[product.id] && productImages[product.id].length > 0 ? productImages[product.id][0] : product.image;
+        const isUploadedImage = productImages[product.id] && productImages[product.id].length > 0;
+        const isCanvaImage = product.imageType === 'canva' || displayImage.startsWith('canva://') || displayImage.startsWith('data:');
+        const imageStyle = (isUploadedImage || isCanvaImage) ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
+        card.innerHTML = `
+          <div class="product-image" style="${imageStyle}">
+            ${!isUploadedImage && !isCanvaImage ? displayImage : ''}
+            <div class="wishlist-indicator" onclick="toggleWishlist('${product.id}'); event.stopPropagation();">❤️</div>
           </div>
-          <div>
-            <h3 style="font-weight:700; margin-bottom:1rem;">📋 結帳明細總計</h3>
-            <div style="font-size:1.5rem; font-weight:700; color:#ff7043; margin-bottom:1.5rem;">總計: $${subtotal}</div>
-            <button class="cta-button" style="width:100%;" onclick="processCheckout()">✅ 確認結帳</button>
+          <div class="product-info">
+            <div class="product-name">${product.name}</div>
+            <div class="product-category">${product.category}</div>
+            <div class="product-price">$${product.price}</div>
+            <button class="add-cart-btn" onclick="addToCart('${product.id}'); event.stopPropagation();">加入購物車</button>
           </div>
-        </div>
-      `;
+        `;
+        grid.appendChild(card);
+      });
+      container.appendChild(grid);
     }
 
-    async function processCheckout() {
-      const name = document.getElementById('recipientName').value.trim();
-      const phone = document.getElementById('recipientPhone').value.trim();
-      const address = document.getElementById('recipientAddress').value.trim();
-      const gender = document.getElementById('customerGender').value;
-      const age = document.getElementById('customerAge').value;
-      const reason = document.getElementById('purchaseReason').value.trim();
-
-      if (!name || !phone || !address) { showToast('⚠️ 請確實填寫收件資訊'); return; }
-
-      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      const orderId = 'ORDER-' + Date.now();
-      
-      // 問題二優化：完整保留下當前購物車內的所有明細結構（深拷貝）
-      const orderItemsSnapshot = JSON.parse(JSON.stringify(cart));
-
-      const orderRecord = {
-        id: orderId,
-        date: new Date().toLocaleDateString(),
-        total: subtotal,
-        itemsCount: cart.length,
-        itemsList: orderItemsSnapshot, // 保存結構明細以供後續閱讀
-        recipientName: name,
-        shippingMethod: '🚚 宅配到府'
-      };
-
-      orders.unshift(orderRecord);
-      cart = [];
-      updateCartBadge();
-      renderCart();
-      renderOrdersList();
-
-      showToast('✅ 模擬交易順利建立！');
-      setTimeout(() => { switchTab('member'); showOrderDetail(orderId); }, 1000);
-    }
-
-    function renderOrdersList() {
-      const container = document.getElementById('ordersList');
-      if(!container) return;
-      if(orders.length === 0) { container.innerHTML = '<p style="color:#999;">目前尚無任何模擬訂單紀錄。</p>'; return; }
-      container.innerHTML = orders.map(order => `
-        <div onclick="showOrderDetail('${order.id}')" style="background:#f9f9f9; padding:1rem; border-radius:8px; margin-bottom:0.75rem; cursor:pointer; border-left:4px solid #c9945f;">
-          <div style="display:flex; justify-content:between; font-weight:600;">
-            <span>📅 日期：${order.date} (編號: ${order.id})</span>
-            <span style="color:#ff7043; margin-left:auto;">$${order.total}</span>
+    function searchProducts() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      if (query === '') { renderProducts(); return; }
+      const grid = document.getElementById('productsGrid');
+      grid.innerHTML = '';
+      const results = products.filter(p => p.name.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+      if (results.length === 0) { grid.innerHTML = '<div style="grid-column: 1/-1; text-align: center; padding: 2rem; color: #999;">搜尋結果：找不到相關商品</div>'; return; }
+      results.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.onclick = () => viewProductDetail(product.id);
+        card.innerHTML = `
+          <div class="product-image" ${product.imageType === 'url' ? `style="background-image: url('${product.image}'); background-size: cover; background-position: center;"` : ''}>
+            ${product.imageType !== 'url' ? product.image : ''}
           </div>
-          <div style="font-size:0.85rem; color:#666; margin-top:0.25rem;">明細品項數：${order.itemsCount} 件 • 點擊此處展開商品詳情與價格</div>
-        </div>
-      `).join('');
-    }
-
-    // 問題二優化：詳細列出購買的商品名稱、數量、單價、總計
-    function showOrderDetail(orderId) {
-      const order = orders.find(o => o.id === orderId);
-      if (!order) return;
-      
-      const modal = document.getElementById('productModal');
-      const body = document.getElementById('modalBody');
-      
-      let itemsHtml = order.itemsList.map(item => `
-        <div style="display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px dashed #eee; font-size:0.95rem;">
-          <div style="color:#333;">${item.name} <span style="color:#999; font-size:0.85rem;">x ${item.quantity}</span></div>
-          <div style="font-weight:600; color:#555;">$${item.price * item.quantity} <span style="font-size:0.75rem; color:#999; font-weight:400;">($${item.price}/件)</span></div>
-        </div>
-      `).join('');
-
-      body.innerHTML = `
-        <h3 style="font-size:1.3rem; font-weight:700; margin-bottom:1rem; color:#333; text-align:center;">🧾 模擬訂單詳細明細</h3>
-        <div style="background:#f9f9f9; padding:1rem; border-radius:8px; margin-bottom:1rem; font-size:0.85rem; color:#666; line-height:1.6;">
-          <div><strong>訂單編號：</strong>${order.id}</div>
-          <div><strong>收件姓名：</strong>${order.recipientName}</div>
-          <div><strong>運送方式：</strong>${order.shippingMethod}</div>
-        </div>
-        <div style="margin:1rem 0;">
-          <h4 style="font-weight:700; border-left:3px solid #c9945f; padding-left:0.5rem; margin-bottom:0.5rem;">購入商品清單</h4>
-          ${itemsHtml}
-        </div>
-        <div style="text-align:right; font-size:1.2rem; font-weight:700; color:#ff7043; margin-top:1.5rem; border-top:2px dashed #ddd; padding-top:1rem;">
-          訂單總計金額：$${order.total}
-        </div>
-        <button class="cta-button" style="width:100%; margin-top:1.5rem;" onclick="closeModal()">關閉明細</button>
-      `;
-      modal.classList.add('active');
-    }
-
-    // 問題一修正：專區文章完整獨立 Modal 打開閱讀與渲染
-    function renderKnowledgeArticles() {
-      const grid = document.querySelector('#knowledge-tab .grid-products');
-      if(!grid) return;
-      grid.innerHTML = knowledgeArticles.map((article, idx) => `
-        <div class="community-post" style="display:flex; flex-direction:column; justify-content:space-between;">
-          <div>
-            <div style="font-size:2.5rem; margin-bottom:0.5rem;">${article.icon}</div>
-            <h3 style="font-weight:700; font-size:1.1rem; margin-bottom:0.25rem; color:#333;">${article.title}</h3>
-            <p style="color:#999; font-size:0.85rem; margin-bottom:0.75rem;">${article.subtitle}</p>
-            <p style="color:#666; font-size:0.9rem; line-height:1.5; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;">${article.content}</p>
+          <div class="product-info">
+            <div class="product-name">${product.name}</div>
+            <div class="product-category">${product.category}</div>
+            <div class="product-price">$${product.price}</div>
+            <button class="add-cart-btn" onclick="addToCart('${product.id}'); event.stopPropagation();">加入購物車</button>
           </div>
-          <div style="margin-top:1.5rem; display:flex; gap:0.5rem;">
-            <button onclick="openKnowledgeArticleDirectly(${idx})" style="flex:1; background:linear-gradient(135deg, #d4a574 0%, #c9945f 100%); color:white; padding:0.5rem; border-radius:6px; font-size:0.85rem; font-weight:600;">📖 點選進入閱讀文章</button>
-            <button onclick="saveKnowledge(${idx})" style="background:#faf9f6; border:1px solid #ddd; padding:0.5rem; border-radius:6px; font-size:0.85rem;">❤️ 收藏</button>
-          </div>
-        </div>
-      `).join('');
+        `;
+        grid.appendChild(card);
+      });
     }
 
-    function openKnowledgeArticleDirectly(idx) {
-      const article = knowledgeArticles[idx];
-      const modal = document.getElementById('productModal');
-      const body = document.getElementById('modalBody');
-      
-      body.innerHTML = `
-        <div style="text-align:center; font-size:3.5rem; margin-bottom:1rem;">${article.icon}</div>
-        <h2 style="font-size:1.4rem; font-weight:700; color:#333; margin-bottom:0.5rem; line-height:1.4;">${article.title}</h2>
-        <div style="color:#999; font-size:0.9rem; margin-bottom:1.5rem; text-align:center; border-bottom:1px solid #eee; padding-bottom:0.75rem;">${article.subtitle}</div>
-        <div style="color:#444; line-height:1.8; font-size:1rem; white-space:pre-line; margin-bottom:2rem; text-align:justify;">
-          ${article.content}
-          \n\n(提示：本篇文章隸屬於 Petopia 模擬知識庫，提供全方位最即時與客觀之貓狗科學照料核心觀念。)
-        </div>
-        <button class="cta-button" style="width:100%;" onclick="closeModal()">返回專區列表</button>
-      `;
-      modal.classList.add('active');
-    }
-
-    function saveKnowledge(idx) {
-      const article = knowledgeArticles[idx];
-      if(!savedArticles.some(a => a.title === article.title)) {
-        savedArticles.push(article);
-        showToast('❤️ 已成功收藏此文');
-        renderSavedArticles();
-      } else {
-        showToast('⚠️ 這篇文章先前已加入收藏');
-      }
-    }
-
-    function renderSavedArticles() {
-      const container = document.getElementById('savedArticlesList');
-      if(!container) return;
-      if(savedArticles.length === 0) { container.innerHTML = '<p style="color:#999;">還沒有收藏文章</p>'; return; }
-      container.innerHTML = savedArticles.map(art => `<div style="background:#fafafa; padding:0.5rem; margin-bottom:0.5rem; border-left:3px solid #c9945f;">📌 ${art.title}</div>`).join('');
-    }
-
-    // 問題三：深度查看商品特色與即時星級評論系統
     function viewProductDetail(productId) {
       const product = products.find(p => p.id === productId);
       if (!product) return;
       const modal = document.getElementById('productModal');
       const body = document.getElementById('modalBody');
       
-      // 確保該商品在物件中有建立評論陣列，否則給空陣列
-      if (!productReviewsStore[productId]) {
-        productReviewsStore[productId] = [];
-      }
+      let stockClass = ''; let stockText = '有貨';
+      if (product.stock === 'sold-out') { stockClass = 'background: #999;'; stockText = '❌ 已售完'; }
+      else if (product.stock === 'pre-order') { stockClass = 'background: #ffc107; color: #333;'; stockText = '⏳ 即將售完'; }
+      else if (product.stockQuantity < 10) { stockClass = 'background: #ff7043;'; stockText = '🔥 僅剩 ' + product.stockQuantity + ' 件'; }
 
-      const reviewsList = productReviewsStore[productId];
+      const displayImages = productImages[productId] && productImages[productId].length > 0 ? productImages[productId] : (product.images || [product.image]);
       
-      // 計算即時平均星等
-      let dynamicRating = product.rating;
-      if (reviewsList.length > 0) {
-        const totalStars = reviewsList.reduce((sum, r) => sum + r.rating, 0);
-        dynamicRating = (totalStars / reviewsList.length).toFixed(1);
-      }
-
-      let reviewsHtml = reviewsList.length === 0 
-        ? '<p style="color:#999; font-size:0.85rem; text-align:center; padding:1rem 0;">⭐ 尚無歷史評論。歡迎購入體驗並留下第一筆心得！</p>'
-        : reviewsList.map(r => `
-            <div style="background:#f9f9f9; padding:0.75rem; border-radius:8px; margin-bottom:0.5rem; font-size:0.85rem;">
-              <div style="display:flex; justify-content:space-between; color:#444; font-weight:600; margin-bottom:0.25rem;">
-                <span>👤 ${r.author}</span>
-                <span style="color:#ffc107;">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</span>
-              </div>
-              <div style="color:#666;">${r.text}</div>
-              <div style="font-size:0.75rem; color:#ccc; text-align:right; margin-top:0.25rem;">${r.time}</div>
+      const imageGallery = displayImages && displayImages.length > 0 ? `
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; overflow-x: auto; padding-bottom: 0.5rem;">
+          ${displayImages.map((img, idx) => {
+            const isUrl = img.startsWith('http') || img.startsWith('data:');
+            const isCanva = img.startsWith('canva://');
+            return `
+            <div onclick="switchMainImage(${idx}, '${productId}')" style="width: 60px; height: 60px; flex-shrink: 0; border-radius: 8px; background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; border: 2px solid ${idx === 0 ? '#c9945f' : '#ddd'}; transition: all 0.3s; overflow: hidden; background-image: ${(isUrl || isCanva) ? `url('${img}')` : 'none'}; background-size: cover; background-position: center;">
+              ${!(isUrl || isCanva) ? img : ''}
             </div>
-          `).join('');
+          `;
+          }).join('')}
+        </div>
+      ` : '';
+      
+      let mainImageStyle = ''; let mainImageEmoji = '';
+      const firstImage = displayImages && displayImages.length > 0 ? displayImages[0] : product.image;
+      if (typeof firstImage === 'string' && (firstImage.startsWith('http') || firstImage.startsWith('data:') || firstImage.startsWith('canva://'))) {
+        mainImageStyle = `background-image: url('${firstImage}');`;
+      } else if (typeof firstImage === 'string') {
+        mainImageEmoji = firstImage;
+      }
+      const mainImageHtml = `<div class="product-detail-image" id="mainProductImage" style="${mainImageStyle}">${mainImageEmoji}</div>`;
 
       body.innerHTML = `
+        <div style="margin-bottom: 1.5rem;">${mainImageHtml}${imageGallery}</div>
         <h2 class="product-detail-title">${product.name}</h2>
-        <div style="color:#c9945f; font-size:1.3rem; font-weight:700; margin-bottom:0.5rem;">$${product.price}</div>
-        <div style="font-size:0.9rem; color:#666; background:#fdfbf7; padding:0.75rem; border-radius:6px; line-height:1.5; margin-bottom:1rem;">
-          <strong>💡 商品規格特色：</strong>${product.description}
+        <div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem;">
+          <div class="rating"><span>⭐ ${product.rating}</span></div>
+          <div style="padding: 0.5rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600; color: white; ${stockClass}">${stockText}</div>
         </div>
-        
-        <div style="border-top:1px solid #eee; padding-top:1rem; margin-top:1rem;">
-          <h4 style="font-weight:700; margin-bottom:0.5rem; font-size:0.95rem; color:#333;">✍️ 撰寫您的真實評價 (模擬體驗)</h4>
-          <div class="star-rating" style="margin-bottom:0.5rem; display:flex; gap:0.25rem; color:#ffc107;">
-            <span onclick="setReviewStar(1, '${productId}')" id="star-1">★</span>
-            <span onclick="setReviewStar(2, '${productId}')" id="star-2">★</span>
-            <span onclick="setReviewStar(3, '${productId}')" id="star-3">★</span>
-            <span onclick="setReviewStar(4, '${productId}')" id="star-4">★</span>
-            <span onclick="setReviewStar(5, '${productId}')" id="star-5">★</span>
-          </div>
-          <div style="display:flex; gap:0.5rem;">
-            <input type="text" id="newReviewText" placeholder="請在此輸入商品心得與評論..." style="flex:1; border:1px solid #ddd; padding:0.5rem; border-radius:6px; font-size:0.85rem;">
-            <button onclick="submitReview('${productId}')" style="background:#c9945f; color:white; padding:0 1rem; border-radius:6px; font-size:0.85rem; font-weight:600;">送出</button>
-          </div>
+        <div class="product-detail-price">$${product.price}</div>
+        <h3 style="font-weight: 600; color: #333; margin: 1.5rem 0 1rem;">💡 商品特色</h3>
+        <p style="color: #666; line-height: 1.6; margin-bottom: 1.5rem;">${product.description}</p>
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+          <button class="cta-button" style="flex: 1;" onclick="addToCart('${product.id}'); closeModal(); showToast('✅ 已加入購物車');" ${product.stock === 'sold-out' ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>加入購物車</button>
         </div>
-
-        <div style="margin-top:1.5rem;">
-          <h4 style="font-weight:700; margin-bottom:0.5rem; font-size:0.95rem; color:#333;">💬 歷來顧客評價回饋 (當前星等: ⭐ ${dynamicRating} / ${reviewsList.length + product.reviews} 則)</h4>
-          <div style="max-height:180px; overflow-y:auto; padding-right:0.25rem;">
-            ${reviewsHtml}
-          </div>
-        </div>
-
-        <button class="add-cart-btn" style="margin-top:1.5rem;" onclick="addToCart('${product.id}'); closeModal();">🛒 加入購物車</button>
       `;
       modal.classList.add('active');
-      selectedRating = 5; // 重設預設為五星
-      updateStarDisplay();
     }
 
-    function setReviewStar(num, pid) {
-      selectedRating = num;
-      updateStarDisplay();
+    window.switchMainImage = function(idx, productId) {
+      const product = products.find(p => p.id === productId);
+      if (!product) return;
+      const displayImages = productImages[productId] && productImages[productId].length > 0 ? productImages[productId] : (product.images || [product.image]);
+      const mainImage = document.getElementById('mainProductImage');
+      const img = displayImages[idx];
+      const isUrl = img.startsWith('http') || img.startsWith('data:');
+      const isCanva = img.startsWith('canva://');
+      if (isUrl || isCanva) {
+        mainImage.style.backgroundImage = `url('${img}')`; mainImage.style.backgroundSize = 'cover'; mainImage.style.backgroundPosition = 'center'; mainImage.textContent = '';
+      } else { mainImage.style.backgroundImage = 'none'; mainImage.textContent = img; }
+      document.querySelectorAll('[onclick*="switchMainImage"]').forEach((el, i) => { el.style.borderColor = i === idx ? '#c9945f' : '#ddd'; });
+    };
+
+    function toggleFaq(element) { element.nextElementSibling.classList.toggle('show'); }
+    function closeModal() { document.getElementById('productModal').classList.remove('active'); }
+
+    function addToCart(productId) {
+      const product = products.find(p => p.id === productId);
+      const existingItem = cart.find(item => item.id === productId);
+      if (existingItem) existingItem.quantity += 1;
+      else cart.push({ ...product, quantity: 1 });
+      updateCartBadge(); renderCart(); showToast(`✅ ${product.name} 已加入購物車`);
     }
 
-    function updateStarDisplay() {
-      for (let i = 1; i <= 5; i++) {
-        const star = document.getElementById(`star-${i}`);
-        if(star) star.style.color = i <= selectedRating ? '#ffc107' : '#ddd';
+    function updateCartBadge() {
+      cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const badge = document.getElementById('cartBadge');
+      if (cartCount > 0) { badge.textContent = cartCount; badge.style.display = 'flex'; } else { badge.style.display = 'none'; }
+    }
+
+    function renderCart() {
+      const tbody = document.getElementById('cartBody');
+      const subtotalEl = document.getElementById('subtotal');
+      const discountEl = document.getElementById('discount');
+      const shippingEl = document.getElementById('shipping');
+      const totalEl = document.getElementById('total');
+
+      if (cart.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; color: #999; padding: 2rem;">購物車是空的，快去選購商品吧！</td></tr>';
+        subtotalEl.textContent = '$0'; discountEl.textContent = '-$0'; shippingEl.textContent = '$0'; totalEl.textContent = '$0';
+        return;
       }
+
+      tbody.innerHTML = cart.map(item => `
+        <tr>
+          <td>
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 50px; height: 50px; border-radius: 8px; background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; ${item.imageType === 'url' || item.imageType === 'canva' ? `background-image: url('${item.image}'); background-size: cover; background-position: center;` : ''}">${item.imageType !== 'url' && item.imageType !== 'canva' ? item.image : ''}</div>
+              <div><div class="cart-item-name">${item.name}</div><div style="font-size: 0.8rem; color: #999;">$${item.price}</div></div>
+            </div>
+          </td>
+          <td><div class="quantity-control"><button class="qty-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">−</button><span style="width: 30px; text-align: center;">${item.quantity}</span><button class="qty-btn" onclick="updateQuantity('${item.id}', ${item.quantity + 1})">+</button></div></td>
+          <td style="font-weight: 600;">$${item.price * item.quantity}</td>
+          <td><button style="background: none; border: none; color: #ff3b30; cursor: pointer; font-weight: 600;" onclick="removeFromCart('${item.id}')">刪除</button></td>
+        </tr>
+      `).join('');
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const discount = document.getElementById('couponInput').value === 'FIRST70' ? Math.floor(subtotal * 0.3) : 0;
+      const shipping = subtotal >= 999 ? 0 : 80;
+      const total = subtotal - discount + shipping;
+
+      subtotalEl.textContent = `$${subtotal}`; discountEl.textContent = discount > 0 ? `-$${discount}` : '-$0'; shippingEl.textContent = `$${shipping}`; totalEl.textContent = `$${total}`;
     }
 
-    function submitReview(productId) {
-      const txtInput = document.getElementById('newReviewText');
-      if(!txtInput || !txtInput.value.trim()) { showToast('⚠️ 請先輸入評論心得文字內容喔'); return; }
+    function updateQuantity(productId, newQuantity) {
+      if (newQuantity <= 0) { removeFromCart(productId); return; }
+      const item = cart.find(p => p.id === productId);
+      if (item) { item.quantity = newQuantity; updateCartBadge(); renderCart(); }
+    }
+
+    function removeFromCart(productId) {
+      cart = cart.filter(item => item.id !== productId);
+      updateCartBadge(); renderCart(); showToast('❌ 已從購物車移除');
+    }
+
+    function applyCoupon() {
+      const coupon = document.getElementById('couponInput').value;
+      if (coupon === 'FIRST70') { showToast('✅ 優惠碼已套用 - 享 7 折優惠'); renderCart(); }
+      else if (coupon === '') { showToast('⚠️ 請輸入優惠碼'); } else { showToast('❌ 優惠碼無效'); }
+    }
+
+    function checkout() {
+      if (cart.length === 0) { showToast('⚠️ 購物車是空的'); return; }
+      switchTab('checkout'); renderCheckout();
+    }
+
+    function renderCheckout() {
+      const checkoutContent = document.getElementById('checkoutContent');
+      if (!checkoutContent) return;
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const discount = document.getElementById('couponInput')?.value === 'FIRST70' ? Math.floor(subtotal * 0.3) : 0;
+      const shipping = subtotal >= 999 ? 0 : 80;
+      const total = subtotal - discount + shipping;
+      checkoutContent.innerHTML = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">${getCheckoutHTML(subtotal, discount, shipping, total)}</div>`;
+    }
+
+    function getCheckoutHTML(subtotal, discount, shipping, total) {
+      return `<div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><span>📍</span> 收件資訊</h3><div style="display: flex; flex-direction: column; gap: 1rem;"><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">收件人姓名</label><input type="text" id="recipientName" placeholder="例：王小明" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">聯絡電話</label><input type="tel" id="recipientPhone" placeholder="例：0912-345-678" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">寄送地址</label><input type="text" id="recipientAddress" placeholder="例：台北市信義區 XX 街 123 號 5 樓" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">配送方式</label><div style="display: flex; gap: 1rem;"><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="home" checked style="cursor: pointer;"><span>🚚 宅配到府</span></label><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="store" style="cursor: pointer;"><span>🏪 超商取貨</span></label></div></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的性別</label><select id="customerGender" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇性別 --</option><option value="male">👨 男性</option><option value="female">👩 女性</option><option value="other">🤝 其他</option><option value="prefer-not">❓ 不願透露</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的年齡</label><select id="customerAge" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇年齡群組 --</option><option value="18-25">18-25 歲</option><option value="26-35">26-35 歲</option><option value="36-45">36-45 歲</option><option value="46-55">46-55 歲</option><option value="56-65">56-65 歲</option><option value="65+">65 歲以上</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">購買的原因為何？</label><textarea id="purchaseReason" placeholder="例如：毛孩皮膚問題..." style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; resize: vertical; min-height: 80px;"></textarea></div></div></div></div><div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: sticky; top: 1rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem;">📋 訂單摘要</h3><div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; max-height: 300px; overflow-y: auto;">${cart.map(item => `<div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #eee;"><div><div style="font-weight: 600; color: #333;">${item.name}</div><div style="font-size: 0.85rem; color: #999;">×${item.quantity}</div></div><div style="font-weight: 600; color: #c9945f;">$${(item.price * item.quantity).toLocaleString()}</div></div>`).join('')}</div><div style="border-top: 2px solid #eee; padding-top: 1rem;"><div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #666;"><span>商品小計</span><span>$${subtotal.toLocaleString()}</span></div>${discount > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #ff7043;"><span>✨ 優惠折扣 (FIRST70)</span><span>-$${discount.toLocaleString()}</span></div>` : ''}<div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #666;"><span>🚚 運費</span><span>${shipping === 0 ? '✅ 免運' : '$' + shipping}</span></div><div style="display: flex; justify-content: space-between; padding: 1rem 0; border-top: 2px solid #eee; font-size: 1.25rem; font-weight: 700; color: #333;"><span>總計</span><span style="color: #ff7043;">$${total.toLocaleString()}</span></div></div><div style="display: flex; gap: 1rem;"><button class="cta-button" style="flex: 1;" onclick="processCheckout()">✅ 確認結帳</button><button style="width: 100%; margin-top: 0.75rem; padding: 0.75rem; background: white; border: 2px solid #ddd; color: #666; border-radius: 8px; cursor: pointer; font-weight: 600;" onclick="switchTab('cart')">返回購物車</button></div></div></div>`;
+    }
+
+    async function processCheckout() {
+      // 精準獲取 DOM 元素，防止 Optional Chaining 導致錯誤被吞噬
+      const nameInput = document.getElementById('recipientName');
+      const phoneInput = document.getElementById('recipientPhone');
+      const addressInput = document.getElementById('recipientAddress');
+      const genderSelect = document.getElementById('customerGender');
+      const ageSelect = document.getElementById('customerAge');
+      const reasonInput = document.getElementById('purchaseReason');
+      const shippingRadio = document.querySelector('input[name="shipping"]:checked');
+
+      const name = nameInput ? nameInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const address = addressInput ? addressInput.value.trim() : '';
+      const shippingMethod = shippingRadio ? shippingRadio.value : 'home';
+      const customerGender = genderSelect ? genderSelect.value : '';
+      const customerAge = ageSelect ? ageSelect.value : '';
+      const purchaseReason = reasonInput ? reasonInput.value.trim() : '未填寫';
+
+      // 嚴格且明確的表單欄位驗證，並明確跳出對應提示
+      if (!name) { showToast('⚠️ 請填寫收件人姓名'); return; }
+      if (!phone) { showToast('⚠️ 請填寫聯絡電話'); return; }
+      if (!address) { showToast('⚠️ 請填寫寄送地址'); return; }
+      if (!customerGender) { showToast('⚠️ 請選擇您的性別'); return; }
+      if (!customerAge) { showToast('⚠️ 請選擇您的年齡群組'); return; }
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const couponInput = document.getElementById('couponInput');
+      const discount = (couponInput && couponInput.value === 'FIRST70') ? Math.floor(subtotal * 0.3) : 0;
+      const shipping = subtotal >= 999 ? 0 : 80;
+      const total = subtotal - discount + shipping;
+      const orderId = 'ORDER-' + Date.now();
+      const itemsList = cart.map(item => `${item.name} (×${item.quantity}, $${item.price * item.quantity})`).join(' | ');
       
-      const newComment = {
-        author: '毛家長客群 ' + Math.floor(Math.random() * 900 + 100),
-        rating: selectedRating,
-        text: txtInput.value.trim(),
-        time: new Date().toLocaleDateString()
+      const orderData = { 
+        id: 'order-' + orderId, 
+        order_id: orderId, 
+        recipient_name: name, 
+        recipient_phone: phone, 
+        recipient_address: address, 
+        shipping_method: shippingMethod === 'home' ? '宅配到府' : '超商取貨', 
+        customer_gender: customerGender, 
+        customer_age: customerAge, 
+        purchase_reason: purchaseReason || '未填寫', 
+        items_list: itemsList, 
+        subtotal: subtotal, 
+        discount: discount, 
+        shipping_fee: shipping, 
+        total_amount: total, 
+        order_date: new Date().toISOString(), 
+        timestamp: new Date().toISOString() 
       };
 
-      productReviewsStore[productId].push(newComment);
-      showToast('✨ 感謝您的模擬評分與評論回饋！');
+      // 改用 async/await 與 try-catch 處理 SDK 建立，防止同步卡死
+      try {
+        if (window.dataSdk && typeof window.dataSdk.create === 'function') {
+          const result = await window.dataSdk.create(orderData);
+          if (result && result.isOk) {
+            console.log('訂單已成功保存到表單');
+          }
+        }
+      } catch (err) {
+        console.warn("SDK 同步異常，但仍為您建立本地模擬訂單：", err);
+      }
+
+      orders.push({ 
+        id: orderId, 
+        date: new Date().toLocaleDateString(), 
+        items: cart.length, 
+        total: total, 
+        status: 'pending', 
+        recipientName: name, 
+        recipientPhone: phone, 
+        recipientAddress: address, 
+        shippingMethod: shippingMethod, 
+        customerGender: customerGender, 
+        customerAge: customerAge, 
+        purchaseReason: purchaseReason, 
+        createdAt: new Date().toISOString(), 
+        estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString() 
+      });
+
+      cart = []; 
+      updateCartBadge(); 
+      renderCart(); 
+      renderOrdersList();
       
-      // 遞迴渲染重新刷新視窗更新數據
-      viewProductDetail(productId);
+      showToast('✅ 訂單已成功建立！');
+      
+      setTimeout(() => { 
+        switchTab('member'); 
+        showOrderDetail(orderId); 
+      }, 1500);
     }
 
-    function closeModal() { document.getElementById('productModal').classList.remove('active'); }
-    function showToast(m) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = m; document.body.appendChild(t); setTimeout(() => t.remove(), 3000); }
+    function showOrderDetail(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+      const modal = document.createElement('div');
+      modal.className = 'modal active';
+      modal.innerHTML = `
+        <div class="modal-content">
+          <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
+          <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
+            <h2 style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 0.5rem;">訂單已確認</h2>
+            <p style="color: #999;">感謝您的購物！</p>
+          </div>
+          <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; display: flex; justify-content: space-between;">
+             <div><div style="font-size: 0.9rem; color: #999;">訂單編號</div><div style="font-weight: 700;">${order.id}</div></div>
+             <div style="text-align: right;"><div style="font-size: 0.9rem; color: #999;">訂單金額</div><div style="font-weight: 700; color: #ff7043;">$${order.total.toLocaleString()}</div></div>
+          </div>
+          <div style="display: flex; gap: 1rem;">
+            <button class="cta-button" style="flex: 1;" onclick="this.closest('.modal').remove();">完成</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+    }
 
-    window.addEventListener('load', () => {
+    function switchTab(tabName) {
+      document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+      document.getElementById(tabName + '-tab').classList.add('active');
+      document.querySelectorAll('.nav-tab').forEach(tab => {
+        tab.classList.remove('active');
+        if (tab.textContent.includes('首頁') && tabName === 'home') tab.classList.add('active');
+        if (tab.textContent.includes('商城') && tabName === 'products') tab.classList.add('active');
+        if (tab.textContent.includes('社群') && tabName === 'community') tab.classList.add('active');
+        if (tab.textContent.includes('知識') && tabName === 'knowledge') tab.classList.add('active');
+      });
+      lucide.createIcons();
+    }
+
+    async function publishPost() {
+      const content = document.getElementById('postContent').value.trim();
+      if (!content && communityPostPhotos.length === 0) { showToast('⚠️ 請輸入內容或上傳照片'); return; }
+      const post = { id: 'post-' + Date.now(), author: ['毛爸爸', '毛媽媽', '毛爺爺', '毛奶奶'][Math.floor(Math.random() * 4)], content: content, photos: [...communityPostPhotos], timestamp: new Date().toISOString(), likes: 0, liked: false };
+      communityPosts.unshift(post);
+      renderCommunityFeed();
+      document.getElementById('postContent').value = ''; communityPostPhotos = []; document.getElementById('communityPhotoPreview').innerHTML = ''; document.getElementById('communityPhotoInput').value = ''; showToast('✨ 分享成功！');
+      try { await window.dataSdk.create(post); } catch (err) { console.warn("SDK 同步異常", err); }
+    }
+
+    function renderCommunityFeed() {
+      const feed = document.getElementById('communityFeed');
+      if (communityPosts.length === 0) { feed.innerHTML = '<div style="text-align: center; padding: 2rem; color: #999;">還沒有分享，成為第一個分享者吧！</div>'; return; }
+      feed.innerHTML = communityPosts.map((post, idx) => `
+        <div class="community-post">
+          <div class="post-header">
+            <div class="post-avatar">${post.author.substring(0, 1)}</div>
+            <div class="post-meta"><div class="post-author">${post.author}</div><div class="post-time">${new Date(post.timestamp).toLocaleDateString()}</div></div>
+          </div>
+          <div class="post-content">${post.content}</div>
+          ${post.photos && Array.isArray(post.photos) && post.photos.length > 0 ? `
+            <div style="margin: 1rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem;">
+              ${post.photos.map((photo) => `<div style="border-radius: 8px; overflow: hidden;"><img src="${photo}" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; display: block;"></div>`).join('')}
+            </div>` : ''}
+          <div class="post-engagement">
+            <button class="engagement-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${idx})"><i data-lucide="heart" style="width: 18px; height: 18px;"></i><span>${post.likes}</span></button>
+            <button class="engagement-btn" onclick="showToast('💬 評論功能開發中...')"><i data-lucide="message-circle" style="width: 18px; height: 18px;"></i><span>回覆</span></button>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    async function toggleLike(index) {
+      if (communityPosts[index]) { const post = communityPosts[index]; post.liked = !post.liked; post.likes = post.liked ? post.likes + 1 : Math.max(0, post.likes - 1); try { await window.dataSdk.update(post); } catch(e){} renderCommunityFeed(); }
+    }
+
+    function openAddPetModal() { document.getElementById('addPetModal').classList.add('active'); }
+
+    function addPet() {
+      const name = document.getElementById('petName').value; const type = document.getElementById('petType').value; const age = document.getElementById('petAge').value; const weight = document.getElementById('petWeight').value;
+      if (!name) { showToast('⚠️ 請填寫寵物名字'); return; }
+      petList.push({ name, type, age, weight });
+      document.getElementById('petName').value = ''; document.getElementById('petAge').value = ''; document.getElementById('petWeight').value = '';
+      document.getElementById('addPetModal').classList.remove('active'); updatePetsList(); showToast(`✅ ${name} 的資料已保存`);
+    }
+
+    function updatePetsList() {
+      const petsList = document.getElementById('petsList');
+      if (petList.length === 0) { petsList.innerHTML = '<p style="color: #999; margin-bottom: 1rem;">還未建檔任何寵物</p>'; return; }
+      petsList.innerHTML = petList.map(pet => `<div class="pet-card"><div class="pet-name">${pet.name} 🐾</div><div class="pet-info">種類：${pet.type}</div><div class="pet-info">年齡：${pet.age}</div><div class="pet-info">體重：${pet.weight}</div></div>`).join('');
+    }
+
+    function renderOrdersList() {
+      const ordersList = document.getElementById('ordersList');
+      if (orders.length === 0) { ordersList.innerHTML = '<p style="color: #999;">還沒有訂單紀錄</p>'; return; }
+      ordersList.innerHTML = orders.map(order => `<div onclick="displayOrderDetail('${order.id}')" style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; cursor: pointer; transition: all 0.3s; border: 2px solid transparent;"><div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><strong>訂單日期：${order.date}</strong><span style="color: #ff7043; font-weight: 600;">$${order.total}</span></div><div style="color: #999; font-size: 0.9rem;">共 ${order.items} 件商品 • ${order.shippingMethod === 'home' ? '🚚 宅配' : '🏪 超商'}</div></div>`).join('');
+    }
+
+    function displayOrderDetail(orderId) { showOrderDetail(orderId); }
+
+    function showToast(message) {
+      const toast = document.createElement('div'); toast.className = 'toast'; toast.textContent = message;
+      document.body.appendChild(toast); setTimeout(() => toast.remove(), 3000);
+    }
+
+    function openUploadModal() {
+      const modal = document.getElementById('uploadModal'); const select = document.getElementById('productSelect'); select.innerHTML = '';
+      products.forEach(product => { const option = document.createElement('option'); option.value = product.id; option.textContent = product.name; select.appendChild(option); });
+      modal.classList.add('active');
+    }
+
+    function uploadProductImage() {
+      const productId = document.getElementById('productSelect').value; const imageUrlInput = document.getElementById('canvaImageUrl'); const imageUrl = imageUrlInput ? imageUrlInput.value.trim() : '';
+      if (!imageUrl) { showToast('⚠️ 請輸入圖片 URL 或上傳本地圖片'); return; }
+      if (!imageUrl.startsWith('canva://') && !imageUrl.startsWith('http') && !imageUrl.startsWith('data:image')) { showToast('⚠️ 請輸入正確的圖片格式'); return; }
+      if (!productImages[productId]) productImages[productId] = []; productImages[productId].push(imageUrl);
+      const product = products.find(p => p.id === productId); if (product) product.images = productImages[productId];
+      imageUrlInput.value = ''; const localInput = document.getElementById('localProductImageInput'); if (localInput) localInput.value = '';
+      document.getElementById('imagePreview').innerHTML = '預覽區域';
+      showToast(`✅ 圖片已上傳！現在共有 ${productImages[productId].length} 張圖片`);
+      renderProducts(); renderHotProducts();
+    }
+
+    window.addEventListener('load', function() {
       init();
+      renderKnowledgeArticles();
     });
+
+    function renderKnowledgeArticles() {
+      const grid = document.querySelector('[style*="display: grid"][style*="grid-template-columns"]');
+      if (!grid) return;
+      grid.innerHTML = knowledgeArticles.map((article, idx) => `
+        <div class="community-post" style="cursor: pointer; transition: all 0.3s; border: 2px solid transparent; overflow: hidden;" onmouseover="this.style.borderColor='#c9945f'; this.style.boxShadow='0 8px 16px rgba(201, 148, 95, 0.2)';" onmouseout="this.style.borderColor='transparent'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)';">
+          <div class="post-header"><div class="post-avatar">${article.icon}</div><div class="post-meta"><div class="post-author">${article.title}</div><div class="post-time">${article.subtitle}</div></div></div>
+          <div class="post-content">${article.content}</div>
+          <div style="margin-top: 1rem;">
+            <button onclick="expandKnowledgeArticle(this, ${idx})" style="width: 100%; background: linear-gradient(135deg, #d4a574 0%, #c9945f 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.boxShadow='0 4px 8px rgba(201, 148, 95, 0.3)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.boxShadow=''; this.style.transform='';">
+              <span>展開完整內容</span><span style="font-size: 1rem; transition: transform 0.3s;">▼</span>
+            </button>
+            <div class="knowledge-expanded" style="display: none; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
+              <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                <h4 style="font-weight: 600; color: #333; margin-bottom: 0.75rem;">📚 相關知識</h4>
+                <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.75rem;">${article.content}</p>
+              </div>
+              <div style="display: flex; gap: 1rem;">
+                <button onclick="shareKnowledge(${idx})" style="flex: 1; background: white; color: #c9945f; border: 2px solid #c9945f; padding: 0.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">分享文章</button>
+                <button onclick="saveKnowledge(${idx})" style="flex: 1; background: white; color: #ff7043; border: 2px solid #ff7043; padding: 0.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">收藏文章</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function expandKnowledgeArticle(button, idx) {
+      const expanded = button.nextElementSibling; const isOpen = expanded.style.display !== 'none'; const chevron = button.querySelector('span:last-child');
+      if (isOpen) { expanded.style.maxHeight = '0'; expanded.style.display = 'none'; chevron.style.transform = 'rotate(0deg)'; } 
+      else { expanded.style.display = 'block'; expanded.style.maxHeight = expanded.scrollHeight + 'px'; chevron.style.transform = 'rotate(180deg)'; }
+    }
+
+    function shareKnowledge(idx) {
+      const article = knowledgeArticles[idx]; const textToCopy = `推薦閱讀 Petopia 文章：${article.title} - ${article.subtitle}`;
+      if(navigator.clipboard) { navigator.clipboard.writeText(textToCopy).then(() => { showToast(`✅ 已複製《${article.title}》分享資訊`); }).catch(() => { showToast(`✅ 已分享《${article.title}》`); }); } 
+      else { showToast(`✅ 已分享《${article.title}》`); }
+    }
+
+    function saveKnowledge(idx) {
+      const article = knowledgeArticles[idx];
+      if (!savedArticles.some(a => a.title === article.title)) { savedArticles.push(article); showToast(`❤️ 已收藏《${article.title}》，可至會員中心查看`); renderSavedArticles(); } 
+      else { showToast(`⚠️ 這篇文章已經在你的收藏中囉！`); }
+    }
+
+    function renderSavedArticles() {
+      const container = document.getElementById('savedArticlesList');
+      if (!container) return;
+      if (savedArticles.length === 0) { container.innerHTML = '<p style="color: #999; margin-bottom: 1rem;">還沒有收藏文章</p>'; return; }
+      container.innerHTML = savedArticles.map((article, idx) => `
+        <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #c9945f;">
+          <div><div style="font-weight: 600; color: #333; margin-bottom: 0.25rem;">${article.icon} ${article.title}</div><div style="font-size: 0.85rem; color: #666;">${article.subtitle}</div></div>
+          <button onclick="removeSavedArticle(${idx})" style="background: #ff3b30; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;" onmouseover="this.style.opacity='0.8';" onmouseout="this.style.opacity='1';">取消收藏</button>
+        </div>
+      `).join('');
+    }
+
+    function removeSavedArticle(idx) { savedArticles.splice(idx, 1); renderSavedArticles(); showToast('❌ 已取消收藏文章'); }
+
+    function updateQuickWishlist() {
+      const quickWishlist = document.getElementById('quickWishlist'); const wishlistProducts = products.filter(p => wishlist.includes(p.id)).slice(0, 4);
+      if (wishlistProducts.length === 0) { quickWishlist.innerHTML = '<p style="color: #999; margin-bottom: 1rem;">還沒有收藏商品</p>'; return; }
+      quickWishlist.innerHTML = `<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+        ${wishlistProducts.map(product => {
+          const displayImage = productImages[product.id] && productImages[product.id].length > 0 ? productImages[product.id][0] : product.image;
+          const isUploadedImage = productImages[product.id] && productImages[product.id].length > 0;
+          const isCanvaImage = product.imageType === 'canva' || displayImage.startsWith('canva://') || displayImage.startsWith('data:');
+          const imageStyle = (isUploadedImage || isCanvaImage) ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
+          return `
+            <div onclick="viewProductDetail('${product.id}')" style="border-radius: 8px; overflow: hidden; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); display: flex; align-items: center; justify-content: center; font-size: 2rem; height: 100px; position: relative; ${imageStyle}; border: 2px solid #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='';">
+              ${!isUploadedImage && !isCanvaImage ? displayImage : ''}
+              <div style="position: absolute; top: 4px; right: 4px; background: #ff3b30; color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; cursor: pointer;" onclick="toggleWishlist('${product.id}'); event.stopPropagation();">✕</div>
+            </div>
+          `;
+        }).join('')}
+      </div>`;
+    }
+
+    function openBannerUploadModal() { document.getElementById('bannerUploadModal').classList.add('active'); }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const bannerImageInput = document.getElementById('bannerImageInput');
+      if (bannerImageInput) {
+        bannerImageInput.addEventListener('change', function(e) {
+          const file = e.target.files[0];
+          if (file) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+              const preview = document.getElementById('bannerImagePreview');
+              preview.innerHTML = `<img src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
+              preview.dataset.imageData = event.target.result;
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      }
+    });
+
+    function uploadBannerImage() {
+      const preview = document.getElementById('bannerImagePreview'); const imageData = preview.dataset.imageData;
+      if (!imageData) { showToast('⚠️ 請先選擇圖片'); return; }
+      bannerImage = imageData;
+      const banner = document.getElementById('bannerContainer');
+      banner.style.backgroundImage = `url('${imageData}')`; banner.style.backgroundSize = 'cover'; banner.style.backgroundPosition = 'center';
+      document.getElementById('bannerImageInput').value = ''; preview.innerHTML = '預覽區域'; delete preview.dataset.imageData;
+      document.getElementById('bannerUploadModal').classList.remove('active'); showToast('✅ 橫幅圖片已上傳！');
+    }
   </script>
  </body>
 </html>
