@@ -2103,6 +2103,9 @@
         id: orderId, 
         date: new Date().toLocaleDateString(), 
         items: cart.length, 
+        subtotal: subtotal,
+        discount: discount,
+        shippingFee: shipping,
         total: total, 
         status: 'pending', 
         recipientName: name, 
@@ -2113,6 +2116,7 @@
         customerAge: customerAge, 
         purchaseReason: purchaseReason, 
         createdAt: new Date().toISOString(), 
+        itemsDetails: [...cart], // 複製一份目前的購物車，供後續查看商品詳細內容及價格
         estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString() 
       });
 
@@ -2132,22 +2136,72 @@
     function showOrderDetail(orderId) {
       const order = orders.find(o => o.id === orderId);
       if (!order) return;
+      
       const modal = document.createElement('div');
       modal.className = 'modal active';
+      
+      // 動態生成購買商品的 HTML 清單
+      let goodsListHtml = '<p style="color: #999;">暫無商品明細</p>';
+      if (order.itemsDetails && order.itemsDetails.length > 0) {
+        goodsListHtml = order.itemsDetails.map(item => `
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 0; border-bottom: 1px solid #eee;">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <div style="width: 40px; height: 40px; border-radius: 6px; background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; ${item.imageType === 'url' || item.imageType === 'canva' ? `background-image: url('${item.image}'); background-size: cover; background-position: center;` : ''}">
+                ${item.imageType !== 'url' && item.imageType !== 'canva' ? item.image : ''}
+              </div>
+              <div>
+                <div style="font-weight: 600; color: #333; font-size: 0.95rem;">${item.name}</div>
+                <div style="font-size: 0.8rem; color: #999;">單價: $${item.price} × ${item.quantity}</div>
+              </div>
+            </div>
+            <div style="font-weight: 600; color: #333;">$${(item.price * item.quantity).toLocaleString()}</div>
+          </div>
+        `).join('');
+      }
+
       modal.innerHTML = `
-        <div class="modal-content">
+        <div class="modal-content" style="max-width: 550px;">
           <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
-          <div style="text-align: center; margin-bottom: 2rem;">
-            <div style="font-size: 3rem; margin-bottom: 1rem;">✅</div>
-            <h2 style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 0.5rem;">訂單已確認</h2>
-            <p style="color: #999;">感謝您的購物！</p>
+          <div style="text-align: center; margin-bottom: 1.5rem;">
+            <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">📋</div>
+            <h2 style="font-size: 1.35rem; font-weight: 700; color: #333;">訂單詳細明細</h2>
+            <p style="color: #999; font-size: 0.9rem;">訂單編號：${order.id}</p>
           </div>
-          <div style="background: #f9f9f9; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; display: flex; justify-content: space-between;">
-             <div><div style="font-size: 0.9rem; color: #999;">訂單編號</div><div style="font-weight: 700;">${order.id}</div></div>
-             <div style="text-align: right;"><div style="font-size: 0.9rem; color: #999;">訂單金額</div><div style="font-weight: 700; color: #ff7043;">$${order.total.toLocaleString()}</div></div>
+          
+          <div style="background: white; border: 1px solid #eee; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+            <h4 style="font-weight: 700; color: #c9945f; margin-bottom: 0.75rem; font-size: 0.95rem; border-b: 2px solid #f5f3f0; padding-bottom: 0.25rem;">📦 商品清單與價格</h4>
+            <div style="max-height: 220px; overflow-y: auto; padding-right: 0.25rem;">
+              ${goodsListHtml}
+            </div>
           </div>
+
+          <div style="background: #faf9f6; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.9rem; color: #555;">
+            <h4 style="font-weight: 700; color: #333; margin-bottom: 0.5rem;">📌 費用總結</h4>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem;">
+              <span>商品小計</span><span>$${(order.subtotal || order.total).toLocaleString()}</span>
+            </div>
+            ${order.discount > 0 ? `
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.4rem; color: #ff7043;">
+              <span>優惠折扣</span><span>-$${order.discount.toLocaleString()}</span>
+            </div>` : ''}
+            <div style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; padding-bottom: 0.6rem; border-bottom: 1px dashed #ddd;">
+              <span>運費</span><span>${order.shippingFee === 0 ? '免運' : '$' + order.shippingFee}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-weight: 700; font-size: 1.1rem; color: #ff7043;">
+              <span>實付總計</span><span>$${order.total.toLocaleString()}</span>
+            </div>
+          </div>
+
+          <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; font-size: 0.85rem; color: #666; line-height: 1.5;">
+            <h4 style="font-weight: 700; color: #333; margin-bottom: 0.5rem;">🚚 收件資訊</h4>
+            <div><strong>收件人：</strong>${order.recipientName}</div>
+            <div><strong>聯絡電話：</strong>${order.recipientPhone}</div>
+            <div><strong>寄送地址：</strong>${order.recipientAddress} (${order.shippingMethod === 'home' ? '宅配到府' : '超商取貨'})</div>
+            <div><strong>預計送達：</strong>${order.estimatedDelivery}</div>
+          </div>
+
           <div style="display: flex; gap: 1rem;">
-            <button class="cta-button" style="flex: 1;" onclick="this.closest('.modal').remove();">完成</button>
+            <button class="cta-button" style="width: 100%;" onclick="this.closest('.modal').remove();">關閉視窗</button>
           </div>
         </div>
       `;
@@ -2223,7 +2277,7 @@
     function renderOrdersList() {
       const ordersList = document.getElementById('ordersList');
       if (orders.length === 0) { ordersList.innerHTML = '<p style="color: #999;">還沒有訂單紀錄</p>'; return; }
-      ordersList.innerHTML = orders.map(order => `<div onclick="displayOrderDetail('${order.id}')" style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; cursor: pointer; transition: all 0.3s; border: 2px solid transparent;"><div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><strong>訂單日期：${order.date}</strong><span style="color: #ff7043; font-weight: 600;">$${order.total}</span></div><div style="color: #999; font-size: 0.9rem;">共 ${order.items} 件商品 • ${order.shippingMethod === 'home' ? '🚚 宅配' : '🏪 超商'}</div></div>`).join('');
+      ordersList.innerHTML = orders.map(order => `<div onclick="displayOrderDetail('${order.id}')" style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; cursor: pointer; transition: all 0.3s; border: 2px solid transparent;"><div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;"><strong>訂單日期：${order.date}</strong><span style="color: #ff7043; font-weight: 600;">$${order.total.toLocaleString()}</span></div><div style="color: #999; font-size: 0.9rem;">共 ${order.items} 件商品 • ${order.shippingMethod === 'home' ? '🚚 宅配' : '🏪 超商'}</div></div>`).join('');
     }
 
     function displayOrderDetail(orderId) { showOrderDetail(orderId); }
@@ -2300,7 +2354,6 @@
       }
     }
 
-    // 點擊後跳轉至該文章並複製站內連結
     function shareKnowledge(idx) {
       const article = knowledgeArticles[idx];
       if (!article) return;
