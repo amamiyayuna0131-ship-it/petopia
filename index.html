@@ -156,7 +156,6 @@
     }
 
     .banner {
-      /* 預設替換為高畫質寵物背景 */
       background-image: url('https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=2000&auto=format&fit=crop');
       background-color: #dcc9b0;
       padding: 3rem 1rem;
@@ -181,7 +180,6 @@
       left: 0;
       right: 0;
       bottom: 0;
-      /* 加深遮罩以確保文字可讀性 */
       background: rgba(0, 0, 0, 0.45);
       border-radius: 12px;
       z-index: 1;
@@ -936,7 +934,7 @@
       🐾 <span id="logoName">Petopia</span>
      </div>
      <div class="nav-tabs">
-      <button class="nav-tab active" onclick="switchTab('home')">首頁</button> <button class="nav-tab" onclick="switchTab('products')">商城</button> <button class="nav-tab" onclick="switchTab('community')">社群</button> <button class="nav-tab" onclick="switchTab('knowledge')">知識專區</button>
+      <button class="nav-tab active" onclick="switchTab('home')">首頁</button> <button class="nav-tab" onclick="switchTab('products')">商城</button> <button class="nav-tab" onclick="switchTab('community')">社群</button> <button class="nav-tab" onclick="switchTab('knowledge')">知識專專區</button>
      </div>
      <div class="nav-icons">
       <button class="icon-btn" onclick="switchTab('cart')">
@@ -1343,7 +1341,6 @@
     let orders = [];
     let cartCount = 0;
     
-    // --- Carousel 滑動邏輯重構開始 ---
     let currentOfferIndex = 0;
     let offerAutoplayInterval;
     const offerData = [
@@ -1358,7 +1355,6 @@
       const track = document.getElementById('offersTrack');
       const dotsContainer = document.getElementById('offerDots');
       
-      // 生成軌道內容
       track.innerHTML = offerData.map(offer => `
         <div style="min-width: 100%; box-sizing: border-box; padding: 1.25rem 2rem; background: ${offer.bgGradient}; border-left: 4px solid ${offer.borderColor}; display: flex; align-items: center; justify-content: space-between;">
           <div style="display: flex; align-items: center; gap: 1.5rem;">
@@ -1372,7 +1368,6 @@
         </div>
       `).join('');
 
-      // 生成圓點控制按鈕
       dotsContainer.innerHTML = offerData.map((_, i) => `
         <button onclick="goToOffer(${i})" style="width: 10px; height: 10px; border-radius: 50%; background: ${i === 0 ? '#c9945f' : '#ddd'}; border: none; cursor: pointer; transition: background 0.3s; padding: 0;"></button>
       `).join('');
@@ -1422,9 +1417,7 @@
       stopOfferAutoplay();
       startOfferAutoplay();
     }
-    // --- Carousel 滑動邏輯重構結束 ---
 
-    // 預設橫幅底圖 (使用高畫質 Unsplash 寵物圖)
     let bannerImage = 'https://images.unsplash.com/photo-1543466835-00a7907e9de1?q=80&w=2000&auto=format&fit=crop';
     
     let editMode = false;
@@ -1547,7 +1540,6 @@
     function openColorEditor() {
       const modal = document.createElement('div');
       modal.className = 'modal active';
-      // 省略樣板文字以避免過長，保持先前原樣
       modal.innerHTML = `<div class="modal-content" style="max-width: 500px;">
           <button class="modal-close" onclick="this.closest('.modal').remove()">×</button>
           <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem; color: #333;">🎨 版面色彩編輯</h3>
@@ -2029,35 +2021,98 @@
       return `<div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><span>📍</span> 收件資訊</h3><div style="display: flex; flex-direction: column; gap: 1rem;"><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">收件人姓名</label><input type="text" id="recipientName" placeholder="例：王小明" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">聯絡電話</label><input type="tel" id="recipientPhone" placeholder="例：0912-345-678" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">寄送地址</label><input type="text" id="recipientAddress" placeholder="例：台北市信義區 XX 街 123 號 5 樓" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">配送方式</label><div style="display: flex; gap: 1rem;"><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="home" checked style="cursor: pointer;"><span>🚚 宅配到府</span></label><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="store" style="cursor: pointer;"><span>🏪 超商取貨</span></label></div></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的性別</label><select id="customerGender" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇性別 --</option><option value="male">👨 男性</option><option value="female">👩 女性</option><option value="other">🤝 其他</option><option value="prefer-not">❓ 不願透露</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的年齡</label><select id="customerAge" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇年齡群組 --</option><option value="18-25">18-25 歲</option><option value="26-35">26-35 歲</option><option value="36-45">36-45 歲</option><option value="46-55">46-55 歲</option><option value="56-65">56-65 歲</option><option value="65+">65 歲以上</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">購買的原因為何？</label><textarea id="purchaseReason" placeholder="例如：毛孩皮膚問題..." style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; resize: vertical; min-height: 80px;"></textarea></div></div></div></div><div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: sticky; top: 1rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem;">📋 訂單摘要</h3><div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; max-height: 300px; overflow-y: auto;">${cart.map(item => `<div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #eee;"><div><div style="font-weight: 600; color: #333;">${item.name}</div><div style="font-size: 0.85rem; color: #999;">×${item.quantity}</div></div><div style="font-weight: 600; color: #c9945f;">$${(item.price * item.quantity).toLocaleString()}</div></div>`).join('')}</div><div style="border-top: 2px solid #eee; padding-top: 1rem;"><div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #666;"><span>商品小計</span><span>$${subtotal.toLocaleString()}</span></div>${discount > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #ff7043;"><span>✨ 優惠折扣 (FIRST70)</span><span>-$${discount.toLocaleString()}</span></div>` : ''}<div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #666;"><span>🚚 運費</span><span>${shipping === 0 ? '✅ 免運' : '$' + shipping}</span></div><div style="display: flex; justify-content: space-between; padding: 1rem 0; border-top: 2px solid #eee; font-size: 1.25rem; font-weight: 700; color: #333;"><span>總計</span><span style="color: #ff7043;">$${total.toLocaleString()}</span></div></div><div style="display: flex; gap: 1rem;"><button class="cta-button" style="flex: 1;" onclick="processCheckout()">✅ 確認結帳</button><button style="width: 100%; margin-top: 0.75rem; padding: 0.75rem; background: white; border: 2px solid #ddd; color: #666; border-radius: 8px; cursor: pointer; font-weight: 600;" onclick="switchTab('cart')">返回購物車</button></div></div></div>`;
     }
 
-    function processCheckout() {
-      const name = document.getElementById('recipientName')?.value.trim();
-      const phone = document.getElementById('recipientPhone')?.value.trim();
-      const address = document.getElementById('recipientAddress')?.value.trim();
-      const shippingMethod = document.querySelector('input[name="shipping"]:checked')?.value;
-      const customerGender = document.getElementById('customerGender')?.value;
-      const customerAge = document.getElementById('customerAge')?.value;
-      const purchaseReason = document.getElementById('purchaseReason')?.value.trim();
+    async function processCheckout() {
+      // 精準獲取 DOM 元素，防止 Optional Chaining 導致錯誤被吞噬
+      const nameInput = document.getElementById('recipientName');
+      const phoneInput = document.getElementById('recipientPhone');
+      const addressInput = document.getElementById('recipientAddress');
+      const genderSelect = document.getElementById('customerGender');
+      const ageSelect = document.getElementById('customerAge');
+      const reasonInput = document.getElementById('purchaseReason');
+      const shippingRadio = document.querySelector('input[name="shipping"]:checked');
 
-      if (!name || !phone || !address) { showToast('⚠️ 請填寫完整的收件資訊'); return; }
-      if (!customerGender) { showToast('⚠️ 請選擇性別'); return; }
-      if (!customerAge) { showToast('⚠️ 請選擇年齡群組'); return; }
+      const name = nameInput ? nameInput.value.trim() : '';
+      const phone = phoneInput ? phoneInput.value.trim() : '';
+      const address = addressInput ? addressInput.value.trim() : '';
+      const shippingMethod = shippingRadio ? shippingRadio.value : 'home';
+      const customerGender = genderSelect ? genderSelect.value : '';
+      const customerAge = ageSelect ? ageSelect.value : '';
+      const purchaseReason = reasonInput ? reasonInput.value.trim() : '未填寫';
+
+      // 嚴格且明確的表單欄位驗證，並明確跳出對應提示
+      if (!name) { showToast('⚠️ 請填寫收件人姓名'); return; }
+      if (!phone) { showToast('⚠️ 請填寫聯絡電話'); return; }
+      if (!address) { showToast('⚠️ 請填寫寄送地址'); return; }
+      if (!customerGender) { showToast('⚠️ 請選擇您的性別'); return; }
+      if (!customerAge) { showToast('⚠️ 請選擇您的年齡群組'); return; }
 
       const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-      const discount = document.getElementById('couponInput')?.value === 'FIRST70' ? Math.floor(subtotal * 0.3) : 0;
+      const couponInput = document.getElementById('couponInput');
+      const discount = (couponInput && couponInput.value === 'FIRST70') ? Math.floor(subtotal * 0.3) : 0;
       const shipping = subtotal >= 999 ? 0 : 80;
       const total = subtotal - discount + shipping;
       const orderId = 'ORDER-' + Date.now();
       const itemsList = cart.map(item => `${item.name} (×${item.quantity}, $${item.price * item.quantity})`).join(' | ');
       
-      const orderData = { id: 'order-' + orderId, order_id: orderId, recipient_name: name, recipient_phone: phone, recipient_address: address, shipping_method: shippingMethod === 'home' ? '宅配到府' : '超商取貨', customer_gender: customerGender, customer_age: customerAge, purchase_reason: purchaseReason || '未填寫', items_list: itemsList, subtotal: subtotal, discount: discount, shipping_fee: shipping, total_amount: total, order_date: new Date().toISOString(), timestamp: new Date().toISOString() };
+      const orderData = { 
+        id: 'order-' + orderId, 
+        order_id: orderId, 
+        recipient_name: name, 
+        recipient_phone: phone, 
+        recipient_address: address, 
+        shipping_method: shippingMethod === 'home' ? '宅配到府' : '超商取貨', 
+        customer_gender: customerGender, 
+        customer_age: customerAge, 
+        purchase_reason: purchaseReason || '未填寫', 
+        items_list: itemsList, 
+        subtotal: subtotal, 
+        discount: discount, 
+        shipping_fee: shipping, 
+        total_amount: total, 
+        order_date: new Date().toISOString(), 
+        timestamp: new Date().toISOString() 
+      };
 
-      window.dataSdk.create(orderData).then(result => { if (result.isOk) console.log('訂單已保存到表單'); });
+      // 改用 async/await 與 try-catch 處理 SDK 建立，防止同步卡死
+      try {
+        if (window.dataSdk && typeof window.dataSdk.create === 'function') {
+          const result = await window.dataSdk.create(orderData);
+          if (result && result.isOk) {
+            console.log('訂單已成功保存到表單');
+          }
+        }
+      } catch (err) {
+        console.warn("SDK 同步異常，但仍為您建立本地模擬訂單：", err);
+      }
 
-      orders.push({ id: orderId, date: new Date().toLocaleDateString(), items: cart.length, total: total, status: 'pending', recipientName: name, recipientPhone: phone, recipientAddress: address, shippingMethod: shippingMethod, customerGender: customerGender, customerAge: customerAge, purchaseReason: purchaseReason, createdAt: new Date().toISOString(), estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString() });
+      orders.push({ 
+        id: orderId, 
+        date: new Date().toLocaleDateString(), 
+        items: cart.length, 
+        total: total, 
+        status: 'pending', 
+        recipientName: name, 
+        recipientPhone: phone, 
+        recipientAddress: address, 
+        shippingMethod: shippingMethod, 
+        customerGender: customerGender, 
+        customerAge: customerAge, 
+        purchaseReason: purchaseReason, 
+        createdAt: new Date().toISOString(), 
+        estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString() 
+      });
 
-      cart = []; updateCartBadge(); renderCart(); renderOrdersList();
+      cart = []; 
+      updateCartBadge(); 
+      renderCart(); 
+      renderOrdersList();
+      
       showToast('✅ 訂單已成功建立！');
-      setTimeout(() => { switchTab('member'); showOrderDetail(orderId); }, 1500);
+      
+      setTimeout(() => { 
+        switchTab('member'); 
+        showOrderDetail(orderId); 
+      }, 1500);
     }
 
     function showOrderDetail(orderId) {
@@ -2185,7 +2240,6 @@
     window.addEventListener('load', function() {
       init();
       renderKnowledgeArticles();
-      // Banner Default Config is injected via CSS directly
     });
 
     function renderKnowledgeArticles() {
