@@ -1183,27 +1183,18 @@
     <div id="member-tab" class="tab-content">
      <div class="section">
       <h2 class="section-title">會員中心</h2>
-      <div class="member-info">
-       <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">會員資訊</h3>
-       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-        <div>
-         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">姓名</div>
-         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">毛爸爸 / 毛媽媽</div>
-        </div>
-        <div>
-         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">會員等級</div>
-         <div style="font-size: 1.1rem; font-weight: 600; color: #ff7043;">VIP 白金會員</div>
-        </div>
-        <div>
-         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">累積點數</div>
-         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">4,500 點</div>
-        </div>
-        <div>
-         <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">可折抵金額</div>
-         <div style="font-size: 1.1rem; font-weight: 600; color: #333;">$1,350</div>
-        </div>
+      
+      <!-- 動態會員詳細資料區塊 -->
+      <div class="member-info" id="memberProfileView">
+       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+         <h3 style="font-size: 1.25rem; font-weight: 700; color: #333;">會員資訊</h3>
+         <button class="cta-button" style="padding: 0.4rem 1.2rem; font-size: 0.9rem;" onclick="openEditMemberModal()">✏️ 編輯資料</button>
+       </div>
+       <div id="memberProfileContent">
+         <!-- JavaScript 將在這裡渲染會員資料 -->
        </div>
       </div>
+
       <div class="member-info">
        <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">我的寵物</h3>
        <div id="petsList"></div><button class="cta-button" onclick="openAddPetModal()">+ 新增寵物</button>
@@ -1278,17 +1269,50 @@
     </div>
     
    </div>
-  </div><div id="wishlist-tab" class="tab-content">
+  </div>
+  
+  <div id="wishlist-tab" class="tab-content">
    <div class="section">
     <h2 class="section-title">❤️ 我的收藏</h2>
     <div id="wishlistContainer"></div>
    </div>
-  </div><div id="productModal" class="modal">
+  </div>
+  
+  <div id="productModal" class="modal">
    <div class="modal-content" style="max-width: 650px;">
     <button class="modal-close" onclick="closeModal()">×</button>
     <div id="modalBody"></div>
    </div>
-  </div><div id="addPetModal" class="modal">
+  </div>
+  
+  <!-- 新增的編輯會員資料 Modal -->
+  <div id="editMemberModal" class="modal">
+   <div class="modal-content">
+    <button class="modal-close" onclick="closeEditMemberModal()">×</button>
+    <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem;">編輯會員資料</h3>
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">姓名 / 暱稱</label> 
+      <input type="text" id="editMemberName" placeholder="例如：毛爸爸、毛媽媽" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+     </div>
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">聯絡電話</label> 
+      <input type="tel" id="editMemberPhone" placeholder="例如：0912-345-678" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+     </div>
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">聯絡信箱</label> 
+      <input type="email" id="editMemberEmail" placeholder="例如：user@petopia.com" style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+     </div>
+     <div>
+      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem;">常用收件地址</label> 
+      <input type="text" id="editMemberAddress" placeholder="例如：台北市信義區 XX 街..." style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 8px;">
+     </div>
+     <button class="cta-button" style="width: 100%; margin-top: 1rem;" onclick="saveMemberInfo()">儲存修改</button>
+    </div>
+   </div>
+  </div>
+
+  <div id="addPetModal" class="modal">
    <div class="modal-content">
     <button class="modal-close" onclick="document.getElementById('addPetModal').classList.remove('active')">×</button>
     <h3 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 1.5rem;">新增寵物</h3>
@@ -1348,6 +1372,18 @@
    </div>
   </div>
   <script>
+    // 👤 新增：會員中心資料狀態
+    let currentMember = {
+      name: '毛爸爸 / 毛媽媽',
+      level: 'VIP 白金會員',
+      points: 4500,
+      discount: 1350,
+      phone: '',
+      email: '',
+      address: '',
+      joinDate: new Date().toLocaleDateString()
+    };
+
     let cart = [];
     let wishlist = [];
     let products = [];
@@ -1357,17 +1393,16 @@
     let communityPostPhotos = [];
     let savedArticles = []; 
 
-    // 🌟 新增：圖片壓縮函數 (解決手機高畫質照片顯示黑半邊的問題)
+    // 🌟 圖片壓縮函數 (解決手機高畫質照片顯示黑半邊的問題)
     function compressImage(dataUrl, callback) {
       const img = new Image();
       img.onload = function() {
-        // 設定最大長寬限制 (避免手機記憶體溢出)
+        // 設定最大長寬限制
         const MAX_WIDTH = 1200;
         const MAX_HEIGHT = 1200;
         let width = img.width;
         let height = img.height;
 
-        // 依照比例計算新尺寸
         if (width > height) {
           if (width > MAX_WIDTH) {
             height = Math.round(height * (MAX_WIDTH / width));
@@ -1387,11 +1422,77 @@
         
         ctx.drawImage(img, 0, 0, width, height);
         
-        // 輸出壓縮後的 base64 (JPEG 格式，80% 畫質)
         callback(canvas.toDataURL('image/jpeg', 0.8));
       };
       img.src = dataUrl;
     }
+
+    // --- 會員資料編輯相關邏輯 ---
+    function renderMemberProfile() {
+      const content = document.getElementById('memberProfileContent');
+      if(!content) return;
+      content.innerHTML = `
+         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.25rem; margin-bottom: 1.5rem;">
+          <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px;">
+           <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">姓名 / 暱稱</div>
+           <div style="font-size: 1.15rem; font-weight: 700; color: #333;">${currentMember.name}</div>
+          </div>
+          <div style="background: #fdf5e6; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
+           <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">會員等級</div>
+           <div style="font-size: 1.15rem; font-weight: 700; color: #ff7043;">${currentMember.level}</div>
+          </div>
+          <div style="background: #f0f8ff; padding: 1rem; border-radius: 8px; border-left: 4px solid #2196F3;">
+           <div style="font-size: 0.9rem; color: #999; margin-bottom: 0.25rem;">累積點數 / 可折抵金額</div>
+           <div style="font-size: 1.15rem; font-weight: 700; color: #333;">${currentMember.points.toLocaleString()} 點 / $${currentMember.discount.toLocaleString()}</div>
+          </div>
+         </div>
+         <div style="display: grid; grid-template-columns: 1fr; gap: 0.75rem; background: #fff; border: 1px solid #eee; padding: 1.25rem; border-radius: 8px;">
+          <div style="display: flex; align-items: center; gap: 1rem; border-bottom: 1px dashed #eee; padding-bottom: 0.75rem;">
+            <div style="color: #999; width: 70px; font-weight: 500;">聯絡電話</div>
+            <div style="color: #333; font-weight: 500; flex: 1;">${currentMember.phone || '<span style="color:#ccc;">尚未填寫</span>'}</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem; border-bottom: 1px dashed #eee; padding-bottom: 0.75rem;">
+            <div style="color: #999; width: 70px; font-weight: 500;">聯絡信箱</div>
+            <div style="color: #333; font-weight: 500; flex: 1;">${currentMember.email || '<span style="color:#ccc;">尚未填寫</span>'}</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem; border-bottom: 1px dashed #eee; padding-bottom: 0.75rem;">
+            <div style="color: #999; width: 70px; font-weight: 500;">常用地址</div>
+            <div style="color: #333; font-weight: 500; flex: 1; word-break: break-all;">${currentMember.address || '<span style="color:#ccc;">尚未填寫</span>'}</div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <div style="color: #999; width: 70px; font-weight: 500;">加入日期</div>
+            <div style="color: #555; font-weight: 500; flex: 1;">${currentMember.joinDate}</div>
+          </div>
+         </div>
+      `;
+    }
+
+    function openEditMemberModal() {
+      document.getElementById('editMemberName').value = currentMember.name !== '毛爸爸 / 毛媽媽' ? currentMember.name : '';
+      document.getElementById('editMemberPhone').value = currentMember.phone;
+      document.getElementById('editMemberEmail').value = currentMember.email;
+      document.getElementById('editMemberAddress').value = currentMember.address;
+      document.getElementById('editMemberModal').classList.add('active');
+    }
+
+    function closeEditMemberModal() {
+      document.getElementById('editMemberModal').classList.remove('active');
+    }
+
+    function saveMemberInfo() {
+      const name = document.getElementById('editMemberName').value.trim();
+      if (!name) { showToast('⚠️ 姓名/暱稱不可以空白唷！'); return; }
+
+      currentMember.name = name;
+      currentMember.phone = document.getElementById('editMemberPhone').value.trim();
+      currentMember.email = document.getElementById('editMemberEmail').value.trim();
+      currentMember.address = document.getElementById('editMemberAddress').value.trim();
+      
+      closeEditMemberModal();
+      renderMemberProfile();
+      showToast('✅ 會員資料已成功更新，結帳時將自動帶入您的資訊！');
+    }
+    // ----------------------------
 
     function handleLocalProductImage(event) {
       const file = event.target.files[0];
@@ -1407,7 +1508,6 @@
       }
     }
 
-    // 📸 修正：優化社群牆照片上傳預覽，確保整張完整顯示並壓縮處理
     function handleCommunityPhotoUpload(event) {
       const files = event.target.files;
       if (files && files.length > 0) {
@@ -1456,7 +1556,6 @@
       }
     }
 
-    // 📸 修正：上傳預覽框改用 object-fit: contain 保留完整原圖不切掉
     function renderCommunityPhotoPreview() {
       const preview = document.getElementById('communityPhotoPreview');
       preview.innerHTML = communityPostPhotos.map((photo, idx) => `
@@ -1473,7 +1572,6 @@
       showToast('❌ 照片已移除');
     }
 
-    // 初始化一些帶有評論與完整圖片顯示的模擬社群貼文
     let communityPosts = [
       {
         id: 'post-init-1',
@@ -1840,7 +1938,6 @@
     let currentRecordCount = 0;
     const dataHandler = {
       onDataChanged(data) {
-        // SDK 資料變動同步
         if(Array.isArray(data) && data.length > 0 && data[0].hasOwnProperty('author') && data[0].hasOwnProperty('photos')) {
           communityPosts = data;
           renderCommunityFeed();
@@ -1854,6 +1951,7 @@
     }
     initializeSDK();
 
+    // 🌟 在系統初始化時載入會員資料介面
     function init() {
       products = sampleProducts;
       initOffers();
@@ -1861,6 +1959,7 @@
       renderProducts();
       renderCommunityFeed();
       renderSavedArticles();
+      renderMemberProfile(); // 渲染會員資料
       updateCartBadge();
       updateAdminDashboard(); 
       lucide.createIcons();
@@ -2169,7 +2268,7 @@
 
       if (!product.reviewsList) product.reviewsList = [];
 
-      const newReview = { author: '熱心毛家長', rating: currentSelectedStars, text: text, date: new Date().toLocaleDateString() };
+      const newReview = { author: currentMember.name !== '毛爸爸 / 毛媽媽' ? currentMember.name : '熱心毛家長', rating: currentSelectedStars, text: text, date: new Date().toLocaleDateString() };
       product.reviewsList.unshift(newReview);
 
       const totalRatingSum = product.reviewsList.reduce((sum, rev) => sum + rev.rating, 0);
@@ -2299,9 +2398,13 @@
       checkoutContent.innerHTML = `<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">${getCheckoutHTML(subtotal, discount, shipping, total)}</div>`;
     }
 
-    /* 結帳單範本邏輯調回 */
+    // 🌟 結帳頁自動帶入會員資料
     function getCheckoutHTML(subtotal, discount, shipping, total) {
-      return `<div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><span>📍</span> 收件資訊</h3><div style="display: flex; flex-direction: column; gap: 1rem;"><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">收件人姓名</label><input type="text" id="recipientName" placeholder="例：王小明" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">聯絡電話</label><input type="tel" id="recipientPhone" placeholder="例：0912-345-678" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">寄送地址</label><input type="text" id="recipientAddress" placeholder="例：台北市信義區 XX 街 123 號 5 樓" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">配送方式</label><div style="display: flex; gap: 1rem;"><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="home" checked style="cursor: pointer;"><span>🚚 宅配到府</span></label><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="store" style="cursor: pointer;"><span>🏪 超商取貨</span></label></div></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的性別</label><select id="customerGender" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇性別 --</option><option value="male">👨 男性</option><option value="female">👩 女性</option><option value="other">🤝 其他</option><option value="prefer-not">❓ 不願透露</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的年齡</label><select id="customerAge" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇年齡群組 --</option><option value="18-25">18-25 歲</option><option value="26-35">26-35 歲</option><option value="36-45">36-45 歲</option><option value="46-55">46-55 歲</option><option value="56-65">56-65 歲</option><option value="65+">65 歲以上</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">購買的原因為何？</label><textarea id="purchaseReason" placeholder="例如：毛孩皮膚問題..." style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; resize: vertical; min-height: 80px;"></textarea></div></div></div></div><div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: sticky; top: 1rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem;">📋 訂單摘要</h3><div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; max-height: 300px; overflow-y: auto;">${cart.map(item => `<div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #eee;"><div><div style="font-weight: 600; color: #333;">${item.name}</div><div style="font-size: 0.85rem; color: #999;">×${item.quantity}</div></div><div style="font-weight: 600; color: #c9945f;">$${(item.price * item.quantity).toLocaleString()}</div></div>`).join('')}</div><div style="border-top: 2px solid #eee; padding-top: 1rem;"><div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #666;"><span>商品小計</span><span>$${subtotal.toLocaleString()}</span></div>${discount > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #ff7043;"><span>✨ 優惠折扣 (FIRST70)</span><span>-$${discount.toLocaleString()}</span></div>` : ''}<div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #666;"><span>🚚 運費</span><span>${shipping === 0 ? '✅ 免運' : '$' + shipping}</span></div><div style="display: flex; justify-content: space-between; padding: 1rem 0; border-top: 2px solid #eee; font-size: 1.25rem; font-weight: 700; color: #333;"><span>總計</span><span style="color: #ff7043;">$${total.toLocaleString()}</span></div></div><div style="display: flex; gap: 1rem;"><button class="cta-button" style="flex: 1;" onclick="processCheckout()">✅ 確認結帳</button><button style="width: 100%; margin-top: 0.75rem; padding: 0.75rem; background: white; border: 2px solid #ddd; color: #666; border-radius: 8px; cursor: pointer; font-weight: 600;" onclick="switchTab('cart')">返回購物車</button></div></div></div>`;
+      const autoName = currentMember.name !== '毛爸爸 / 毛媽媽' ? currentMember.name : '';
+      const autoPhone = currentMember.phone || '';
+      const autoAddress = currentMember.address || '';
+      
+      return `<div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 1.5rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><span>📍</span> 收件資訊</h3><div style="display: flex; flex-direction: column; gap: 1rem;"><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">收件人姓名</label><input type="text" id="recipientName" value="${autoName}" placeholder="例：王小明" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">聯絡電話</label><input type="tel" id="recipientPhone" value="${autoPhone}" placeholder="例：0912-345-678" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">寄送地址</label><input type="text" id="recipientAddress" value="${autoAddress}" placeholder="例：台北市信義區 XX 街 123 號 5 樓" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">配送方式</label><div style="display: flex; gap: 1rem;"><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="home" checked style="cursor: pointer;"><span>🚚 宅配到府</span></label><label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; flex: 1;"><input type="radio" name="shipping" value="store" style="cursor: pointer;"><span>🏪 超商取貨</span></label></div></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的性別</label><select id="customerGender" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇性別 --</option><option value="male">👨 男性</option><option value="female">👩 女性</option><option value="other">🤝 其他</option><option value="prefer-not">❓ 不願透露</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的年齡</label><select id="customerAge" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px;"><option value="">-- 請選擇年齡群組 --</option><option value="18-25">18-25 歲</option><option value="26-35">26-35 歲</option><option value="36-45">36-45 歲</option><option value="46-55">46-55 歲</option><option value="56-65">56-65 歲</option><option value="65+">65 歲以上</option></select></div><div><label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">購買的原因為何？</label><textarea id="purchaseReason" placeholder="例如：毛孩皮膚問題..." style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; resize: vertical; min-height: 80px;"></textarea></div></div></div></div><div><div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); position: sticky; top: 1rem;"><h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem;">📋 訂單摘要</h3><div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; max-height: 300px; overflow-y: auto;">${cart.map(item => `<div style="display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #eee;"><div><div style="font-weight: 600; color: #333;">${item.name}</div><div style="font-size: 0.85rem; color: #999;">×${item.quantity}</div></div><div style="font-weight: 600; color: #c9945f;">$${(item.price * item.quantity).toLocaleString()}</div></div>`).join('')}</div><div style="border-top: 2px solid #eee; padding-top: 1rem;"><div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #666;"><span>商品小計</span><span>$${subtotal.toLocaleString()}</span></div>${discount > 0 ? `<div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem; color: #ff7043;"><span>✨ 優惠折扣 (FIRST70)</span><span>-$${discount.toLocaleString()}</span></div>` : ''}<div style="display: flex; justify-content: space-between; margin-bottom: 1rem; color: #666;"><span>🚚 運費</span><span>${shipping === 0 ? '✅ 免運' : '$' + shipping}</span></div><div style="display: flex; justify-content: space-between; padding: 1rem 0; border-top: 2px solid #eee; font-size: 1.25rem; font-weight: 700; color: #333;"><span>總計</span><span style="color: #ff7043;">$${total.toLocaleString()}</span></div></div><div style="display: flex; gap: 1rem;"><button class="cta-button" style="flex: 1;" onclick="processCheckout()">✅ 確認結帳</button><button style="width: 100%; margin-top: 0.75rem; padding: 0.75rem; background: white; border: 2px solid #ddd; color: #666; border-radius: 8px; cursor: pointer; font-weight: 600;" onclick="switchTab('cart')">返回購物車</button></div></div></div>`;
     }
 
     async function processCheckout() {
@@ -2362,7 +2465,7 @@
         console.warn("SDK 異常", err);
       }
 
-      orders.push({ 
+      orders.unshift({ 
         id: orderId, 
         date: new Date().toLocaleDateString(), 
         items: cart.reduce((sum, i) => sum + i.quantity, 0), 
@@ -2383,6 +2486,12 @@
         estimatedDelivery: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toLocaleDateString() 
       });
 
+      // 同時幫使用者將此次結帳資料自動寫回會員中心 (更方便)
+      if (currentMember.name === '毛爸爸 / 毛媽媽') currentMember.name = name;
+      if (!currentMember.phone) currentMember.phone = phone;
+      if (!currentMember.address) currentMember.address = address;
+      renderMemberProfile();
+
       cart = []; 
       updateCartBadge(); 
       renderCart(); 
@@ -2397,7 +2506,6 @@
       }, 1500);
     }
 
-    /* 歷史明細彈窗調回 */
     function showOrderDetail(orderId) {
       const order = orders.find(o => o.id === orderId);
       if (!order) return;
@@ -2597,26 +2705,26 @@
       showToast('📥 銷售報告 Excel 檔案已成功生成並開始下載！');
     }
 
-    // 📸 ✨ 修正：社群牆發布貼文功能（完整保存多張不剪裁的照片，並初始化獨立回覆評論空間）
     async function publishPost() {
       const content = document.getElementById('postContent').value.trim();
       if (!content && communityPostPhotos.length === 0) { showToast('⚠️ 請輸入內容或上傳照片'); return; }
       
+      const authorName = currentMember.name !== '毛爸爸 / 毛媽媽' ? currentMember.name : ['毛爸爸', '毛媽媽', '毛爺爺', '毛奶奶'][Math.floor(Math.random() * 4)];
+
       const post = { 
         id: 'post-' + Date.now(), 
-        author: ['毛爸爸', '毛媽媽', '毛爺爺', '毛奶奶'][Math.floor(Math.random() * 4)], 
+        author: authorName, 
         content: content, 
-        photos: [...communityPostPhotos], // 完整儲存照片 Base64 資料流
+        photos: [...communityPostPhotos], 
         timestamp: new Date().toISOString(), 
         likes: 0, 
         liked: false,
-        comments: [] // 初始化空的回覆清單
+        comments: []
       };
       
       communityPosts.unshift(post);
       renderCommunityFeed();
       
-      // 清空發表區
       document.getElementById('postContent').value = ''; 
       communityPostPhotos = []; 
       document.getElementById('communityPhotoPreview').innerHTML = ''; 
@@ -2626,14 +2734,12 @@
       try { await window.dataSdk.create(post); } catch (err) { console.warn("SDK 同步異常", err); }
     }
 
-    // 💬 📸 修正：社群牆貼文渲染（採用 object-fit: contain 完整秀圖，並加入完整回覆框與評論列表）
     function renderCommunityFeed() {
       const feed = document.getElementById('communityFeed');
       if(!feed) return;
       if (communityPosts.length === 0) { feed.innerHTML = '<div style="text-align: center; padding: 2rem; color: #999;">還沒有分享，成為第一個分享者吧！</div>'; return; }
       
       feed.innerHTML = communityPosts.map((post, idx) => {
-        // 動態生成回覆评论的 HTML 清單
         let commentsListHtml = '';
         if (post.comments && post.comments.length > 0) {
           commentsListHtml = post.comments.map(c => `
@@ -2649,7 +2755,6 @@
           commentsListHtml = `<p class="no-comment-msg" style="color: #bbb; font-size: 0.8rem; text-align: center; padding: 0.5rem 0;">💬 暫時沒有回覆，快來寫下第一條評論吧！</p>`;
         }
 
-        // 📸 關鍵修正：貼文相簿區採用完全包含（object-fit: contain + background-color）保證照片完整呈現不剪裁
         let photosHtml = '';
         if (post.photos && Array.isArray(post.photos) && post.photos.length > 0) {
           photosHtml = `
@@ -2681,20 +2786,14 @@
               </button>
             </div>
 
-            <!-- 💬 新增：動態展開的評論回覆大區塊 -->
             <div id="comments-section-${post.id}" style="display: none; background: #faf9f6; padding: 1rem; border-radius: 8px; margin-top: 1rem; border-top: 1px solid #eee;">
-              
-              <!-- 歷史回覆清單 -->
               <div id="comments-list-${post.id}" style="margin-bottom: 1rem; max-height: 200px; overflow-y: auto;">
                 ${commentsListHtml}
               </div>
-
-              <!-- 輸入回覆表單 -->
               <div style="display: flex; gap: 0.5rem; align-items: center;">
                 <input type="text" id="comment-input-${post.id}" placeholder="寫下對毛孩故事的回覆評論..." style="flex: 1; padding: 0.5rem 0.75rem; border: 1px solid #ddd; border-radius: 20px; font-size: 0.85rem; outline: none;" onkeypress="if(event.key === 'Enter') submitComment('${post.id}')">
                 <button class="cta-button" style="padding: 0.4rem 1rem; font-size: 0.8rem; border-radius: 20px; width: auto;" onclick="submitComment('${post.id}')">送出</button>
               </div>
-
             </div>
           </div>
         `;
@@ -2702,7 +2801,6 @@
       lucide.createIcons();
     }
 
-    // 💬 新增：控制評論回覆區塊隱藏或展開
     window.toggleCommentsSection = function(postId) {
       const section = document.getElementById(`comments-section-${postId}`);
       if (!section) return;
@@ -2713,7 +2811,6 @@
       }
     };
 
-    // 💬 新增：提交評論回覆至指定貼文
     window.submitComment = function(postId) {
       const input = document.getElementById(`comment-input-${postId}`);
       const text = input ? input.value.trim() : '';
@@ -2724,19 +2821,18 @@
 
       if (!post.comments) post.comments = [];
 
-      // 新增回覆資料
+      const authorName = currentMember.name !== '毛爸爸 / 毛媽媽' ? currentMember.name : ['毛友阿明', '寵物達人', '溫柔貓奴', '哈士奇拆家手'][Math.floor(Math.random() * 4)];
+
       const newComment = {
-        author: ['毛友阿明', '寵物達人', '溫柔貓奴', '哈士奇拆家手'][Math.floor(Math.random() * 4)],
+        author: authorName,
         text: text,
         date: new Date().toLocaleDateString()
       };
 
       post.comments.push(newComment);
       
-      // 清空輸入框
       input.value = '';
 
-      // 即時重新渲染單個貼文內部的評論 DOM 列表，避免整頁刷新重置滑動位置
       const commentsListDiv = document.getElementById(`comments-list-${postId}`);
       const noMsg = commentsListDiv.querySelector('.no-comment-msg');
       if (noMsg) noMsg.remove();
@@ -2752,10 +2848,8 @@
       `;
       commentsListDiv.appendChild(commentDiv);
 
-      // 自動捲動到最新評論底部
       commentsListDiv.scrollTop = commentsListDiv.scrollHeight;
 
-      // 更新外部回覆按鈕數量字樣
       const engagementButtons = document.querySelector(`[data-post-id="${postId}"] .post-engagement`);
       if(engagementButtons) {
         const replyBtnSpan = engagementButtons.querySelectorAll('button')[1].querySelector('span');
@@ -2764,7 +2858,6 @@
 
       showToast('💬 評論回覆成功發表！');
 
-      // 同步提交給後端表單 SDK 存檔
       try { window.dataSdk.update(post); } catch(e){}
     };
 
