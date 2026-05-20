@@ -1357,20 +1357,57 @@
     let communityPostPhotos = [];
     let savedArticles = []; 
 
+    // 🌟 新增：圖片壓縮函數 (解決手機高畫質照片顯示黑半邊的問題)
+    function compressImage(dataUrl, callback) {
+      const img = new Image();
+      img.onload = function() {
+        // 設定最大長寬限制 (避免手機記憶體溢出)
+        const MAX_WIDTH = 1200;
+        const MAX_HEIGHT = 1200;
+        let width = img.width;
+        let height = img.height;
+
+        // 依照比例計算新尺寸
+        if (width > height) {
+          if (width > MAX_WIDTH) {
+            height = Math.round(height * (MAX_WIDTH / width));
+            width = MAX_WIDTH;
+          }
+        } else {
+          if (height > MAX_HEIGHT) {
+            width = Math.round(width * (MAX_HEIGHT / height));
+            height = MAX_HEIGHT;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // 輸出壓縮後的 base64 (JPEG 格式，80% 畫質)
+        callback(canvas.toDataURL('image/jpeg', 0.8));
+      };
+      img.src = dataUrl;
+    }
+
     function handleLocalProductImage(event) {
       const file = event.target.files[0];
       if (file) {
         const reader = new FileReader();
         reader.onload = function(e) {
-          const base64Url = e.target.result;
-          document.getElementById('canvaImageUrl').value = base64Url;
-          document.getElementById('imagePreview').innerHTML = `<img src="${base64Url}" style="width: 100%; height: 100%; object-fit: contain;">`;
+          compressImage(e.target.result, function(compressedDataUrl) {
+            document.getElementById('canvaImageUrl').value = compressedDataUrl;
+            document.getElementById('imagePreview').innerHTML = `<img src="${compressedDataUrl}" style="width: 100%; height: 100%; object-fit: contain;">`;
+          });
         };
         reader.readAsDataURL(file);
       }
     }
 
-    // 📸 修正：優化社群牆照片上傳預覽，確保整張完整顯示
+    // 📸 修正：優化社群牆照片上傳預覽，確保整張完整顯示並壓縮處理
     function handleCommunityPhotoUpload(event) {
       const files = event.target.files;
       if (files && files.length > 0) {
@@ -1379,12 +1416,14 @@
           const file = files[i];
           const reader = new FileReader();
           reader.onload = function(e) {
-            communityPostPhotos.push(e.target.result);
-            loadedCount++;
-            if (loadedCount === files.length) {
-              renderCommunityPhotoPreview();
-              showToast(`✅ 已新增 ${files.length} 張完整照片`);
-            }
+            compressImage(e.target.result, function(compressedDataUrl) {
+              communityPostPhotos.push(compressedDataUrl);
+              loadedCount++;
+              if (loadedCount === files.length) {
+                renderCommunityPhotoPreview();
+                showToast(`✅ 已新增 ${files.length} 張完整照片`);
+              }
+            });
           };
           reader.readAsDataURL(file);
         }
@@ -1402,12 +1441,14 @@
           if (file.type.startsWith('image/')) {
             const reader = new FileReader();
             reader.onload = function(e) {
-              communityPostPhotos.push(e.target.result);
-              loadedCount++;
-              if (loadedCount === files.length) {
-                renderCommunityPhotoPreview();
-                showToast(`✅ 已新增 ${files.length} 張完整照片`);
-              }
+              compressImage(e.target.result, function(compressedDataUrl) {
+                communityPostPhotos.push(compressedDataUrl);
+                loadedCount++;
+                if (loadedCount === files.length) {
+                  renderCommunityPhotoPreview();
+                  showToast(`✅ 已新增 ${files.length} 張完整照片`);
+                }
+              });
             };
             reader.readAsDataURL(file);
           }
@@ -2911,9 +2952,11 @@
           if (file) {
             const reader = new FileReader();
             reader.onload = function(event) {
-              const preview = document.getElementById('bannerImagePreview');
-              preview.innerHTML = `<img src="${event.target.result}" style="width: 100%; height: 100%; object-fit: cover;">`;
-              preview.dataset.imageData = event.target.result;
+              compressImage(event.target.result, function(compressedDataUrl) {
+                const preview = document.getElementById('bannerImagePreview');
+                preview.innerHTML = `<img src="${compressedDataUrl}" style="width: 100%; height: 100%; object-fit: cover;">`;
+                preview.dataset.imageData = compressedDataUrl;
+              });
             };
             reader.readAsDataURL(file);
           }
