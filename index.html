@@ -2962,6 +2962,22 @@
         chevron.style.transform = 'rotate(180deg)'; 
       }
     }
+    
+    // 🌟 新增：跳轉並展開知識文章的輔助函數
+    window.viewKnowledgeArticle = function(idx) {
+      switchTab('knowledge');
+      setTimeout(() => {
+        const targetEl = document.getElementById(`knowledge-article-${idx}`);
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          const btn = targetEl.querySelector('button[onclick^="expandKnowledgeArticle"]');
+          const expanded = targetEl.querySelector('.knowledge-expanded');
+          if (btn && expanded && expanded.style.display === 'none') {
+            btn.click();
+          }
+        }
+      }, 50);
+    };
 
     function shareKnowledge(idx) {
       const article = knowledgeArticles[idx];
@@ -3000,16 +3016,21 @@
       else { showToast(`⚠️ 這篇文章已經在你的收藏中囉！`); }
     }
 
+    // 🌟 修正：為收藏的文章加上點擊跳轉事件與懸停樣式
     function renderSavedArticles() {
       const container = document.getElementById('savedArticlesList');
       if (!container) return;
       if (savedArticles.length === 0) { container.innerHTML = '<p style="color: #999; margin-bottom: 1rem;">還沒有收藏文章</p>'; return; }
-      container.innerHTML = savedArticles.map((article, idx) => `
-        <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #c9945f;">
-          <div><div style="font-weight: 600; color: #333; margin-bottom: 0.25rem;">${article.icon} ${article.title}</div><div style="font-size: 0.85rem; color: #666;">${article.subtitle}</div></div>
-          <button onclick="removeSavedArticle(${idx})" style="background: #ff3b30; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;" onmouseover="this.style.opacity='0.8';" onmouseout="this.style.opacity='1';">取消收藏</button>
+      container.innerHTML = savedArticles.map((article, idx) => {
+        // 找到文章在原始陣列中的索引
+        const originalIdx = knowledgeArticles.findIndex(a => a.title === article.title);
+        return `
+        <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid #c9945f; cursor: pointer; transition: all 0.3s;" onmouseover="this.style.backgroundColor='#f0f0f0';" onmouseout="this.style.backgroundColor='#f9f9f9';" onclick="viewKnowledgeArticle(${originalIdx})">
+          <div style="flex: 1;"><div style="font-weight: 600; color: #333; margin-bottom: 0.25rem;">${article.icon} ${article.title}</div><div style="font-size: 0.85rem; color: #666;">${article.subtitle}</div></div>
+          <button onclick="event.stopPropagation(); removeSavedArticle(${idx})" style="background: #ff3b30; color: white; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.3s;" onmouseover="this.style.opacity='0.8';" onmouseout="this.style.opacity='1';">取消收藏</button>
         </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function removeSavedArticle(idx) { savedArticles.splice(idx, 1); renderSavedArticles(); showToast('❌ 已取消收藏文章'); }
