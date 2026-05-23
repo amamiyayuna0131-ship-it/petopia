@@ -1,3 +1,6 @@
+直接在常用應用程式中試用 AI 功能 … 使用 Gemini 生成草稿及潤飾內容，並體驗採用 Google 新一代 AI 技術的 Gemini Pro
+1
+100%
 <!doctype html>
 <html lang="zh-TW">
  <head>
@@ -924,40 +927,7 @@
  </head>
  <body>
   <div id="app">
-   <div style="position: fixed; top: 10px; right: 10px; z-index: 500; display: flex; gap: 0.5rem; align-items: center;">
-    <button id="editModeBtn" onclick="toggleEditMode()" style="background: linear-gradient(135deg, #d4a574 0%, #c9945f 100%); color: white; border: none; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; display: flex; align-items: center; gap: 0.5rem; box-shadow: 0 4px 8px rgba(0,0,0,0.15);"> <span>✏️</span> 編輯模式 </button>
-   </div><div id="editPanel" style="display: none; position: fixed; top: 0; right: 0; width: 350px; height: 100%; background: white; box-shadow: -2px 0 8px rgba(0,0,0,0.15); z-index: 400; overflow-y: auto; padding: 1.5rem; border-left: 4px solid #c9945f;">
-    <button onclick="toggleEditMode()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: #999;">×</button>
-    <h2 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem; padding-top: 0.5rem;">⚙️ 版面編輯</h2>
-    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
-     <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">平台名稱</label> <input type="text" id="editStoreName" placeholder="寵托邦" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateStoreName()">
-     </div>
-     <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">首頁標題</label> <textarea id="editBannerTitle" placeholder="讓毛孩吃得好、玩得開心，你放心" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; resize: vertical; min-height: 60px; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateBannerTitle()"></textarea>
-     </div>
-     <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">首頁副標題</label> <textarea id="editBannerSubtitle" placeholder="這就是寵托邦 — 懂你毛孩的寵物生活平台" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; resize: vertical; min-height: 60px; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateBannerSubtitle()"></textarea>
-     </div>
-     <div style="border-top: 2px solid #f0f0f0; padding-top: 1.5rem;">
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">公司名稱</label> <input type="text" id="editCompanyName" placeholder="寵托邦有限公司" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateCompanyName()">
-     </div>
-     <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">聯絡電話</label> <input type="text" id="editCompanyPhone" placeholder="1800-PETPET" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateCompanyPhone()">
-     </div>
-     <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333; font-size: 0.9rem;">聯絡信箱</label> <input type="email" id="editCompanyEmail" placeholder="service@petopia.com" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; transition: border-color 0.3s;" onfocus="this.style.borderColor='#c9945f';" onblur="this.style.borderColor='#ddd';" onchange="updateCompanyEmail()">
-     </div>
-     <div style="border-top: 2px solid #f0f0f0; padding-top: 1.5rem;">
-      <button onclick="openColorEditor()" style="width: 100%; background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;" onmouseover="this.style.boxShadow='0 4px 8px rgba(255, 193, 7, 0.3)';" onmouseout="this.style.boxShadow='';"> <span>🎨</span> 版面色彩編輯 </button> <button onclick="openButtonManager()" style="width: 100%; background: linear-gradient(135deg, #9c27b0 0%, #7b1fa2 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 1rem;" onmouseover="this.style.boxShadow='0 4px 8px rgba(156, 39, 176, 0.3)';" onmouseout="this.style.boxShadow='';"> <span>🔘</span> 按鈕管理 </button> <button onclick="saveConfigToSheet()" style="width: 100%; background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); color: white; border: none; padding: 0.75rem; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 0.9rem; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 0.5rem;" onmouseover="this.style.boxShadow='0 4px 8px rgba(34, 197, 94, 0.3)';" onmouseout="this.style.boxShadow='';"> <span>💾</span> 保存到共享表單 </button>
-     </div>
-     <div style="background: #f5f5f5; padding: 1rem; border-radius: 8px; border-left: 4px solid #ffc107;">
-      <strong style="color: #333; display: block; margin-bottom: 0.5rem; font-size: 0.9rem;">💡 編輯提示</strong>
-      <p style="color: #666; font-size: 0.85rem; line-height: 1.4;">修改完成後會即時更新平台。所有改動會自動保存到共享表單，其他編輯者可以看到你的更新！</p>
-      <p style="color: #999; font-size: 0.8rem; line-height: 1.4; margin-top: 0.5rem;">✅ 點擊「保存到共享表單」按鈕確保改動被其他編輯者同步。</p>
-     </div>
-    </div>
-   </div><div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe6cc 100%); border-bottom: 2px solid #ffc107; padding: 1rem; box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);">
+<div style="background: linear-gradient(135deg, #fff3cd 0%, #ffe6cc 100%); border-bottom: 2px solid #ffc107; padding: 1rem; box-shadow: 0 2px 8px rgba(255, 193, 7, 0.2);">
     <div style="max-width: 1400px; margin: 0 auto; padding: 0 1rem;">
      <div style="display: flex; align-items: flex-start; gap: 1rem;">
       <div style="font-size: 1.5rem; flex-shrink: 0; margin-top: 0.25rem;">
@@ -966,7 +936,7 @@
       <div style="flex: 1;">
        <strong style="display: block; color: #856404; font-size: 0.95rem; margin-bottom: 0.5rem;">平台聲明</strong>
        <p style="color: #856404; font-size: 0.9rem; margin: 0; line-height: 1.5;">本平台為亞洲大學經營管理學系「電子商務實務應用」課程建置之模擬電子商務平台，僅供學生進行電子商務平台經營、行銷設計與購物流程實作演練。平台內所呈現之商品、價格、訂單及交易流程皆為虛擬模擬內容，不代表實際販售行為，亦不會產生實際付款、購買、出貨或配送。</p>
-      </div><button onclick="this.closest('div').parentElement.style.display='none';" style="background: none; border: none; color: #856404; font-size: 1.25rem; cursor: pointer; flex-shrink: 0; margin-top: 0.25rem; opacity: 0.7; transition: opacity 0.3s;" onmouseover="this.style.opacity='1';" onmouseout="this.style.opacity='0.7';">×</button>
+      </div>
      </div>
     </div>
    </div>
@@ -1021,8 +991,7 @@
       <div class="banner-content">
        <h1 class="banner-title" id="bannerTitleText">讓毛孩吃得好、玩得開心，你放心</h1>
        <p class="banner-subtitle" id="bannerSubtitleText">這就是寵托邦 — 懂你毛孩的寵物生活平台</p><button class="cta-button" onclick="switchTab('products')">探索商品</button>
-      </div><button id="uploadBannerBtn" style="position: absolute; bottom: 0.75rem; right: 0.75rem; background: rgba(255, 255, 255, 0.5); color: #333; border: none; padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer; font-size: 0.8rem; z-index: 10; display: flex; align-items: center; gap: 0.3rem; transition: all 0.3s; opacity: 0.8;" onclick="openBannerUploadModal();"> <span>📸 更換首頁照片</span> </button>
-     </div>
+      </div>     </div>
      
      <div class="section">
       <h2 class="section-title"><i data-lucide="flame" style="color: #ff7043;"></i> 熱銷商品</h2>
@@ -1039,7 +1008,7 @@
           真正的新鮮肉質
          </div>
          <div style="color: #666; font-size: 0.9rem;">
-          嚴選高品質成分，不是填充澱粉。每一口 EEOC 對毛孩的愛。
+          嚴選高品質成分，不是填充澱粉。每一口都是對毛孩的愛。
          </div>
         </div>
         <div style="color: #d4a574; font-weight: 700; font-size: 1.2rem;">
@@ -1075,22 +1044,6 @@
          </div>
         </div>
         <div style="color: #ffc107; font-weight: 700; font-size: 1.2rem;">
-         ✓
-        </div>
-       </div>
-       <div style="display: flex; align-items: center; gap: 1.25rem; background: linear-gradient(135deg, #f0f8f4 0%, #e8f5f0 100%); padding: 1.25rem; border-radius: 12px; border-left: 4px solid #22c55e; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.15);">
-        <div style="font-size: 2.5rem; flex-shrink: 0;">
-         🎯
-        </div>
-        <div style="flex: 1;">
-         <div style="font-weight: 700; color: #333; font-size: 1.1rem; margin-bottom: 0.25rem;">
-          個人化推薦
-         </div>
-         <div style="color: #666; font-size: 0.9rem;">
-          建檔寵物資料，收到最適合毛孩的商品推薦
-         </div>
-        </div>
-        <div style="color: #22c55e; font-weight: 700; font-size: 1.2rem;">
          ✓
         </div>
        </div>
@@ -1572,7 +1525,9 @@
       showToast('❌ 照片已移除');
     }
 
-    let communityPosts = [
+    const COMMUNITY_STORAGE_KEY = 'petopia_community_posts';
+
+    const _defaultCommunityPosts = [
       {
         id: 'post-init-1',
         author: '柯基家長',
@@ -1587,6 +1542,25 @@
         ]
       }
     ];
+
+    function saveCommunityToStorage() {
+      try {
+        localStorage.setItem(COMMUNITY_STORAGE_KEY, JSON.stringify(communityPosts));
+      } catch(e) { console.warn('社群資料儲存失敗', e); }
+    }
+
+    function loadCommunityFromStorage() {
+      try {
+        const saved = localStorage.getItem(COMMUNITY_STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        }
+      } catch(e) { console.warn('社群資料讀取失敗', e); }
+      return null;
+    }
+
+    let communityPosts = loadCommunityFromStorage() || _defaultCommunityPosts;
     let petList = [];
     let orders = [];
     let cartCount = 0;
@@ -1911,28 +1885,28 @@
     setInterval(syncConfigFromSheet, 5000);
     
     const knowledgeArticles = [
-      { icon: '🧑‍⚕️', title: '獸醫推薦專欄', subtitle: '狗狗的營養需求與挑選要訣', content: '新鮮肉質、完整營養補充、定期檢查是狗狗健康的三大要素。' },
-      { icon: '🐱', title: '貓咪知識', subtitle: '為什麼貓咪總是挑食？', content: '貓咪天生是獵人，對食物味道和質地很敏感。' },
-      { icon: '❓', title: '常見問題', subtitle: '家裡哪些東西對寵物有危險？', content: '某些食物、植物、清潔用品對毛孩有毒性。' },
-      { icon: '💚', title: '健康管理', subtitle: '毛孩年度檢查清單', content: '定期健康檢查是預防疾病的最好方法。' },
-      { icon: '🥗', title: '營養知識', subtitle: '五大營養要素解析', content: '蛋白質、脂肪、碳水化合物、維生素、礦物質，缺一不可。' },
-      { icon: '🎓', title: '行為訓練', subtitle: '狗狗吠叫解決方案', content: '過度吠叫通常代表焦慮、無聊或求注意。' }
+      { icon: '🧑‍⚕️', title: '獸醫推薦專欄', subtitle: '狗狗的營養需求與挑選要訣', content: '新鮮肉質、完整營養補充、定期檢查是狗狗健康的三大要素。', fullContent: '選擇狗糧時，優先查看成分表前三項是否含有真實肉類（如雞肉、鮭魚）。穀物（如玉米、小麥）常用作填充，消化率較低，部分狗狗食用後容易脹氣。建議每六個月帶毛孩做一次基礎血液檢查，早期發現腎臟、肝臟或貧血問題，治療成效更好。幼犬、老犬、懷孕母犬對蛋白質與熱量需求各異，請依生命階段選擇對應配方，切勿長期餵食單一口味以免營養不均。' },
+      { icon: '🐱', title: '貓咪知識', subtitle: '為什麼貓咪總是挑食？', content: '貓咪天生是獵人，對食物味道和質地很敏感。', fullContent: '貓咪的舌頭缺乏甜味受器，卻對胺基酸（肉味）極為敏感，這正是牠們偏好高蛋白食物的原因。若突然更換飼料品牌，建議花 7～10 天做漸進式轉換（舊糧 75% → 50% → 25% → 0%），避免腸胃不適或拒食。濕食比乾糧含水量高，有助於貓咪日常補水，降低泌尿道疾病風險。溫熱的食物（接近體溫 38°C）香氣更明顯，挑食貓可試試微波數秒後再端出。' },
+      { icon: '❓', title: '常見問題', subtitle: '家裡哪些東西對寵物有危險？', content: '某些食物、植物、清潔用品對毛孩有毒性。', fullContent: '【危險食物】葡萄、葡萄乾、洋蔥、大蒜、巧克力、木糖醇（代糖）對狗貓均有毒，嚴重可導致腎衰竭或低血糖。【有毒植物】百合花對貓咪毒性極強，連花粉或花瓶水都可能致命；黃金葛、鬱金香球莖同樣危險。【清潔用品】漂白水、芳香劑揮發成分刺激貓咪呼吸道，建議選用寵物友善配方。若懷疑誤食，請立即撥打獸醫急診，並告知食入物品名稱與時間，切勿自行催吐。' },
+      { icon: '💚', title: '健康管理', subtitle: '毛孩年度檢查清單', content: '定期健康檢查是預防疾病的最好方法。', fullContent: '建議每年至少完成以下項目：✅ 體重與體態評分（BCS）——過胖會加速關節退化。✅ 牙齒檢查——牙結石堆積是細菌入侵內臟的主要途徑。✅ 糞便寄生蟲篩檢——尤其外出溜狗的毛孩。✅ 血液常規與生化——腎指數、肝指數、血糖早期追蹤。✅ 心臟聽診——大型犬與老齡貓易有心臟雜音。7 歲以上資深毛孩建議每半年檢查一次，保險可分擔部分費用，可詢問獸醫推薦方案。' },
+      { icon: '🥗', title: '營養知識', subtitle: '五大營養要素解析', content: '蛋白質、脂肪、碳水化合物、維生素、礦物質，缺一不可。', fullContent: '【蛋白質】是肌肉、毛髮、免疫抗體的原料，狗每公斤體重每天約需 2g、貓需 4g。【脂肪】提供必需脂肪酸（Omega-3/6），維持皮毛光澤並幫助脂溶性維生素吸收，但過多易肥胖。【碳水化合物】提供快速能量，地瓜、南瓜是優質來源，精製澱粉則盡量減少。【維生素】A 維持視力、D 強健骨骼、E 抗氧化，寵物飼料通常已添加，額外補充需諮詢獸醫以免過量。【礦物質】鈣磷比例（約 1.2:1）影響骨骼健康，鋅與鐵支持免疫與造血功能。' },
+      { icon: '🎓', title: '行為訓練', subtitle: '狗狗吠叫解決方案', content: '過度吠叫通常代表焦慮、無聊或求注意。', fullContent: '找出吠叫原因才能對症下藥：🔔 分離焦慮——出門前 30 分鐘不要過度安撫，可使用益智玩具或冷凍零食分散注意力。🔔 領地警戒——用窗簾遮擋視線刺激，或採用「安靜指令 + 零食獎勵」條件反射訓練。🔔 無聊過剩——每天保證 30～60 分鐘的有氧運動，嗅覺遊戲（藏零食）同樣消耗精力。訓練時永遠以「正增強」為主：安靜時立即給予獎勵，避免在牠吠叫時回應（即使斥罵也是一種注意力），否則會強化該行為。' }
     ];
     
     let productImages = {}; 
     const sampleProducts = [
       {
-        id: '1', name: '新鮮雞肉罐頭 400g', category: '食品', price: 189, image: 'canva://MAHKEvf0cQM/1', imageType: 'canva', rating: 4.9, reviews: 3, sales: 1250, stock: 'in-stock', stockQuantity: 142, description: '100% 新鮮雞肉，國際認證，零添加防腐劑。主打商品，飼主必選。', specs: { weight: '400g', type: '罐頭', petType: '狗、貓' }, ingredients: '新鮮雞肉 95%、天然膠質、維生素補充', images: ['canva://MAHKEvf0cQM/1', 'canva://MAHJ_aeQgZg/1', '📋'], faq: [],
+        id: '1', name: '新鮮雞肉罐頭 400g', category: '食品', price: 189, image: 'https://images.unsplash.com/photo-1534483509719-3feaee7c30da?w=500&auto=format&fit=crop', imageType: 'url', rating: 4.9, reviews: 3, sales: 1250, stock: 'in-stock', stockQuantity: 142, description: '100% 新鮮雞肉，國際認證，零添加防腐劑。主打商品，飼主必選。', specs: { weight: '400g', type: '罐頭', petType: '狗、貓' }, ingredients: '新鮮雞肉 95%、天然膠質、維生素補充', images: ['https://images.unsplash.com/photo-1534483509719-3feaee7c30da?w=500&auto=format&fit=crop'], faq: [],
         reviewsList: [
           { author: '柴犬奴', rating: 5, text: '成分很純，一打開家裡的柴柴就瘋狂搖尾巴！肉質看起來非常新鮮。', date: '2026/04/12' },
           { author: '咪咪媽媽', rating: 5, text: '湯汁很多，拿來給貓咪騙水喝非常適合，會再回購。', date: '2026/05/01' },
           { author: '毛孩至上', rating: 4, text: '出貨速度很快，包裝也算完整。適口性很棒。', date: '2026/05/10' }
         ]
       },
-      { id: '2', name: '羽毛逗貓棒', category: '玩具', price: 89, image: '🪶', rating: 4.8, reviews: 2, description: '激發貓咪獵捕本能，安全材質。', specs: { type: '逗貓棒', petType: '貓' }, ingredients: 'N/A', images: ['🪶', '🐱', '✨'], faq: [], reviewsList: [{ author: '橘貓小辣', rating: 5, text: '家裡的肥橘平常都不動，一拿出這根逗貓棒直接起飛，超讚！', date: '2026/03/20' }, { author: '貓奴阿強', rating: 4, text: '羽毛很漂亮，不過如果手把能更長一點就完美了。', date: '2026/04/05' }] },
-      { id: '3', name: '益生菌粉 100g', category: '保健', price: 329, image: '💊', rating: 4.8, reviews: 1, description: '臨床驗證，調整腸胃，增強免疫力。', specs: { weight: '100g', type: '益生菌', petType: '狗、貓' }, ingredients: 'N/A', images: ['💊', '🧬', '💪'], faq: [], reviewsList: [{ author: '拉不拉多爸', rating: 5, text: '狗狗之前腸胃不好常常軟便，吃了兩個禮拜後便便形狀變得很漂亮！', date: '2026/05/08' }] },
-      { id: '4', name: '寵物床墊（記憶棉）M/L', category: '居家', price: 899, image: '🛏️', rating: 4.7, reviews: 1, description: '舒適透氣，可水洗設計。', specs: { size: 'M/L', type: '床墊', petType: '狗' }, ingredients: 'N/A', images: ['🛏️', '😴', '☁️'], faq: [] , reviewsList: [{ author: '柯基腿短短', rating: 5, text: '厚度很夠！記憶棉完全不會塌陷，柯基躺上去一覺到天亮。', date: '2026/04/28' }]},
-      { id: '5', name: '陶瓷餐碗組 2入', category: '居家', price: 249, image: '🥣', rating: 4.9, reviews: 1, description: '易清洗，防滑底座，設計美觀。', specs: { type: '餐碗', petType: '狗、貓' }, ingredients: 'N/A', images: ['🥣', '🍽️', '✨'], faq: [], reviewsList: [{ author: '優雅白貓', rating: 5, text: '陶瓷材質沉甸甸的，貓咪吃飯終於不會再把碗推著到處跑了，質感極佳！', date: '2026/05/14' }] }
+      { id: '2', name: '羽毛逗貓棒', category: '玩具', price: 89, image: 'https://images.unsplash.com/photo-1638826595775-e2eae86cda8e?w=500&auto=format&fit=crop', imageType: 'url', rating: 4.8, reviews: 2, description: '激發貓咪獵捕本能，安全材質。', specs: { type: '逗貓棒', petType: '貓' }, ingredients: 'N/A', images: ['https://images.unsplash.com/photo-1638826595775-e2eae86cda8e?w=500&auto=format&fit=crop'], faq: [], reviewsList: [{ author: '橘貓小辣', rating: 5, text: '家裡的肥橘平常都不動，一拿出這根逗貓棒直接起飛，超讚！', date: '2026/03/20' }, { author: '貓奴阿強', rating: 4, text: '羽毛很漂亮，不過如果手把能更長一點就完美了。', date: '2026/04/05' }] },
+      { id: '3', name: '益生菌粉 100g', category: '保健', price: 329, image: 'https://images.unsplash.com/photo-1704650311298-4d6915d34c64?w=500&auto=format&fit=crop', imageType: 'url', rating: 4.8, reviews: 1, description: '臨床驗證，調整腸胃，增強免疫力。', specs: { weight: '100g', type: '益生菌', petType: '狗、貓' }, ingredients: 'N/A', images: ['https://images.unsplash.com/photo-1704650311298-4d6915d34c64?w=500&auto=format&fit=crop'], faq: [], reviewsList: [{ author: '拉不拉多爸', rating: 5, text: '狗狗之前腸胃不好常常軟便，吃了兩個禮拜後便便形狀變得很漂亮！', date: '2026/05/08' }] },
+      { id: '4', name: '寵物床墊（記憶棉）M/L', category: '居家', price: 899, image: 'https://images.unsplash.com/photo-1601758123927-4f7acc7da589?w=500&auto=format&fit=crop', imageType: 'url', rating: 4.7, reviews: 1, description: '舒適透氣，可水洗設計。', specs: { size: 'M/L', type: '床墊', petType: '狗' }, ingredients: 'N/A', images: ['https://images.unsplash.com/photo-1601758123927-4f7acc7da589?w=500&auto=format&fit=crop'], faq: [], reviewsList: [{ author: '柯基腿短短', rating: 5, text: '厚度很夠！記憶棉完全不會塌陷，柯基躺上去一覺到天亮。', date: '2026/04/28' }]},
+      { id: '5', name: '陶瓷餐碗組 2入', category: '居家', price: 249, image: 'https://images.unsplash.com/photo-1520811607976-6d7812b0ecac?w=500&auto=format&fit=crop', imageType: 'url', rating: 4.9, reviews: 1, description: '易清洗，防滑底座，設計美觀。', specs: { type: '餐碗', petType: '狗、貓' }, ingredients: 'N/A', images: ['https://images.unsplash.com/photo-1520811607976-6d7812b0ecac?w=500&auto=format&fit=crop'], faq: [], reviewsList: [{ author: '優雅白貓', rating: 5, text: '陶瓷材質沉甸甸的，貓咪吃飯終於不會再把碗推著到處跑了，質感極佳！', date: '2026/05/14' }] }
     ];
 
     let currentRecordCount = 0;
@@ -2045,12 +2019,13 @@
         const displayImage = productImages[product.id] && productImages[product.id].length > 0 ? productImages[product.id][0] : product.image;
         const isUploadedImage = productImages[product.id] && productImages[product.id].length > 0;
         const isCanvaImage = product.imageType === 'canva' || displayImage.startsWith('canva://') || displayImage.startsWith('data:');
-        const imageStyle = (isUploadedImage || isCanvaImage)
+        const isUrlImage = typeof displayImage === 'string' && (displayImage.startsWith('http://') || displayImage.startsWith('https://'));
+        const imageStyle = (isUploadedImage || isCanvaImage || isUrlImage)
           ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
 
         card.innerHTML = `
           <div class="nav-tab product-image" style="${imageStyle}">
-            ${!isUploadedImage && !isCanvaImage ? displayImage : ''}
+            ${!isUploadedImage && !isCanvaImage && !isUrlImage ? displayImage : ''}
             ${stockLabel}
             <div class="wishlist-indicator" onclick="toggleWishlist('${product.id}'); event.stopPropagation();">
               ${wishlist.includes(product.id) ? '❤️' : '🤍'}
@@ -2103,10 +2078,11 @@
         const displayImage = productImages[product.id] && productImages[product.id].length > 0 ? productImages[product.id][0] : product.image;
         const isUploadedImage = productImages[product.id] && productImages[product.id].length > 0;
         const isCanvaImage = product.imageType === 'canva' || displayImage.startsWith('canva://') || displayImage.startsWith('data:');
-        const imageStyle = (isUploadedImage || isCanvaImage) ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
+        const isUrlImage = typeof displayImage === 'string' && (displayImage.startsWith('http://') || displayImage.startsWith('https://'));
+        const imageStyle = (isUploadedImage || isCanvaImage || isUrlImage) ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
         card.innerHTML = `
           <div class="product-image" style="${imageStyle}">
-            ${!isUploadedImage && !isCanvaImage ? displayImage : ''}
+            ${!isUploadedImage && !isCanvaImage && !isUrlImage ? displayImage : ''}
             <div class="wishlist-indicator" onclick="toggleWishlist('${product.id}'); event.stopPropagation();">❤️</div>
           </div>
           <div class="product-info">
@@ -2133,8 +2109,8 @@
         card.className = 'product-card';
         card.onclick = () => viewProductDetail(product.id);
         card.innerHTML = `
-          <div class="product-image" ${product.imageType === 'url' ? `style="background-image: url('${product.image}'); background-size: cover; background-position: center;"` : ''}>
-            ${product.imageType !== 'url' ? product.image : ''}
+          <div class="product-image" style="${(product.imageType === 'url' || (typeof product.image === 'string' && (product.image.startsWith('http://') || product.image.startsWith('https://')))) ? `background-image: url('${product.image}'); background-size: cover; background-position: center;` : ''}">
+            ${!(product.imageType === 'url' || (typeof product.image === 'string' && (product.image.startsWith('http://') || product.image.startsWith('https://')))) ? product.image : ''}
           </div>
           <div class="product-info">
             <div class="product-name">${product.name}</div>
@@ -2723,6 +2699,7 @@
       };
       
       communityPosts.unshift(post);
+      saveCommunityToStorage();
       renderCommunityFeed();
       
       document.getElementById('postContent').value = ''; 
@@ -2738,17 +2715,20 @@
       const feed = document.getElementById('communityFeed');
       if(!feed) return;
       if (communityPosts.length === 0) { feed.innerHTML = '<div style="text-align: center; padding: 2rem; color: #999;">還沒有分享，成為第一個分享者吧！</div>'; return; }
-      
+
       feed.innerHTML = communityPosts.map((post, idx) => {
         let commentsListHtml = '';
         if (post.comments && post.comments.length > 0) {
-          commentsListHtml = post.comments.map(c => `
+          commentsListHtml = post.comments.map((c, cIdx) => `
             <div style="background: #fdfdfc; padding: 0.6rem 0.8rem; border-radius: 8px; margin-bottom: 0.5rem; font-size: 0.85rem; border-left: 3px solid #d4a574;">
-              <div style="display: flex; justify-content: space-between; color: #333; margin-bottom: 0.15rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; color: #333; margin-bottom: 0.15rem;">
                 <span style="font-weight: 700;">🐾 ${c.author}</span>
-                <span style="color: #aaa; font-size: 0.75rem;">${c.date}</span>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="color: #aaa; font-size: 0.75rem;">${c.date}</span>
+                  <button onclick="deleteComment('${post.id}', ${cIdx})" title="刪除留言" style="background: none; border: none; cursor: pointer; color: #ccc; font-size: 0.8rem; padding: 0 2px; line-height: 1; transition: color 0.2s;" onmouseover="this.style.color='#e57373'" onmouseout="this.style.color='#ccc'">✕</button>
+                </div>
               </div>
-              <p style="color: #555;">${c.text}</p>
+              <p style="color: #555; margin: 0;">${c.text}</p>
             </div>
           `).join('');
         } else {
@@ -2772,11 +2752,24 @@
             <div class="post-header">
               <div class="post-avatar">${post.author.substring(0, 1)}</div>
               <div class="post-meta"><div class="post-author">${post.author}</div><div class="post-time">${new Date(post.timestamp).toLocaleDateString()}</div></div>
+              <div style="margin-left: auto; display: flex; gap: 0.4rem;">
+                <button onclick="startEditPost('${post.id}')" title="編輯文章" style="background: none; border: 1px solid #d4a574; color: #c9945f; border-radius: 6px; padding: 0.2rem 0.6rem; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#fdf3ea'" onmouseout="this.style.background='none'">✏️ 編輯</button>
+                <button onclick="deletePost('${post.id}')" title="刪除文章" style="background: none; border: 1px solid #ffb3b3; color: #e57373; border-radius: 6px; padding: 0.2rem 0.6rem; font-size: 0.75rem; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.background='#fff0f0'" onmouseout="this.style.background='none'">🗑️ 刪除</button>
+              </div>
             </div>
-            <div class="post-content">${post.content}</div>
-            
+
+            <div id="post-content-display-${post.id}" class="post-content">${post.content}</div>
+
+            <div id="post-edit-form-${post.id}" style="display: none; margin: 0.75rem 0;">
+              <textarea id="post-edit-textarea-${post.id}" style="width: 100%; min-height: 80px; padding: 0.6rem 0.75rem; border: 1px solid #d4a574; border-radius: 8px; font-size: 0.9rem; line-height: 1.5; resize: vertical; outline: none; box-sizing: border-box;">${post.content}</textarea>
+              <div style="display: flex; gap: 0.5rem; margin-top: 0.5rem; justify-content: flex-end;">
+                <button onclick="cancelEditPost('${post.id}')" style="background: white; border: 1px solid #ddd; color: #888; border-radius: 8px; padding: 0.3rem 0.9rem; font-size: 0.8rem; cursor: pointer;">取消</button>
+                <button onclick="saveEditPost('${post.id}')" style="background: linear-gradient(135deg, #d4a574 0%, #c9945f 100%); border: none; color: white; border-radius: 8px; padding: 0.3rem 0.9rem; font-size: 0.8rem; cursor: pointer; font-weight: 600;">儲存</button>
+              </div>
+            </div>
+
             ${photosHtml}
-            
+
             <div class="post-engagement">
               <button class="engagement-btn ${post.liked ? 'liked' : ''}" onclick="toggleLike(${idx})">
                 <i data-lucide="heart" style="width: 18px; height: 18px;"></i><span>${post.likes}</span>
@@ -2830,7 +2823,8 @@
       };
 
       post.comments.push(newComment);
-      
+      saveCommunityToStorage();
+
       input.value = '';
 
       const commentsListDiv = document.getElementById(`comments-list-${postId}`);
@@ -2862,8 +2856,83 @@
     };
 
     async function toggleLike(index) {
-      if (communityPosts[index]) { const post = communityPosts[index]; post.liked = !post.liked; post.likes = post.liked ? post.likes + 1 : Math.max(0, post.likes - 1); try { await window.dataSdk.update(post); } catch(e){} renderCommunityFeed(); }
+      if (communityPosts[index]) { const post = communityPosts[index]; post.liked = !post.liked; post.likes = post.liked ? post.likes + 1 : Math.max(0, post.likes - 1); saveCommunityToStorage(); try { await window.dataSdk.update(post); } catch(e){} renderCommunityFeed(); }
     }
+
+    window.deletePost = async function(postId) {
+      if (!confirm('確定要刪除這篇文章嗎？')) return;
+      const idx = communityPosts.findIndex(p => p.id === postId);
+      if (idx === -1) return;
+      const post = communityPosts[idx];
+      communityPosts.splice(idx, 1);
+      saveCommunityToStorage();
+      renderCommunityFeed();
+      showToast('🗑️ 文章已刪除');
+      try { await window.dataSdk.delete(post); } catch(e) {}
+    };
+
+    window.startEditPost = function(postId) {
+      document.getElementById(`post-content-display-${postId}`).style.display = 'none';
+      const form = document.getElementById(`post-edit-form-${postId}`);
+      form.style.display = 'block';
+      const ta = document.getElementById(`post-edit-textarea-${postId}`);
+      ta.focus();
+      ta.selectionStart = ta.selectionEnd = ta.value.length;
+    };
+
+    window.cancelEditPost = function(postId) {
+      document.getElementById(`post-content-display-${postId}`).style.display = '';
+      document.getElementById(`post-edit-form-${postId}`).style.display = 'none';
+    };
+
+    window.saveEditPost = async function(postId) {
+      const ta = document.getElementById(`post-edit-textarea-${postId}`);
+      const newContent = ta ? ta.value.trim() : '';
+      if (!newContent) { showToast('⚠️ 內容不可以是空白的'); return; }
+      const post = communityPosts.find(p => p.id === postId);
+      if (!post) return;
+      post.content = newContent;
+      saveCommunityToStorage();
+      const display = document.getElementById(`post-content-display-${postId}`);
+      display.textContent = newContent;
+      display.style.display = '';
+      document.getElementById(`post-edit-form-${postId}`).style.display = 'none';
+      showToast('✅ 文章已更新！');
+      try { await window.dataSdk.update(post); } catch(e) {}
+    };
+
+    window.deleteComment = async function(postId, commentIdx) {
+      const post = communityPosts.find(p => p.id === postId);
+      if (!post || !post.comments) return;
+      post.comments.splice(commentIdx, 1);
+      saveCommunityToStorage();
+      const commentsListDiv = document.getElementById(`comments-list-${postId}`);
+      if (commentsListDiv) {
+        if (post.comments.length === 0) {
+          commentsListDiv.innerHTML = `<p class="no-comment-msg" style="color: #bbb; font-size: 0.8rem; text-align: center; padding: 0.5rem 0;">💬 暫時沒有回覆，快來寫下第一條評論吧！</p>`;
+        } else {
+          commentsListDiv.innerHTML = post.comments.map((c, cIdx) => `
+            <div style="background: #fdfdfc; padding: 0.6rem 0.8rem; border-radius: 8px; margin-bottom: 0.5rem; font-size: 0.85rem; border-left: 3px solid #d4a574;">
+              <div style="display: flex; justify-content: space-between; align-items: center; color: #333; margin-bottom: 0.15rem;">
+                <span style="font-weight: 700;">🐾 ${c.author}</span>
+                <div style="display: flex; align-items: center; gap: 0.5rem;">
+                  <span style="color: #aaa; font-size: 0.75rem;">${c.date}</span>
+                  <button onclick="deleteComment('${postId}', ${cIdx})" title="刪除留言" style="background: none; border: none; cursor: pointer; color: #ccc; font-size: 0.8rem; padding: 0 2px; line-height: 1; transition: color 0.2s;" onmouseover="this.style.color='#e57373'" onmouseout="this.style.color='#ccc'">✕</button>
+                </div>
+              </div>
+              <p style="color: #555; margin: 0;">${c.text}</p>
+            </div>
+          `).join('');
+        }
+      }
+      const engagementButtons = document.querySelector(`[data-post-id="${postId}"] .post-engagement`);
+      if (engagementButtons) {
+        const replyBtnSpan = engagementButtons.querySelectorAll('button')[1].querySelector('span');
+        if (replyBtnSpan) replyBtnSpan.textContent = `回覆評論 (${post.comments.length})`;
+      }
+      showToast('🗑️ 留言已刪除');
+      try { await window.dataSdk.update(post); } catch(e) {}
+    };
 
     function openAddPetModal() { document.getElementById('addPetModal').classList.add('active'); }
 
@@ -2933,7 +3002,7 @@
             <div class="knowledge-expanded" style="display: none; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee;">
               <div style="background: #f9f9f9; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
                 <h4 style="font-weight: 600; color: #333; margin-bottom: 0.75rem;">📚 相關知識</h4>
-                <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.75rem;">${article.content}</p>
+                <p style="color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 0.75rem;">${article.fullContent}</p>
               </div>
               <div style="display: flex; gap: 1rem;">
                 <button onclick="shareKnowledge(${idx})" style="flex: 1; background: white; color: #c9945f; border: 2px solid #c9945f; padding: 0.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s;">複製文章</button>
@@ -3045,10 +3114,11 @@
           const displayImage = productImages[product.id] && productImages[product.id].length > 0 ? productImages[product.id][0] : product.image;
           const isUploadedImage = productImages[product.id] && productImages[product.id].length > 0;
           const isCanvaImage = product.imageType === 'canva' || displayImage.startsWith('canva://') || displayImage.startsWith('data:');
-          const imageStyle = (isUploadedImage || isCanvaImage) ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
+          const isUrlImage = typeof displayImage === 'string' && (displayImage.startsWith('http://') || displayImage.startsWith('https://'));
+          const imageStyle = (isUploadedImage || isCanvaImage || isUrlImage) ? `background-image: url('${displayImage}'); background-size: cover; background-position: center;` : '';
           return `
             <div onclick="viewProductDetail('${product.id}')" style="border-radius: 8px; overflow: hidden; cursor: pointer; transition: all 0.3s; background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%); display: flex; align-items: center; justify-content: center; font-size: 2rem; height: 100px; position: relative; ${imageStyle}; border: 2px solid #f0f0f0;" onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='';">
-              ${!isUploadedImage && !isCanvaImage ? displayImage : ''}
+              ${!isUploadedImage && !isCanvaImage && !isUrlImage ? displayImage : ''}
               <div style="position: absolute; top: 4px; right: 4px; background: #ff3b30; color: white; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; font-weight: 700; cursor: pointer;" onclick="toggleWishlist('${product.id}'); event.stopPropagation();">✕</div>
             </div>
           `;
