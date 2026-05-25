@@ -1376,7 +1376,7 @@
     </div><div id="knowledge-tab" class="tab-content">
      <div class="section">
       <h2 class="section-title">知識專區</h2>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+      <div id="knowledgeGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
        </div>
      </div>
     </div>
@@ -3536,10 +3536,24 @@
       init();
       renderKnowledgeArticles();
       initCountdowns();
+      
+      // 處理外部連結跳轉到特定知識文章
+      if (window.location.hash && window.location.hash.startsWith('#knowledge-article-')) {
+        const articleIdStr = window.location.hash.replace('#knowledge-article-', '');
+        const articleIdx = parseInt(articleIdStr, 10);
+        if (!isNaN(articleIdx)) {
+          // 等待畫面與圖標渲染完成
+          setTimeout(() => {
+            if (typeof window.viewKnowledgeArticle === 'function') {
+              window.viewKnowledgeArticle(articleIdx);
+            }
+          }, 300);
+        }
+      }
     });
 
     function renderKnowledgeArticles() {
-      const grid = document.querySelector('[style*="display: grid"][style*="grid-template-columns"]');
+      const grid = document.getElementById('knowledgeGrid');
       if (!grid) return;
       grid.innerHTML = knowledgeArticles.map((article, idx) => `
         <div class="community-post" id="knowledge-article-${idx}" style="cursor: pointer; transition: all 0.3s; border: 2px solid transparent; overflow: hidden;" onmouseover="this.style.borderColor='#c9945f'; this.style.boxShadow='0 8px 16px rgba(201, 148, 95, 0.2)';" onmouseout="this.style.borderColor='transparent'; this.style.boxShadow='0 2px 8px rgba(0,0,0,0.08)';">
@@ -3615,7 +3629,7 @@
         }
       }
 
-      const currentUrlWithoutHash = window.location.protocol + '//' + window.location.host + window.location.pathname;
+      const currentUrlWithoutHash = window.location.href.split('#')[0];
       const shareUrl = `${currentUrlWithoutHash}#knowledge-article-${idx}`;
 
       if (navigator.clipboard) {
