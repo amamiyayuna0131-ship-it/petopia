@@ -1119,6 +1119,7 @@
       <button class="nav-tab" onclick="switchTab('promotions')" style="background: rgba(255,100,100,0.3); font-weight:700;">🎁 優惠活動</button>
       <button class="nav-tab" onclick="switchTab('community')">社群</button> 
       <button class="nav-tab" onclick="switchTab('knowledge')">知識專區</button> 
+      <button class="nav-tab" onclick="switchTab('contact')">📞 聯絡與售後</button>
       <button class="nav-tab" style="background: rgba(255,255,255,0.15); font-weight:700;" onclick="switchTab('admin')">⚙️ 後台管理</button>
      </div>
     </div>
@@ -1458,6 +1459,99 @@
       <div class="member-info">
        <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1rem;">最近訂單</h3>
        <div id="ordersList"></div>
+      </div>
+     </div>
+    </div>
+    
+    <div id="contact-tab" class="tab-content">
+     <div class="section">
+      <h2 class="section-title">📞 售後服務與聯絡我們</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;">
+        
+        <!-- 左側：售後政策 -->
+        <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08);">
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem;"><span>🛡️</span> 售後保障與退換貨政策</h3>
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="font-weight: 700; color: #c9945f; margin-bottom: 0.5rem;">7 天鑑賞期保證</h4>
+            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">商品到貨享七天鑑賞期之權益（注意！鑑賞期非試用期）。辦理退貨商品必須是全新狀態且包裝完整，否則將會影響退貨權限。</p>
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="font-weight: 700; color: #c9945f; margin-bottom: 0.5rem;">瑕疵商品換貨</h4>
+            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">收到商品後若有瑕疵、破損、短少，請於 24 小時內拍照存證並聯絡客服，我們將免費為您更換新品。</p>
+          </div>
+          <div>
+            <h4 style="font-weight: 700; color: #c9945f; margin-bottom: 0.5rem;">退款流程</h4>
+            <p style="color: #666; font-size: 0.95rem; line-height: 1.6;">收到退回商品確認無誤後，將於 3-5 個工作日內退款至您指定的帳戶。</p>
+          </div>
+        </div>
+
+        <!-- 右側：聯絡管道 -->
+        <div style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 1rem; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
+            <div style="width: 50px; height: 50px; background: #06c755; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0;">💬</div>
+            <div>
+              <div style="font-size: 1.15rem; font-weight: 700; color: #333; margin-bottom: 0.25rem;">LINE 官方客服</div>
+              <div style="color: #666; font-size: 0.9rem;">線上即時回覆・專屬一對一服務</div>
+            </div>
+            <div style="margin-left: auto; color: #c9945f; font-weight: 600;">@petopia_tw</div>
+          </div>
+
+          <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 1rem; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
+            <div style="width: 50px; height: 50px; background: #1877f2; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; flex-shrink: 0;">📘</div>
+            <div>
+              <div style="font-size: 1.15rem; font-weight: 700; color: #333; margin-bottom: 0.25rem;">Facebook 粉絲團</div>
+              <div style="color: #666; font-size: 0.9rem;">追蹤最新優惠與毛孩日常</div>
+            </div>
+            <div style="margin-left: auto; color: #c9945f; font-weight: 600;">Petopia</div>
+          </div>
+
+          <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 1rem; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
+            <div style="width: 50px; height: 50px; background: #ea4335; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">✉️</div>
+            <div>
+              <div style="font-size: 1.15rem; font-weight: 700; color: #333; margin-bottom: 0.25rem;">客服信箱</div>
+              <div style="color: #666; font-size: 0.9rem;">回覆時間：平日 09:00 - 18:00</div>
+            </div>
+            <div style="margin-left: auto; color: #c9945f; font-weight: 600;">service@petopia.tw</div>
+          </div>
+          
+          <div style="background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); display: flex; align-items: center; gap: 1rem; cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='translateX(10px)'" onmouseout="this.style.transform='translateX(0)'">
+            <div style="width: 50px; height: 50px; background: #607d8b; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0;">📞</div>
+            <div>
+              <div style="font-size: 1.15rem; font-weight: 700; color: #333; margin-bottom: 0.25rem;">客服專線</div>
+              <div style="color: #666; font-size: 0.9rem;">免付費訂購與售後專線</div>
+            </div>
+            <div style="margin-left: auto; color: #c9945f; font-weight: 600;">0800-123-456</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 線上聯絡表單 -->
+      <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-top: 2rem;">
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: #333; margin-bottom: 1.5rem;">📝 快速聯絡表單</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 1.5rem;">
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">您的姓名</label>
+            <input type="text" placeholder="請輸入姓名" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-family: inherit;">
+          </div>
+          <div>
+            <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">訂單編號 (選填)</label>
+            <input type="text" placeholder="例：ORDER-123456789" style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-family: inherit;">
+          </div>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">問題類別</label>
+          <select style="width: 100%; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; font-family: inherit;">
+            <option>商品諮詢</option>
+            <option>退換貨申請</option>
+            <option>付款/配送問題</option>
+            <option>其他建議</option>
+          </select>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <label style="display: block; font-weight: 600; margin-bottom: 0.5rem; color: #333;">訊息內容</label>
+          <textarea placeholder="請詳細描述您的問題，我們將盡快回覆..." style="width: 100%; min-height: 120px; padding: 0.75rem; border: 2px solid #ddd; border-radius: 8px; resize: vertical; font-family: inherit;"></textarea>
+        </div>
+        <button class="cta-button" onclick="showToast('✅ 訊息已成功送出！客服將於 24 小時內為您處理。')" style="max-width: 200px;">送出訊息</button>
       </div>
      </div>
     </div>
@@ -3010,6 +3104,7 @@
         if (tab.textContent.includes('優惠活動') && tabName === 'promotions') tab.classList.add('active');
         if (tab.textContent.includes('社群') && tabName === 'community') tab.classList.add('active');
         if (tab.textContent.includes('知識') && tabName === 'knowledge') tab.classList.add('active');
+        if (tab.textContent.includes('聯絡') && tabName === 'contact') tab.classList.add('active');
         if (tab.textContent.includes('後台') && tabName === 'admin') tab.classList.add('active');
       });
       if(tabName === 'admin') { updateAdminDashboard(); }
