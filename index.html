@@ -896,28 +896,7 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.06);
       border-top: 4px solid #c9945f;
     }
-    .admin-table {
-      width: 100%;
-      border-collapse: collapse;
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .admin-table th {
-      background: #f5f3f0;
-      color: #555;
-      font-weight: 600;
-      padding: 0.75rem 1rem;
-      text-align: left;
-      font-size: 0.9rem;
-      border-bottom: 2px solid #e1deda;
-    }
-    .admin-table td {
-      padding: 0.875rem 1rem;
-      border-bottom: 1px solid #eee;
-      font-size: 0.9rem;
-      color: #333;
-    }
+
 
     /* ====== 促銷活動專區樣式 ====== */
     .flash-sale-banner {
@@ -1120,7 +1099,6 @@
       <button class="nav-tab" onclick="switchTab('community')">社群</button> 
       <button class="nav-tab" onclick="switchTab('knowledge')">知識專區</button> 
       <button class="nav-tab" onclick="switchTab('contact')">📞 聯絡與售後</button>
-      <button class="nav-tab" style="background: rgba(255,255,255,0.15); font-weight:700;" onclick="switchTab('admin')">⚙️ 後台管理</button>
      </div>
     </div>
    </nav>
@@ -1555,56 +1533,7 @@
       </div>
      </div>
     </div>
-    
-    <div id="admin-tab" class="tab-content">
-     <div class="section">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-        <h2 class="section-title">📊 商城營運後台中心</h2>
-        <button class="cta-button" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); display: flex; align-items: center; gap: 0.5rem;" onclick="exportSalesReportExcel()">
-          <span>📥匯出銷售報告 Excel</span>
-        </button>
-      </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-        <div class="dashboard-card">
-          <div style="font-size: 0.85rem; color: #888; font-weight: 600;">💰 模擬營運總營收 (已實付)</div>
-          <div style="font-size: 2rem; font-weight: 700; color: #c9945f; margin-top: 0.5rem;">$<span id="adminTotalRevenue">0</span></div>
-          <div style="font-size: 0.8rem; color: #aaa; margin-top: 0.25rem;">包含運費與套用折扣後總和</div>
-        </div>
-        <div class="dashboard-card" style="border-top-color: #2196F3;">
-          <div style="font-size: 0.85rem; color: #888; font-weight: 600;">📦 累計總銷售商品件數</div>
-          <div style="font-size: 2rem; font-weight: 700; color: #2196F3; margin-top: 0.5rem;"><span id="adminTotalItemsCount">0</span> 件</div>
-          <div style="font-size: 0.8rem; color: #aaa; margin-top: 0.25rem;">全商城不分品項之販售總量</div>
-        </div>
-        <div class="dashboard-card" style="border-top-color: #10b981;">
-          <div style="font-size: 0.85rem; color: #888; font-weight: 600;">📋 成功建立總訂單數</div>
-          <div style="font-size: 2rem; font-weight: 700; color: #10b981; margin-top: 0.5rem;"><span id="adminTotalOrdersCount">0</span> 筆</div>
-          <div style="font-size: 0.8rem; color: #aaa; margin-top: 0.25rem;">包含宅配到府與超商取貨訂單</div>
-        </div>
-      </div>
-
-      <div style="background: white; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.06); padding: 1.5rem; overflow-x: auto;">
-        <h3 style="font-weight: 700; color: #333; margin-bottom: 1rem; font-size: 1.1rem; display: flex; align-items: center; gap: 0.5rem;">📄 銷售明細清單流水帳</h3>
-        <table class="admin-table" id="salesReportTable">
-          <thead>
-            <tr>
-              <th>訂單日期</th>
-              <th>訂單編號</th>
-              <th>客戶姓名</th>
-              <th>購買品項詳細清單內容</th>
-              <th>銷售總件數</th>
-              <th>實付總額 (營收)</th>
-            </tr>
-          </thead>
-          <tbody id="adminSalesTableBody">
-            <tr>
-              <td colspan="6" style="text-align: center; color: #aaa; padding: 3rem 0;">目前尚無人下單，銷售數據將在結帳後即時在此更新。</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-     </div>
-    </div>
     
    </div>
   </div>
@@ -3052,8 +2981,7 @@
       cart = []; 
       updateCartBadge(); 
       renderCart(); 
-      renderOrdersList();
-      updateAdminDashboard(); 
+      renderOrdersList(); 
       
       setTimeout(() => { 
         document.getElementById('surveyModal').classList.add('active');
@@ -3147,120 +3075,12 @@
         if (tab.textContent.includes('社群') && tabName === 'community') tab.classList.add('active');
         if (tab.textContent.includes('知識') && tabName === 'knowledge') tab.classList.add('active');
         if (tab.textContent.includes('聯絡') && tabName === 'contact') tab.classList.add('active');
-        if (tab.textContent.includes('後台') && tabName === 'admin') tab.classList.add('active');
       });
-      if(tabName === 'admin') { updateAdminDashboard(); }
       if(tabName === 'promotions') { renderPromoProducts(); renderCoupons(); }
       lucide.createIcons();
     }
 
-    function updateAdminDashboard() {
-      const revenueEl = document.getElementById('adminTotalRevenue');
-      const itemsCountEl = document.getElementById('adminTotalItemsCount');
-      const ordersCountEl = document.getElementById('adminTotalOrdersCount');
-      const tableBody = document.getElementById('adminSalesTableBody');
 
-      if (!revenueEl || !tableBody) return;
-
-      if (orders.length === 0) {
-        revenueEl.textContent = '0'; itemsCountEl.textContent = '0'; ordersCountEl.textContent = '0';
-        tableBody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: #aaa; padding: 3rem 0;">目前尚無人下單，銷售數據將在結帳後即時在此更新。</td></tr>`;
-        return;
-      }
-
-      const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
-      const totalItems = orders.reduce((sum, o) => sum + o.items, 0);
-
-      revenueEl.textContent = totalRevenue.toLocaleString();
-      itemsCountEl.textContent = totalItems.toLocaleString();
-      ordersCountEl.textContent = orders.length.toString();
-
-      tableBody.innerHTML = orders.map(order => {
-        const goodsDescription = order.itemsDetails.map(i => `${i.name} (×${i.quantity})`).join(', ');
-        return `
-          <tr>
-            <td>${order.date}</td>
-            <td style="font-family: monospace; font-weight: 600; color: #555;">${order.id}</td>
-            <td>${order.recipientName}</td>
-            <td style="color: #666; max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${goodsDescription}">${goodsDescription}</td>
-            <td style="font-weight: 600; color: #2196F3;">${order.items}</td>
-            <td style="font-weight: 700; color: #10b981;">$${order.total.toLocaleString()}</td>
-          </tr>
-        `;
-      }).join('');
-    }
-
-    function exportSalesReportExcel() {
-      if (orders.length === 0) { showToast('⚠️ 目前沒有任何銷售訂單資料可供匯出報告！'); return; }
-      const totalRevenue = orders.reduce((sum, o) => sum + o.total, 0);
-      const totalItems = orders.reduce((sum, o) => sum + o.items, 0);
-
-      let excelTemplate = `
-        <html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
-        <head>
-          <meta charset="UTF-8">
-          <style>
-            th { background-color: #d4a574; color: white; font-weight: bold; text-align: center; border: 1px solid #ccc; }
-            td { border: 1px solid #ccc; text-align: left; }
-            .number-cell { text-align: right; }
-            .summary-row { background-color: #faf8f5; font-weight: bold; color: #ff7043; }
-          </style>
-        </head>
-        <body>
-          <h2>🐾 Petopia 寵托邦模擬商務平台 - 銷售營運報告</h2>
-          <p>匯出日期: ${new Date().toLocaleDateString()} | 總訂單量: ${orders.length} 筆</p>
-          <br/>
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 120px;">訂單日期</th>
-                <th style="width: 180px;">訂單編號</th>
-                <th style="width: 120px;">客戶姓名</th>
-                <th style="width: 350px;">購買品項詳細清單內容</th>
-                <th style="width: 100px;">銷售件數</th>
-                <th style="width: 130px;">實付總額 (營收)</th>
-              </tr>
-            </thead>
-            <tbody>
-      `;
-
-      orders.forEach(order => {
-        const goodsDescription = order.itemsDetails.map(i => `${i.name} (${i.quantity}件)`).join(' ｜ ');
-        excelTemplate += `
-          <tr>
-            <td>${order.date}</td>
-            <td style="mso-number-format:'\\@';">${order.id}</td>
-            <td>${order.recipientName}</td>
-            <td>${goodsDescription}</td>
-            <td class="number-cell">${order.items}</td>
-            <td class="number-cell">$${order.total}</td>
-          </tr>
-        `;
-      });
-
-      excelTemplate += `
-              <tr class="summary-row">
-                <td colspan="4" style="text-align: right; font-weight: bold;">📊 銷售營收報告總計（Report Summary）：</td>
-                <td class="number-cell" style="font-weight: bold; border-top: 2px solid #333;">${totalItems} 件</td>
-                <td class="number-cell" style="font-weight: bold; border-top: 2px solid #333; color: #10b981;">$${totalRevenue}</td>
-              </tr>
-            </tbody>
-          </table>
-        </body>
-        </html>
-      `;
-
-      const blob = new Blob([excelTemplate], { type: 'application/vnd.ms-excel;charset=utf-8;' });
-      const link = document.createElement('a');
-      const filename = `Petopia_SalesReport_${new Date().toISOString().slice(0,10)}.xls`;
-
-      if (navigator.msSaveBlob) { navigator.msSaveBlob(blob, filename); } 
-      else {
-        link.href = URL.createObjectURL(blob); link.setAttribute('download', filename);
-        document.body.appendChild(link); link.click(); document.body.removeChild(link);
-      }
-      showToast('📥 銷售報告 Excel 檔案已成功生成並開始下載！');
-    }
 
     async function publishPost() {
       const content = document.getElementById('postContent').value.trim();
